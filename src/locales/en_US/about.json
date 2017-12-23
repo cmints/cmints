@@ -1,0 +1,10 @@
+{
+  "heading-1": {
+    "description": "Page Heading",
+    "message": "Hello I'm about page heading"
+  },
+  "paragraph-1": {
+    "description": "Page paragraph",
+    "message": "Hello I'm about page paragraph"
+  }
+}

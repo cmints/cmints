@@ -1,0 +1,10 @@
+{
+  "menu-item-home": {
+    "description": "Header manu item",
+    "message": "Главная"
+  },
+  "menu-item-about": {
+    "description": "Header manu item",
+    "message": "О нас"
+  }
+}
