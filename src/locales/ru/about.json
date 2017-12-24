@@ -1,9 +1,9 @@
 {
-  "menu-item-home": {
+  "heading-1": {
     "description": "Header manu item",
     "message": "Главная"
   },
-  "menu-item-about": {
+  "heading-2": {
     "description": "Header manu item",
     "message": "О нас"
   }

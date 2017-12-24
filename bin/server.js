@@ -9,11 +9,14 @@ const frontMatter = require("front-matter");
 const locales = ["en", "ru", "de"];
 const defaultLocale = "en";
 const {walkDirs} = require("../lib/custom-utils");
+const walker = promisify(require("../lib/custom-utils").walker);
+const i18n = require("../lib/i18n");
 const readFile = promisify(fs.readFile);
 const fileExist = fs.existsSync;
 const extensions = ["md", "ejs", "html"];
 const srcPath = "./src";
 const pageDir = `${srcPath}/pages`;
+let stringsTree = {};
 
 
 // Default website data
@@ -50,11 +53,15 @@ let markdown = markdownIt({
   highlight: function (/*str, lang*/) { return ''; }
 });
 
-
-createServer(onRequest).listen(5000);
+i18n.getStringsTree((err, tree)=>
+{
+  stringsTree = tree;
+  createServer(onRequest).listen(5000);
+});
 
 function onRequest(req, res)
 {
+
   let page = req.url;
   page = page.split("/").slice(1);
   let locale = locales.includes(page[0]) ? page.shift() : defaultLocale;
@@ -62,14 +69,16 @@ function onRequest(req, res)
 
   let ext = "";
   if (page.includes("."))
-    ext = page.split(".").pop();
+  {
+    ext = page.split(".").pop()[0];
+  }
   else
-    ext = extensions.filter((ext) => fileExist(`${pageDir}/${page}.${ext}`));
+  {
+    ext = extensions.filter((ext) => fileExist(`${pageDir}/${page}.${ext}`))[0];
+    page += `.${ext}`;
+  }
 
-  if (ext[0])
-    ext = ext[0];
-
-  readFile(`${pageDir}/${page}.${ext}`, "utf-8").then((data) =>
+  readFile(`${pageDir}/${page}`, "utf-8").then((data) =>
   {
     const pageData = frontMatter(data);
     let pageContent;
@@ -79,14 +88,13 @@ function onRequest(req, res)
     switch (ext)
     {
       case "md":
-        pageContent = markdown.render(pageData.body)
-        console.log("here");
+        pageContent = markdown.render(pageData.body);
         break
       case "ejs":
-        pageContent = ejs.render(pageData.body)
+        pageContent = ejs.render(pageData.body);
         break
       default:
-        pageContent = pageData.body
+        pageContent = pageData.body;
     }
 
     // render layout with page contents
@@ -97,9 +105,38 @@ function onRequest(req, res)
     return ejsRender(`${srcPath}/layouts/${layout}.ejs`, templateConfig);
   }).then((html) =>
   {
+    let translationSelector = /{(\w[\w-]*)(\[.*\])?\s([^\}]+)}/g;
+    let match;
+    let translatedHtml = html;
+
+    while ((match = translationSelector.exec(html)) != null)
+    {
+      let [translation, stringId, description, message] = match;
+      if (description)
+      {
+        description = description.substring(1, --description.length);
+        translationSelector.lastIndex -= description.length;
+      }
+
+      if (locale != defaultLocale)
+      {
+        let jsonPage = page.substr(0, page.lastIndexOf(".")) + ".json";
+        let pageObj = stringsTree[jsonPage];
+        let messages;
+        if (pageObj)
+          messages = pageObj[locale];
+        if (messages && messages[stringId])
+        {
+          translationSelector.lastIndex -= message.length;
+          message = messages[stringId].message;
+          translationSelector.lastIndex += message.length;
+        }
+      }
+      translationSelector.lastIndex -= stringId.length + 3;
+      html = html.replace(translation, message);
+    }
     res.writeHead(200, { "Content-Type": "text/html" });
     res.end(html, "utf-8");
-    //console.log(html);
   });
 }
 
