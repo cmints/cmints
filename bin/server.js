@@ -6,18 +6,13 @@ const markdownIt = require("markdown-it");
 const ejs = require("ejs");
 const ejsRender = promisify(ejs.renderFile);
 const frontMatter = require("front-matter");
-const locales = ["en", "ru", "de"];
-const defaultLocale = "en";
-const {walkDirs} = require("../lib/custom-utils");
-const walker = promisify(require("../lib/custom-utils").walker);
 const i18n = require("../lib/i18n");
+
 const readFile = promisify(fs.readFile);
 const fileExist = fs.existsSync;
-const extensions = ["md", "ejs", "html"];
+const pageExtestions = ["md", "ejs", "html"];
 const srcPath = "./src";
 const pageDir = `${srcPath}/pages`;
-let stringsTree = {};
-
 
 // Default website data
 let templateConfig = {
@@ -53,103 +48,126 @@ let markdown = markdownIt({
   highlight: function (/*str, lang*/) { return ''; }
 });
 
-i18n.getStringsTree((err, tree)=>
+let mimeTypes = {
+  "html": "text/html",
+  "ejs": "text/html",
+  "md": "text/html",
+  "js": "text/javascript",
+  "css": "text/css",
+  "json": "application/json",
+  "png": "image/png",
+  "jpg": "image/jpg",
+  "gif": "image/gif",
+  "wav": "audio/wav",
+  "mp4": "video/mp4",
+  "woff": "application/font-woff",
+  "ttf": "application/font-ttf",
+  "eot": "application/vnd.ms-fontobject",
+  "otf": "application/font-otf",
+  "svg": "application/image/svg+xml"
+};
+
+i18n.init((err, ready)=>
 {
-  stringsTree = tree;
-  createServer(onRequest).listen(5000);
+  if (ready)
+    createServer(onRequest).listen(5000);
 });
 
 function onRequest(req, res)
 {
-
   let page = req.url;
   page = page.split("/").slice(1);
-  let locale = locales.includes(page[0]) ? page.shift() : defaultLocale;
+
+  let locale = i18n.getLocaleFromUrlParts(page);
   page = page.join("/");
+
+  if (!page)
+    page = "index";
 
   let ext = "";
   if (page.includes("."))
   {
-    ext = page.split(".").pop()[0];
+    ext = page.split(".").pop();
   }
   else
   {
-    ext = extensions.filter((ext) => fileExist(`${pageDir}/${page}.${ext}`))[0];
+    ext = pageExtestions.filter((ext) => 
+      fileExist(`${pageDir}/${page}.${ext}`))[0];
     page += `.${ext}`;
   }
 
-  readFile(`${pageDir}/${page}`, "utf-8").then((data) =>
+  if (pageExtestions.includes(ext))
   {
-    const pageData = frontMatter(data);
-    let pageContent;
-    templateConfig.page = pageData.attributes;
-
-    // generate page content according to file type
-    switch (ext)
+    parseTemplate(`${pageDir}/${page}`, ext).then((html) =>
     {
-      case "md":
-        pageContent = markdown.render(pageData.body);
-        break
-      case "ejs":
-        pageContent = ejs.render(pageData.body);
-        break
-      default:
-        pageContent = pageData.body;
-    }
-
-    // render layout with page contents
-    const layout = pageData.attributes.layout || "default";
-
-    templateConfig.body = pageContent;
-
-    return ejsRender(`${srcPath}/layouts/${layout}.ejs`, templateConfig);
-  }).then((html) =>
+      html = i18n.translate(html, page, locale);
+      writeResponse(res, html, ext);
+    }).catch(reason =>
+    {
+      if(reason.code == 'ENOENT')
+        resourceNotFound();
+    });
+  }
+  else
   {
-    let translationSelector = /{(\w[\w-]*)(\[.*\])?\s([^\}]+)}/g;
-    let match;
-    let translatedHtml = html;
-
-    while ((match = translationSelector.exec(html)) != null)
+    readFile(`${srcPath}/${page}`, "utf-8").then((data) =>
     {
-      let [translation, stringId, description, message] = match;
-      if (description)
+      writeResponse(res, data, ext);
+    }).catch(reason =>
+    {
+      if(reason.code == 'ENOENT')
+        resourceNotFound();
+    });
+  }
+}
+
+function parseTemplate(page, ext)
+{
+  return new Promise((resolve, reject) =>
+  {
+    readFile(page, "utf-8").then((data) =>
+    {
+      const pageData = frontMatter(data);
+      let pageContent;
+      templateConfig.page = pageData.attributes;
+
+      // generate page content according to file type
+      switch (ext)
       {
-        description = description.substring(1, --description.length);
-        translationSelector.lastIndex -= description.length;
+        case "md":
+          pageContent = markdown.render(pageData.body);
+          break
+        case "ejs":
+          pageContent = ejs.render(pageData.body);
+          break
+        default:
+          pageContent = pageData.body;
       }
 
-      if (locale != defaultLocale)
-      {
-        let jsonPage = page.substr(0, page.lastIndexOf(".")) + ".json";
-        let pageObj = stringsTree[jsonPage];
-        let messages;
-        if (pageObj)
-          messages = pageObj[locale];
-        if (messages && messages[stringId])
-        {
-          translationSelector.lastIndex -= message.length;
-          message = messages[stringId].message;
-          translationSelector.lastIndex += message.length;
-        }
-      }
-      translationSelector.lastIndex -= stringId.length + 3;
-      html = html.replace(translation, message);
-    }
-    res.writeHead(200, { "Content-Type": "text/html" });
-    res.end(html, "utf-8");
+      // render layout with page contents
+      const layout = pageData.attributes.layout || "default";
+
+      templateConfig.body = pageContent;
+
+      return ejsRender(`${srcPath}/layouts/${layout}.ejs`, templateConfig);
+    }).then((html) =>
+    {
+      resolve(html);
+    }).catch(reason =>
+    {
+      reject(reason);
+    });
   });
 }
 
-function monitoring(type, filename)
+function writeResponse(res, data, ext)
 {
-  //server.destroy();
-  //server.close(() => server.listen(5000));
+  res.writeHead(200, { "Content-Type": mimeTypes[ext] });
+  res.end(data, "utf-8");
 }
 
-/*
-walkDirs(["./src", "./lib", "./bin"], (err, files)=>
+function resourceNotFound(error)
 {
-  for (let file of files)
-    fs.watch(file, monitoring);
-});
-*/
+  res.writeHead(404);
+  res.end();
+}
