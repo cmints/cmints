@@ -105,7 +105,7 @@ function onRequest(req, res)
     }).catch(reason =>
     {
       if(reason.code == 'ENOENT')
-        resourceNotFound();
+        resourceNotFound(res);
     });
   }
   else
@@ -116,7 +116,7 @@ function onRequest(req, res)
     }).catch(reason =>
     {
       if(reason.code == 'ENOENT')
-        resourceNotFound();
+        resourceNotFound(res);
     });
   }
 }
@@ -166,7 +166,7 @@ function writeResponse(res, data, ext)
   res.end(data, "utf-8");
 }
 
-function resourceNotFound(error)
+function resourceNotFound(res)
 {
   res.writeHead(404);
   res.end();
