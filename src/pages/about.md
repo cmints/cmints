@@ -2,7 +2,7 @@
 title: About us
 ---
 
-# about {heading-1[Page Heading] Hello I'm <strong>about</strong> <a href="google.com">page</a> <a href="adblockplus.org">heading</a>}
+# about {heading-1[Page Heading] Hello I'm <strong>about</strong> <a href="http://google.com">page</a> <a href="http://adblockplus.org">heading</a>}{test test}
 
 ## about {heading-2 Hello I'm second heading}
 

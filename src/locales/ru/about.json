@@ -1,7 +1,7 @@
 {
   "heading-1": {
     "description": "Header manu item",
-    "message": "Главная<a1 href='http://awesome' css='dsfasfds sadfalkdsfd sfkj dsafjdsa fidsa fidsa '>ссылка1</a1> что-то <a2>ссылка2</a2><strong>сильно</strong>"
+    "message": "Главная<a2 href='http://awesome' css='dsfasfds sadfalkdsfd sfkj dsafjdsa fidsa fidsa '>ссылка1</a2> что-то <a1>ссылка2</a1><strong>сильно</strong>"
   },
   "heading-2": {
     "description": "Header manu item",
