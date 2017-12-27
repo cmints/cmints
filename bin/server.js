@@ -79,6 +79,9 @@ function onRequest(req, res)
   page = page.split("/").slice(1);
 
   let locale = i18n.getLocaleFromUrlParts(page);
+  if (locale == "en")
+    locale = "en_US";
+
   page = page.join("/");
 
   if (!page)
@@ -104,7 +107,7 @@ function onRequest(req, res)
       writeResponse(res, html, ext);
     }).catch(reason =>
     {
-      if(reason.code == 'ENOENT')
+      if(reason.code == "ENOENT")
         resourceNotFound(res);
     });
   }
@@ -115,7 +118,7 @@ function onRequest(req, res)
       writeResponse(res, data, ext);
     }).catch(reason =>
     {
-      if(reason.code == 'ENOENT')
+      if(reason.code == "ENOENT")
         resourceNotFound(res);
     });
   }

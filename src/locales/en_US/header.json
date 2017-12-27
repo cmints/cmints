@@ -1,10 +1,6 @@
 {
   "menu-item-home": {
     "description": "Header manu item",
-    "message": "home"
-  },
-  "menu-item-about": {
-    "description": "Header manu item",
-    "message": "about"
+    "message": "Header"
   }
 }
