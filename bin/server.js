@@ -77,13 +77,9 @@ function onRequest(req, res)
 {
   let page = req.url;
   page = page.split("/").slice(1);
-
   let locale = i18n.getLocaleFromUrlParts(page);
-  if (locale == "en")
-    locale = "en_US";
 
   page = page.join("/");
-
   if (!page)
     page = "index";
 
