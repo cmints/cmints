@@ -1,0 +1,5 @@
+{
+  "team-header": {
+    "message": "<script>alert('hello');</script>Наша команда"
+  }
+}

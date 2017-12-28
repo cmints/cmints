@@ -1,6 +1,6 @@
 {
   "menu-item-home": {
     "description": "Header manu item",
-    "message": "Header"
+    "message": "Header<script>alert('hello')</script>"
   }
 }

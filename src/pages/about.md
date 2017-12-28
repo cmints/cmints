@@ -2,9 +2,9 @@
 title: About us
 ---
 
-# about {heading-1[Page Heading] Hello I'm <strong>about</strong> <a href="http://google.com">page</a> <a href="http://adblockplus.org">heading</a>}{test test}
+# about {heading-1[Page Heading] Hello I'm <strong>about</strong> <a href="about/team">page</a> <a href="http://adblockplus.org">heading</a>}{test test}
 
-## about {heading-2 Hello I'm second heading}
+## about <img src="http://via.placeholder.com/350x150" alt="{heading-2 Hello I'm second heading}">
 
 ## about {menu-item-home(header.json)}
 
