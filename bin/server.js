@@ -143,12 +143,11 @@ function parseTemplate(page, ext)
           pageContent = pageData.body;
       }
 
-      // render layout with page contents
-      const layout = pageData.attributes.layout || "default";
-
+      // render themes with page contents
+      let layout = pageData.attributes.theme || "default";
       templateConfig.body = pageContent;
 
-      return ejsRender(`${srcPath}/layouts/${layout}.ejs`, templateConfig);
+      return ejsRender(`${srcPath}/themes/${layout}.ejs`, templateConfig);
     }).then((html) =>
     {
       resolve(html);
