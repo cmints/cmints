@@ -81,7 +81,7 @@ i18n.init((err, ready) =>
     createServer(onRequest).listen(5000);
 });
 
-lessProcessor.init(`${srcPath}/less`, `${assetsDir}/css/`);
+lessProcessor.init(`${srcPath}/less`, `${assetsDir}/css`);
 
 function onRequest(req, res)
 {
