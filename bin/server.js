@@ -7,12 +7,20 @@ const ejs = require("ejs");
 const ejsRender = promisify(ejs.renderFile);
 const frontMatter = require("front-matter");
 const i18n = require("../lib/i18n");
+const lessProcessor = require("../lib/less-processor");
+const glob = promisify(require("glob").glob);
 
 const readFile = promisify(fs.readFile);
+const writeFile = promisify(fs.writeFile);
+const walker = promisify(require("../lib/custom-utils").walker);
 const fileExist = fs.existsSync;
 const pageExtestions = ["md", "ejs", "html"];
+const less = require("less");
+
+// Path
 const srcPath = "./src";
 const pageDir = `${srcPath}/pages`;
+const assetsDir = `${srcPath}/assets`;
 
 // Default website data
 let templateConfig = {
@@ -67,11 +75,13 @@ let mimeTypes = {
   "svg": "application/image/svg+xml"
 };
 
-i18n.init((err, ready)=>
+i18n.init((err, ready) =>
 {
   if (ready)
     createServer(onRequest).listen(5000);
 });
+
+lessProcessor.init(`${srcPath}/less`, `${assetsDir}/css/`);
 
 function onRequest(req, res)
 {

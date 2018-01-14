@@ -1,0 +1,6 @@
+@import "variables.less";
+
+header
+{
+  color: @link-color;
+}
