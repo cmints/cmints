@@ -6,15 +6,21 @@
 </head>
 <body>
 <header>
-  <div></div>
-  <ul>
-    <li></li>
-    <li></li>
-  </ul>
-  <h1 class="project-name"><%= page.title %></h1>
-  <h2 class="project-tagline"><%= site.description %></h2>
+  <div>
+    
+  </div>
+  <nav>
+    <ul>
+      <li>{menu-item-home(header.json)}</li>
+      <li>{menu-item-about(header.json)}</li>
+      <li>{menu-item-docs(header.json)}</li>
+      <li>{menu-item-contacts(header.json)}</li>
+    </ul>
+  </nav>
 </header>
 <main>
+  <h1 class="project-name"><%= page.title %></h1>
+  <h2 class="project-tagline"><%= site.description %></h2>
   <%- body %>
 </main>
 <footer>

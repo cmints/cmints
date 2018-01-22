@@ -78,8 +78,24 @@ let mimeTypes = {
 i18n.init((err, ready) =>
 {
   if (ready)
-    createServer(onRequest).listen(5000);
+    runServer();
 });
+
+function runServer()
+{
+  let port = 4000;
+  let server = createServer(onRequest);
+  server.on("error", (err) =>
+  {
+    let error = err.Error;
+    if (err.code === "EADDRINUSE")
+      error = `Port ${port} is in use`;
+
+    throw error;
+  });
+
+  server.listen(port);
+}
 
 lessProcessor.init(`${srcPath}/less`, `${assetsDir}/css`);
 

@@ -1,6 +1,18 @@
 {
   "menu-item-home": {
-    "description": "Header manu item",
-    "message": "Header<script>alert('hello')</script>"
+    "description": "Header Navigation Name",
+    "message": "Home"
+  },
+  "menu-item-about": {
+    "description": "Header Navigation Name",
+    "message": "About"
+  },
+  "menu-item-docs": {
+    "description": "Header Navigation Name",
+    "message": "Documents"
+  },
+  "menu-item-contacts": {
+    "description": "Header Navigation Name",
+    "message": "Contact us"
   }
 }
