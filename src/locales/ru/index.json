@@ -2,5 +2,9 @@
   "homepage": {
     "description": "Header manu item",
     "message": "Главная странница"
+  },
+  "testid": {
+    "description": "Test ID",
+    "message": "Тестинг"
   }
 }

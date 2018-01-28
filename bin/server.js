@@ -75,7 +75,10 @@ let mimeTypes = {
   "svg": "application/image/svg+xml"
 };
 
-i18n.init((err, ready) =>
+let i18nWatchDirs = [`${srcPath}/pages`, `${srcPath}/themes`,
+                     `${srcPath}/partials`];
+
+i18n.init(`${srcPath}/locales`, i18nWatchDirs, (err, ready) =>
 {
   if (ready)
     runServer();
