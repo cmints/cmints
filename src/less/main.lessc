@@ -1,6 +1,58 @@
 @import "variables.less";
+@import "grid.less";
+
+body
+{
+  background-color: @primary;
+  color: #ddd;
+  margin: 0;
+}
+
+a
+{
+  color: @link-color;
+}
+
+/*
+  HEADER
+ */
 
 header
 {
   color: @link-color;
+  background-color: @secondary;
 }
+
+header ul
+{
+  padding: 0;
+  list-style: none;
+}
+
+header ul li
+{
+  display: inline-block;
+  margin: 0 10px;
+  padding: 10px; 
+}
+
+/*
+  Main sections
+ */
+
+main > section#main
+{
+  text-align: center;
+}
+
+main > section#features
+{
+  text-align: center;
+}
+
+footer
+{
+  background-color: @secondary;
+  height: 50px;
+}
+

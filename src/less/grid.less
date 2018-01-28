@@ -1,134 +1,147 @@
 /*
   5 column Grid layout
  */
-.col5 {
+
+.col5
+{
   display: grid;
   grid-template-columns: repeat(5, 1fr);
 }
-.col4 {
+
+.col4
+{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 }
-.col3 {
+
+.col3
+{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
-.col2 {
+
+.col2
+{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
-.cell1 {
+
+.cell1
+{
   grid-column-start: 1;
   grid-column-end: 2;
 }
-.cell1-2 {
+
+.cell1-2
+{
   grid-column-start: 1;
   grid-column-end: 3;
 }
-.cell1-3 {
+
+.cell1-3
+{
   grid-column-start: 1;
   grid-column-end: 4;
 }
-.cell1-4 {
+
+.cell1-4
+{
   grid-column-start: 1;
   grid-column-end: 5;
 }
-.cell1-5 {
+
+.cell1-5
+{
   grid-column-start: 1;
   grid-column-end: 6;
 }
-.cell2 {
+
+.cell2
+{
   grid-column-start: 2;
   grid-column-end: 3;
 }
-.cell2-3 {
+
+.cell2-3
+{
   grid-column-start: 2;
   grid-column-end: 4;
 }
-.cell2-4 {
+
+.cell2-4
+{
   grid-column-start: 2;
   grid-column-end: 5;
 }
-.cell2-5 {
+
+.cell2-5
+{
   grid-column-start: 2;
   grid-column-end: 6;
 }
-.cell3 {
+
+.cell3
+{
   grid-column-start: 3;
   grid-column-end: 4;
 }
-.cell3-4 {
+
+.cell3-4
+{
   grid-column-start: 3;
   grid-column-end: 5;
 }
-.cell3-5 {
+
+.cell3-5
+{
   grid-column-start: 3;
   grid-column-end: 6;
 }
-.cell4 {
+
+.cell4
+{
   grid-column-start: 4;
   grid-column-end: 5;
 }
-.cell4-5 {
+
+.cell4-5
+{
   grid-column-start: 4;
   grid-column-end: 6;
 }
-.cell5 {
+
+.cell5
+{
   grid-column-start: 5;
   grid-column-end: 6;
 }
-.center {
+
+.center
+{
   justify-self: center;
 }
-.end {
+
+.end
+{
   justify-self: end;
 }
-.start {
+
+.start
+{
   justify-self: start;
 }
-.top {
+
+.top
+{
   align-items: start;
 }
-.bottom {
+
+.bottom
+{
   align-items: end;
 }
-.middle {
+
+.middle
+{
   align-items: center;
-}
-body {
-  background-color: #333;
-  color: #ddd;
-  margin: 0;
-}
-a {
-  color: #fc0;
-}
-/*
-  HEADER
- */
-header {
-  color: #fc0;
-  background-color: #2b2b2b;
-}
-header ul {
-  padding: 0;
-  list-style: none;
-}
-header ul li {
-  display: inline-block;
-  margin: 0 10px;
-  padding: 10px;
-}
-/*
-  Main sections
- */
-main > section#main {
-  text-align: center;
-}
-main > section#features {
-  text-align: center;
-}
-footer {
-  background-color: #2b2b2b;
-  height: 50px;
 }

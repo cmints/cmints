@@ -25,8 +25,8 @@ const assetsDir = `${srcPath}/assets`;
 // Default website data
 let templateConfig = {
   site: {
-    title: "Website title",
-    description: "Website descriptio"
+    title: "I18n CMS",
+    description: "CMS with the internalization done right"
   }
 };
 

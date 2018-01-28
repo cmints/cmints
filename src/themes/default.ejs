@@ -5,11 +5,9 @@
   <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
 </head>
 <body>
-<header>
-  <div>
-    
-  </div>
-  <nav>
+<header class="col5 middle">
+  <img class="cell1 end" id="logo" src="http://via.placeholder.com/130x50">
+  <nav class="cell2-3">
     <ul>
       <li>{menu-item-home(header.json)}</li>
       <li>{menu-item-about(header.json)}</li>
@@ -17,14 +15,19 @@
       <li>{menu-item-contacts(header.json)}</li>
     </ul>
   </nav>
+  <form class="cell4" id="search">
+    <input type="search" id="search">
+  </form>
+  <div class="cell5 end" id="github">
+    <a href="http://www.github.com">Github</a>
+  </div>
 </header>
-<main>
-  <h1 class="project-name"><%= page.title %></h1>
-  <h2 class="project-tagline"><%= site.description %></h2>
+<main class="col5">
   <%- body %>
+  <!-- <%= site.title %> -->
 </main>
-<footer>
-  
+<footer class="col5 middle">
+  <div class="cell2">Copyright 2018</div>
 </footer>
 </body>
 </html>
