@@ -14,7 +14,7 @@ const readFile = promisify(fs.readFile);
 const writeFile = promisify(fs.writeFile);
 const walker = promisify(require("../lib/custom-utils").walker);
 const fileExist = fs.existsSync;
-const pageExtestions = ["md", "ejs", "html"];
+const pageExtestions = [".md", ".ejs", ".html"];
 const less = require("less");
 
 // Path
@@ -57,21 +57,21 @@ let markdown = markdownIt({
 });
 
 let resourcesMap = {
-  "html": {encoding: "utf-8", type: "text/html"},
-  "ejs": {encoding: "utf-8", type: "text/html"},
-  "md": {encoding: "utf-8", type: "text/html"},
-  "js": {encoding: "utf-8", type: "text/javascript"},
-  "css": {encoding: "utf-8", type: "text/css"},
-  "json": {encoding: "utf-8", type: "application/json"},
-  "ico": {encoding: "binary", type: "image/x-icon"},
-  "png": {encoding: "binary", type: "image/png"},
-  "jpg": {encoding: "binary", type: "image/jpg"},
-  "gif": {encoding: "binary", type: "image/gif"},
-  "woff": {encoding: "utf-8", type: "application/font-woff"},
-  "ttf": {encoding: "utf-8", type: "application/font-ttf"},
-  "eot": {encoding: "utf-8", type: "application/vnd.ms-fontobject"},
-  "otf": {encoding: "utf-8", type: "application/font-otf"},
-  "svg": {encoding: "utf-8", type: "application/image/svg+xml"}
+  ".html": {encoding: "utf-8", type: "text/html"},
+  ".ejs": {encoding: "utf-8", type: "text/html"},
+  ".md": {encoding: "utf-8", type: "text/html"},
+  ".js": {encoding: "utf-8", type: "text/javascript"},
+  ".css": {encoding: "utf-8", type: "text/css"},
+  ".json": {encoding: "utf-8", type: "application/json"},
+  ".ico": {encoding: "binary", type: "image/x-icon"},
+  ".png": {encoding: "binary", type: "image/png"},
+  ".jpg": {encoding: "binary", type: "image/jpg"},
+  ".gif": {encoding: "binary", type: "image/gif"},
+  ".woff": {encoding: "utf-8", type: "application/font-woff"},
+  ".ttf": {encoding: "utf-8", type: "application/font-ttf"},
+  ".eot": {encoding: "utf-8", type: "application/vnd.ms-fontobject"},
+  ".otf": {encoding: "utf-8", type: "application/font-otf"},
+  ".svg": {encoding: "utf-8", type: "application/image/svg+xml"}
 };
 
 let i18nWatchDirs = [`${srcPath}/pages`, `${srcPath}/themes`,
@@ -114,14 +114,13 @@ function onRequest(req, res)
   let ext = "";
   if (page.includes("."))
   {
-    ext = page.split(".").pop();
+    [page, ext] = page.split(".");
+    ext = "." + ext;
   }
   else
   {
     ext = pageExtestions.filter((ext) => 
-      fileExist(`${pageDir}/${page}.${ext}`))[0];
-    if (ext)
-      page += `.${ext}`;
+      fileExist(`${pageDir}/${page}${ext}`))[0];
   }
 
   let {encoding, type} = ext ? resourcesMap[ext] : {};
@@ -135,7 +134,7 @@ function onRequest(req, res)
   }
   else if (pageExtestions.includes(ext))
   {
-    parseTemplate(`${pageDir}/${page}`, ext).then((html) =>
+    parseTemplate(page, ext, locale).then((html) =>
     {
       html = i18n.translate(html, page, locale);
       writeResponse(res, html, encoding, type);
@@ -147,7 +146,7 @@ function onRequest(req, res)
   }
   else
   {
-    readFile(`${srcPath}/${page}`, encoding).then((data) =>
+    readFile(`${srcPath}/${page}${ext}`, encoding).then((data) =>
     {
       writeResponse(res, data, encoding, type);
     }).catch(reason =>
@@ -158,23 +157,22 @@ function onRequest(req, res)
   }
 }
 
-function parseTemplate(page, ext)
+function parseTemplate(page, ext, locale)
 {
   return new Promise((resolve, reject) =>
   {
-    readFile(page, "utf-8").then((data) =>
+    readFile(`${pageDir}/${page}${ext}`, "utf-8").then((data) =>
     {
       const pageData = frontMatter(data);
       let pageContent;
-      templateConfig.page = pageData.attributes;
 
       // generate page content according to file type
       switch (ext)
       {
-        case "md":
+        case ".md":
           pageContent = markdown.render(pageData.body);
           break
-        case "ejs":
+        case ".ejs":
           pageContent = ejs.render(pageData.body);
           break
         default:
@@ -182,9 +180,15 @@ function parseTemplate(page, ext)
       }
 
       // render themes with page contents
-      let layout = pageData.attributes.theme || "default";
+      
+      templateConfig.page = pageData.attributes;
       templateConfig.body = pageContent;
+      templateConfig.currentPage = page;
+      templateConfig.locale = locale;
+      templateConfig.getPageLocales = (pagePath) =>
+        i18n.getPageLocales(pagePath ? pagePath : page, locale);
 
+      let layout = pageData.attributes.theme || "default";
       return ejsRender(`${srcPath}/themes/${layout}.ejs`, templateConfig);
     }).then((html) =>
     {

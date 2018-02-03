@@ -6,5 +6,9 @@
   "heading-2": {
     "description": "Header manu item",
     "message": "hello\"onclick='function hi(){alert(\"Hi!\")};hi();'"
+  },
+  "heading-4": {
+    "description": "Header manu item",
+    "message": "текст"
   }
 }
