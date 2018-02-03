@@ -56,23 +56,22 @@ let markdown = markdownIt({
   highlight: function (/*str, lang*/) { return ''; }
 });
 
-let mimeTypes = {
-  "html": "text/html",
-  "ejs": "text/html",
-  "md": "text/html",
-  "js": "text/javascript",
-  "css": "text/css",
-  "json": "application/json",
-  "png": "image/png",
-  "jpg": "image/jpg",
-  "gif": "image/gif",
-  "wav": "audio/wav",
-  "mp4": "video/mp4",
-  "woff": "application/font-woff",
-  "ttf": "application/font-ttf",
-  "eot": "application/vnd.ms-fontobject",
-  "otf": "application/font-otf",
-  "svg": "application/image/svg+xml"
+let resourcesMap = {
+  "html": {encoding: "utf-8", type: "text/html"},
+  "ejs": {encoding: "utf-8", type: "text/html"},
+  "md": {encoding: "utf-8", type: "text/html"},
+  "js": {encoding: "utf-8", type: "text/javascript"},
+  "css": {encoding: "utf-8", type: "text/css"},
+  "json": {encoding: "utf-8", type: "application/json"},
+  "ico": {encoding: "binary", type: "image/x-icon"},
+  "png": {encoding: "binary", type: "image/png"},
+  "jpg": {encoding: "binary", type: "image/jpg"},
+  "gif": {encoding: "binary", type: "image/gif"},
+  "woff": {encoding: "utf-8", type: "application/font-woff"},
+  "ttf": {encoding: "utf-8", type: "application/font-ttf"},
+  "eot": {encoding: "utf-8", type: "application/vnd.ms-fontobject"},
+  "otf": {encoding: "utf-8", type: "application/font-otf"},
+  "svg": {encoding: "utf-8", type: "application/image/svg+xml"}
 };
 
 let i18nWatchDirs = [`${srcPath}/pages`, `${srcPath}/themes`,
@@ -121,15 +120,25 @@ function onRequest(req, res)
   {
     ext = pageExtestions.filter((ext) => 
       fileExist(`${pageDir}/${page}.${ext}`))[0];
-    page += `.${ext}`;
+    if (ext)
+      page += `.${ext}`;
   }
 
-  if (pageExtestions.includes(ext))
+  let {encoding, type} = ext ? resourcesMap[ext] : {};
+  if (!ext)
+  {
+    internalServerError(res);
+  }
+  else if (!encoding || !type)
+  {
+    resourceNotImplemented(res);
+  }
+  else if (pageExtestions.includes(ext))
   {
     parseTemplate(`${pageDir}/${page}`, ext).then((html) =>
     {
       html = i18n.translate(html, page, locale);
-      writeResponse(res, html, ext);
+      writeResponse(res, html, encoding, type);
     }).catch(reason =>
     {
       if(reason.code == "ENOENT")
@@ -138,9 +147,9 @@ function onRequest(req, res)
   }
   else
   {
-    readFile(`${srcPath}/${page}`, "utf-8").then((data) =>
+    readFile(`${srcPath}/${page}`, encoding).then((data) =>
     {
-      writeResponse(res, data, ext);
+      writeResponse(res, data, encoding, type);
     }).catch(reason =>
     {
       if(reason.code == "ENOENT")
@@ -187,14 +196,26 @@ function parseTemplate(page, ext)
   });
 }
 
-function writeResponse(res, data, ext)
+function writeResponse(res, data, encoding, type)
 {
-  res.writeHead(200, { "Content-Type": mimeTypes[ext] });
-  res.end(data, "utf-8");
+  res.writeHead(200, { "Content-Type": type });
+  res.end(data, encoding);
 }
 
 function resourceNotFound(res)
 {
   res.writeHead(404);
+  res.end();
+}
+
+function resourceNotImplemented(res)
+{
+  res.writeHead(501);
+  res.end();
+}
+
+function internalServerError(res)
+{
+  res.writeHead(500);
   res.end();
 }

@@ -8,7 +8,17 @@
 <body>
   <% include ../partials/header %>
 <main class="col5">
-  <%- body %>
+  <!-- Navigation Start -->
+  <%if (page.showDocNav) { %> <% include ../partials/navigation %> <% } %>
+  <!-- Navigation End -->
+
+  <article class="cell2-3">
+    <%- body %>
+  </article>
+
+  <!-- TOC Start -->
+  <%if (page.showDocNav) { %> <% include ../partials/toc %> <% } %>
+  <!-- TOC End -->
 </main>
   <% include ../partials/footer %>
 </body>
