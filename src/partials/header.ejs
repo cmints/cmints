@@ -6,13 +6,19 @@
         <a href="/">{menu-item-home(header)}</a>
       </li>
       <li>
-        <a href="/about">{menu-item-about(header)}</a>
+        <a <%-href("about")%> >
+          {menu-item-about(header)}
+        </a>
       </li>
       <li>
-        <a href="/documentation">{menu-item-docs(header)}</a>
+        <a <%-href("documentation")%> >
+          {menu-item-docs(header)}
+        </a>
       </li>
       <li>
-        <a href="/contacts">{menu-item-contacts(header)}</a>
+        <a <%-href("contacts")%> >
+          {menu-item-contacts(header)}
+        </a>
       </li>
     </ul>
   </nav>
@@ -20,6 +26,6 @@
     <input type="search" id="search">
   </form>
   <div class="cell5 end" id="github">
-    <a href="http://www.github.com">Github</a>
+    <a href="https://github.com/Manvel/cmints">Github</a>
   </div>
 </header>

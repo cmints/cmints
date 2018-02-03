@@ -2,7 +2,7 @@
   <% let pageLocales = getPageLocales() %>
   <% if (currentPage == "index") currentPage = "" %>
   <% for (let pageLocale of pageLocales) { %>
-    <% if (pageLocale != locale) { %>
+    <% if (pageLocale != currentLocale) { %>
       <li>
         <a href="/<%= pageLocale %>/<%= currentPage %>"><%= pageLocale %></a>
       </li>

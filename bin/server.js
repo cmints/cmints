@@ -138,10 +138,16 @@ function onRequest(req, res)
     {
       html = i18n.translate(html, page, locale);
       writeResponse(res, html, encoding, type);
-    }).catch(reason =>
+    }).catch((reason) =>
     {
       if(reason.code == "ENOENT")
+      {
         resourceNotFound(res);
+      }
+      else
+      {
+        internalServerError(res, reason.message);
+      }
     });
   }
   else
@@ -180,11 +186,12 @@ function parseTemplate(page, ext, locale)
       }
 
       // render themes with page contents
-      
       templateConfig.page = pageData.attributes;
       templateConfig.body = pageContent;
       templateConfig.currentPage = page;
-      templateConfig.locale = locale;
+      templateConfig.currentLocale = locale;
+      templateConfig.href = (pagePath) =>
+        i18n.hrefAndLang(pagePath, locale).join(" ");
       templateConfig.getPageLocales = (pagePath) =>
         i18n.getPageLocales(pagePath ? pagePath : page, locale);
 
@@ -218,8 +225,8 @@ function resourceNotImplemented(res)
   res.end();
 }
 
-function internalServerError(res)
+function internalServerError(res, message)
 {
   res.writeHead(500);
-  res.end();
+  res.end.apply(res, message ? [message, "utf-8"] : []);
 }
