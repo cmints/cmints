@@ -1,10 +1,7 @@
 <header class="col5 middle">
-  <img class="cell1 end" id="logo" src="/assets/images/logo.png">
+  <a href="/" class="cell1 end"><img id="logo" src="/assets/images/logo.png"></a>
   <nav class="cell2-3">
     <ul>
-      <li>
-        <a href="/">{menu-item-home(header)}</a>
-      </li>
       <li>
         <a <%-href("documentation")%> >
           {menu-item-docs(header)}
@@ -20,12 +17,14 @@
           {menu-item-blog(header)}
         </a>
       </li>
+      <li>
+        <a href="https://github.com/Manvel/cmints">
+          Github
+        </a>
+      </li>
     </ul>
   </nav>
   <form class="cell4" id="search">
     <input type="search" id="search">
   </form>
-  <div class="cell5 end" id="github">
-    <a href="https://github.com/Manvel/cmints">Github</a>
-  </div>
 </header>

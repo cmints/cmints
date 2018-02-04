@@ -8,6 +8,7 @@ const ejs = require("ejs");
 const ejsRender = promisify(ejs.renderFile);
 const frontMatter = require("front-matter");
 const i18n = require("../lib/i18n");
+const i18nInit = promisify(i18n.init);
 const lessProcessor = require("../lib/less-processor");
 const glob = promisify(require("glob").glob);
 
@@ -75,10 +76,16 @@ let resourcesMap = {
   ".svg": {encoding: "utf-8", type: "application/image/svg+xml"}
 };
 
-let i18nWatchDirs = [`${srcPath}/pages`, `${srcPath}/themes`,
+let i18nWatchDirs = [`${pageDir}`, `${srcPath}/themes`,
                      `${srcPath}/partials`];
 
-i18n.init(`${srcPath}/locales`, i18nWatchDirs, (err, ready) =>
+glob(`${pageDir}/**/*+(${pageExtestions.join("|")})`, {}).then((files) =>
+{
+  files = files.map((file) => file.replace(`${pageDir}/`, "").replace(/\.[^/.]+$/, ""));
+  //TODO: Create sitemap
+});
+
+i18nInit(`${srcPath}/locales`, i18nWatchDirs).then((ready) =>
 {
   if (ready)
     runServer();
@@ -105,31 +112,41 @@ lessProcessor.init(`${srcPath}/less`, `${assetsDir}/css`);
 function onRequest(req, res)
 {
   let page = req.url;
-  page = page.split("/").slice(1);
-  let locale = i18n.getLocaleFromUrlParts(page);
+  let locale = i18n.getLocaleFromPath(page);
+  let {dir, name, ext} = path.parse(page);
+  dir = dir.split(path.sep);
+  dir.shift();
 
-  page = page.join("/");
-  if (!page)
-    page = "index";
+  // Filter locales from the path and Name
+  dir = dir.filter((part) => part != locale);
+  if (name == locale)
+    name = "";
 
-  let ext = "";
-  if (page.includes("."))
-  {
-    [page, ext] = page.split(".");
-    ext = "." + ext;
-  }
-  else
-  {
-    ext = pageExtestions.filter((ext) => 
-      fileExist(`${pageDir}/${page}${ext}`))[0];
-  }
+  page = path.join(...dir, name);
 
-  let {encoding, type} = ext ? resourcesMap[ext] : {};
-  if (!ext)
+  // Do not allow extensions in the address
+  if (pageExtestions.includes(ext))
   {
     resourceNotFound(res);
+    return;
   }
-  else if (!encoding || !type)
+
+  if (!ext && !(ext = findExtension(page)))
+  {
+    page = path.join(page, "index");
+    ext = findExtension(page);
+  }
+
+  // Do not allow index in the address and missing files
+  if (!ext || name == "index")
+  {
+    resourceNotFound(res);
+    return;
+  }
+
+  let {encoding, type} = resourcesMap[ext];
+  // Not supported types
+  if (!encoding || !type)
   {
     resourceNotImplemented(res);
   }
@@ -141,7 +158,6 @@ function onRequest(req, res)
       writeResponse(res, html, encoding, type);
     }).catch((reason) =>
     {
-      console.log(reason);
       if(reason.code == "ENOENT")
       {
         resourceNotFound(res);
@@ -154,7 +170,7 @@ function onRequest(req, res)
   }
   else
   {
-    readFile(`${srcPath}/${page}${ext}`, encoding).then((data) =>
+    readFile(path.join(srcPath, page) + ext, encoding).then((data) =>
     {
       writeResponse(res, data, encoding, type);
     }).catch(reason =>
@@ -163,6 +179,30 @@ function onRequest(req, res)
         resourceNotFound(res);
     });
   }
+}
+
+/**
+ * Find if the file with the suported extension exists in the path
+ * @param  {String} page  ex.: documentation/internalization/index
+ * @return {String}       ex.: .md
+ */
+function findExtension(page)
+{
+  return pageExtestions.filter((ext) => 
+    fileExist(path.join(pageDir, page) + ext))[0];
+}
+
+/**
+ * Remove index part from the page
+ * @param  {String}   page  Path to the page
+ * @return {String}
+ */
+function removeIndex(page)
+{
+  page = page.split(path.sep);
+  if (page[page.length -1] == "index")
+    page.pop();
+  return path.join(...page);
 }
 
 function parseTemplate(page, ext, locale)
@@ -195,7 +235,7 @@ function parseTemplate(page, ext, locale)
       // render themes with page contents
       templateConfig.page = pageData.attributes;
       templateConfig.body = pageContent;
-      templateConfig.currentPage = page;
+      templateConfig.currentPage = removeIndex(page);
       templateConfig.currentLocale = locale;
       templateConfig.href = (pagePath) =>
         i18n.hrefAndLang(pagePath, locale).join(" ");

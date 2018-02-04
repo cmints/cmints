@@ -3,8 +3,8 @@
     "description": "Header manu item",
     "message": "Главное"
   },
-  "menu-item-about": {
+  "menu-item-docs": {
     "description": "Header manu item",
-    "message": "О нас"
+    "message": "Документация"
   }
 }
