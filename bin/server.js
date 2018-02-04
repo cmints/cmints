@@ -3,6 +3,7 @@ const {promisify} = require('util');
 const fs = require("fs");
 const path = require("path");
 const markdownIt = require("markdown-it");
+const markdownItTocAndAnchor = require('markdown-it-toc-and-anchor').default;
 const ejs = require("ejs");
 const ejsRender = promisify(ejs.renderFile);
 const frontMatter = require("front-matter");
@@ -54,7 +55,7 @@ let markdown = markdownIt({
   // or '' if the source string is not changed and should be escaped externally.
   // If result starts with <pre... internal wrapper is skipped.
   highlight: function (/*str, lang*/) { return ''; }
-});
+}).use(markdownItTocAndAnchor);
 
 let resourcesMap = {
   ".html": {encoding: "utf-8", type: "text/html"},
@@ -126,7 +127,7 @@ function onRequest(req, res)
   let {encoding, type} = ext ? resourcesMap[ext] : {};
   if (!ext)
   {
-    internalServerError(res);
+    resourceNotFound(res);
   }
   else if (!encoding || !type)
   {
@@ -140,6 +141,7 @@ function onRequest(req, res)
       writeResponse(res, html, encoding, type);
     }).catch((reason) =>
     {
+      console.log(reason);
       if(reason.code == "ENOENT")
       {
         resourceNotFound(res);
@@ -176,7 +178,12 @@ function parseTemplate(page, ext, locale)
       switch (ext)
       {
         case ".md":
-          pageContent = markdown.render(pageData.body);
+          pageContent = markdown.render(pageData.body, {
+            tocCallback: (tocMarkdown, tocArray, tocHtml) =>
+            {
+              templateConfig.toc = tocHtml;
+            }
+          });
           break
         case ".ejs":
           pageContent = ejs.render(pageData.body);
