@@ -1,7 +1,7 @@
 {
   "name": "node-cms",
   "version": "1.0.0",
-  "description": "CMS with internalization done right",
+  "description": "CMS with internationalization done right",
   "main": "app.js",
   "scripts": {
     "start": "node bin/server.js"

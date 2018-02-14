@@ -28,7 +28,7 @@ const assetsDir = `${srcPath}/assets`;
 let templateConfig = {
   site: {
     title: "I18n CMS",
-    description: "CMS with the internalization done right"
+    description: "CMS with the internationalization done right"
   }
 };
 
@@ -183,7 +183,7 @@ function onRequest(req, res)
 
 /**
  * Find if the file with the suported extension exists in the path
- * @param  {String} page  ex.: documentation/internalization/index
+ * @param  {String} page  ex.: documentation/internationalization/index
  * @return {String}       ex.: .md
  */
 function findExtension(page)

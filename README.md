@@ -1,5 +1,5 @@
 # CMS
-CMS with the internalization done right
+CMS with the internationalization done right
 
 ## Installation
 
