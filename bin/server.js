@@ -24,6 +24,9 @@ const srcPath = "./src";
 const pageDir = `${srcPath}/pages`;
 const assetsDir = `${srcPath}/assets`;
 
+// Sitemap holds also the metadata information for each page.
+let sitemap = {};
+
 // Default website data
 let templateConfig = {
   site: {
@@ -79,10 +82,62 @@ let resourcesMap = {
 let i18nWatchDirs = [`${pageDir}`, `${srcPath}/themes`,
                      `${srcPath}/partials`];
 
-glob(`${pageDir}/**/*+(${pageExtestions.join("|")})`, {}).then((files) =>
+glob(`${pageDir}/**/*+(${pageExtestions.join("|")})`, {}).then((filePaths) =>
 {
-  files = files.map((file) => file.replace(`${pageDir}/`, "").replace(/\.[^/.]+$/, ""));
-  //TODO: Create sitemap
+  filePaths = filePaths.map((filePath) => filePath.replace(`${pageDir}/`, ""));
+  //console.log(filePaths);
+  // TODO: Introduce tree structure using children
+  for (let filePath of filePaths)
+  {
+    let {dir, name, ext} = path.parse(filePath);
+    if (!dir)
+    {
+      assignToSitemap(filePath, sitemap, name);
+    }
+    else
+    {
+      let dirs = dir.split("/");
+      dirs.reduce((acc, dir, index) => 
+      {
+        if (!acc[dir])
+          acc[dir] = {};
+
+        if (index == dirs.length - 1)
+        {
+          assignToSitemap(filePath, acc[dir], name);
+        }
+        return acc[dir];
+      }, sitemap);
+    }
+  }
+});
+
+function assignToSitemap(filePath, sitemap, fileName)
+{
+  readFile(`${pageDir}/${filePath}`, "utf-8").then((data) =>
+  {
+    if (sitemap[fileName])
+    {
+      sitemap[fileName].metadata = frontMatter(data).attributes;
+      sitemap[fileName].path = filePath;
+    }
+    else if (fileName == "index")
+    {
+      sitemap.metadata = frontMatter(data).attributes;
+      sitemap.path = filePath;
+    }
+    else
+      sitemap[fileName] = {metadata: frontMatter(data).attributes, path: filePath};
+  });
+}
+
+const util = require('util');
+const setTimeoutPromise = util.promisify(setTimeout);
+
+setTimeoutPromise(40, 'foobar').then((value) => {
+  // value === 'foobar' (passing values is optional)
+  // This is executed after about 40 milliseconds.
+  console.log(util.inspect(sitemap, {showHidden: false, depth: null}));
 });
 
 i18nInit(`${srcPath}/locales`, i18nWatchDirs).then((ready) =>
@@ -237,6 +292,7 @@ function parseTemplate(page, ext, locale)
       templateConfig.body = pageContent;
       templateConfig.currentPage = removeIndex(page);
       templateConfig.currentLocale = locale;
+      templateConfig.sitemap = sitemap;
       templateConfig.href = (pagePath) =>
         i18n.hrefAndLang(pagePath, locale).join(" ");
       templateConfig.getPageLocales = (pagePath) =>
