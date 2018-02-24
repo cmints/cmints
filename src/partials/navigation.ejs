@@ -4,8 +4,8 @@
   <% } %>
       <% items.forEach(function(item){ %>
       <li>
-          <% if (item.path) { %>
-            <a <%-href(item.path)%>><%= item.file %></a>
+          <% if (item.url) { %>
+            <a <%-href(item.url)%>><%= item.file %></a>
           <% } else {  %>
             <%= item.file %>
           <% } %>

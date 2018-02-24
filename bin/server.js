@@ -18,14 +18,13 @@ const walker = promisify(require("../lib/custom-utils").walker);
 const fileExist = fs.existsSync;
 const pageExtestions = [".md", ".ejs", ".html"];
 const less = require("less");
+const {createSitemap} = require("../lib/sitemap");
 
 // Path
-const srcPath = "./src";
-const pageDir = `${srcPath}/pages`;
-const assetsDir = `${srcPath}/assets`;
+const {srcPath, pageDir, assetsDir} = require("../config");
 
 // Sitemap holds also the metadata information for each page.
-let sitemap = {children: []};
+let sitemap = {};
 
 // Default website data
 let templateConfig = {
@@ -85,79 +84,7 @@ let i18nWatchDirs = [`${pageDir}`, `${srcPath}/themes`,
 glob(`${pageDir}/**/*+(${pageExtestions.join("|")})`, {}).then((filePaths) =>
 {
   filePaths = filePaths.map((filePath) => filePath.replace(`${pageDir}/`, ""));
-  for (let filePath of filePaths)
-  {
-    let {dir, name} = path.parse(filePath);
-    let url = "";
-    if (!dir)
-    {
-      if (name == "index")
-      {
-        sitemap.file = "index";
-        assignToSitemap(filePath, sitemap, path.join(dir));
-      }
-      else
-        assignToSitemap(filePath, findAssigneNode(sitemap, name), path.join(dir, name));
-    }
-    else
-    {
-      let files = dir.split("/");
-      if (name != "index")
-      {
-        url = path.join(dir, name)
-        files.push(name);
-      }
-      else
-        url = dir;
-      files.reduce((acc, file, index) => 
-      {
-        acc = findAssigneNode(acc, file);
-
-        if (index == files.length - 1)
-        {
-          assignToSitemap(filePath, acc, url);
-        }
-        return acc;
-      }, sitemap);
-    }
-  }
-  sitemap = {children: [sitemap]};
-});
-
-function findAssigneNode(tree, file)
-{
-  if (!tree.children)
-    tree.children = [];
-  
-  let node = tree.children.find((elem) =>
-  {
-    if (elem.file == file)
-      return elem
-  });
-  if (!node)
-  {
-    node = {file: file};
-    tree.children.push(node);
-  }
-  return node;
-}
-
-function assignToSitemap(filePath, sitemap, url)
-{
-  readFile(`${pageDir}/${filePath}`, "utf-8").then((data) =>
-  {
-    let meta = {metadata: frontMatter(data).attributes, path: url};
-    Object.assign(sitemap, meta);
-  });
-}
-
-const util = require('util');
-const setTimeoutPromise = util.promisify(setTimeout);
-
-setTimeoutPromise(40, 'foobar').then((value) => {
-  // value === 'foobar' (passing values is optional)
-  // This is executed after about 40 milliseconds.
-  console.log(util.inspect(sitemap, {showHidden: false, depth: null}));
+  createSitemap(sitemap, filePaths);
 });
 
 i18nInit(`${srcPath}/locales`, i18nWatchDirs).then((ready) =>
