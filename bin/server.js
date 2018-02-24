@@ -25,7 +25,7 @@ const pageDir = `${srcPath}/pages`;
 const assetsDir = `${srcPath}/assets`;
 
 // Sitemap holds also the metadata information for each page.
-let sitemap = {};
+let sitemap = {children: []};
 
 // Default website data
 let templateConfig = {
@@ -85,49 +85,69 @@ let i18nWatchDirs = [`${pageDir}`, `${srcPath}/themes`,
 glob(`${pageDir}/**/*+(${pageExtestions.join("|")})`, {}).then((filePaths) =>
 {
   filePaths = filePaths.map((filePath) => filePath.replace(`${pageDir}/`, ""));
-  //console.log(filePaths);
-  // TODO: Introduce tree structure using children
   for (let filePath of filePaths)
   {
-    let {dir, name, ext} = path.parse(filePath);
+    let {dir, name} = path.parse(filePath);
+    let url = "";
     if (!dir)
     {
-      assignToSitemap(filePath, sitemap, name);
+      if (name == "index")
+      {
+        sitemap.file = "index";
+        assignToSitemap(filePath, sitemap, path.join(dir));
+      }
+      else
+        assignToSitemap(filePath, findAssigneNode(sitemap, name), path.join(dir, name));
     }
     else
     {
-      let dirs = dir.split("/");
-      dirs.reduce((acc, dir, index) => 
+      let files = dir.split("/");
+      if (name != "index")
       {
-        if (!acc[dir])
-          acc[dir] = {};
+        url = path.join(dir, name)
+        files.push(name);
+      }
+      else
+        url = dir;
+      files.reduce((acc, file, index) => 
+      {
+        acc = findAssigneNode(acc, file);
 
-        if (index == dirs.length - 1)
+        if (index == files.length - 1)
         {
-          assignToSitemap(filePath, acc[dir], name);
+          assignToSitemap(filePath, acc, url);
         }
-        return acc[dir];
+        return acc;
       }, sitemap);
     }
   }
+  sitemap = {children: [sitemap]};
 });
 
-function assignToSitemap(filePath, sitemap, fileName)
+function findAssigneNode(tree, file)
+{
+  if (!tree.children)
+    tree.children = [];
+  
+  let node = tree.children.find((elem) =>
+  {
+    if (elem.file == file)
+      return elem
+  });
+  if (!node)
+  {
+    node = {file: file};
+    tree.children.push(node);
+  }
+  return node;
+}
+
+function assignToSitemap(filePath, sitemap, url)
 {
   readFile(`${pageDir}/${filePath}`, "utf-8").then((data) =>
   {
-    if (sitemap[fileName])
-    {
-      sitemap[fileName].metadata = frontMatter(data).attributes;
-      sitemap[fileName].path = filePath;
-    }
-    else if (fileName == "index")
-    {
-      sitemap.metadata = frontMatter(data).attributes;
-      sitemap.path = filePath;
-    }
-    else
-      sitemap[fileName] = {metadata: frontMatter(data).attributes, path: filePath};
+    let meta = {metadata: frontMatter(data).attributes, path: url};
+    Object.assign(sitemap, meta);
   });
 }
 

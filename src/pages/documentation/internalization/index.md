@@ -1,3 +1,8 @@
+---
+title: Documentation
+showDocNav: true
+---
+
 # {intern[Header] internationalization}
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

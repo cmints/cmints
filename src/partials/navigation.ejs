@@ -1,6 +1,18 @@
-<aside class="end">
-  <%= JSON.stringify(sitemap) %>
+<% if (items) { %>
+  <% if (items.length) { %>
   <ul>
-    <li>List1</li>
+  <% } %>
+      <% items.forEach(function(item){ %>
+      <li>
+          <% if (item.path) { %>
+            <a <%-href(item.path)%>><%= item.file %></a>
+          <% } else {  %>
+            <%= item.file %>
+          <% } %>
+          <%- include('navigation', {items: item.children}) %>
+      </li>
+      <% }) %>
+  <% if (items.length) { %>
   </ul>
-</aside>
+  <% } %>
+<% } %>

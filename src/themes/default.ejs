@@ -9,7 +9,11 @@
   <% include ../partials/header %>
 <main class="col5">
   <!-- Navigation Start -->
-  <%if (page.showDocNav) { %> <% include ../partials/navigation %> <% } %>
+  <%if (page.showDocNav) { %> 
+    <aside class="end">
+      <%- include('../partials/navigation', {items: sitemap.children}) %> 
+    </aside>
+  <% } %>
   <!-- Navigation End -->
 
   <article class="cell2-3">
