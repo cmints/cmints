@@ -3,34 +3,41 @@ theme: home
 title: I18n CMS | CMS with the internationalization done right
 ---
 
-<section class="cell2-4" id="main">
-  <h1>I18n CMS</h1>
-  <h2>CMS with the internationalization done right</h2>
-  <p>
-    <img src="http://via.placeholder.com/230x100">
-  </p>
-  <p>
-    <a href="">Get started</a>
-  </p>
+<section id="main">
+  <div class="content device">
+    <a href="/" class="cell1 end">
+      <img id="logo" src="/assets/images/logo.png">
+    </a>
+    <h2>CMS with the internationalization in mind</h2>
+    <p>
+      <a <%-href("documentation")%> class="button">Get started</a>
+    </p>
+  </div>
 </section>
-<section class="cell2-4" id="features">
-  <h1 class="project-name">Features</h1>
-  <div class="col2">
+<section id="features">
+  <div class="content">
+    <h1 class="project-name">Features</h1>
+  </div>
+  <div class="col4 cards device">
     <div>
       <h2>i18n</h2>
       <p>internationalization out of the box, no need to search for plugin.</p>
+      <a <%-href("documentation")%> class="button">Get started</a>
     </div>
     <div>
       <h2>Templates</h2>
       <p>Built in template support.</p>
+      <a <%-href("documentation")%> class="button">Get started</a>
     </div>
     <div>
       <h2>Markdown</h2>
       <p>Get CommonMark out of the box. Also you can keep writing your translation strings right inside Markdown files.</p>
+      <a <%-href("documentation")%> class="button">Get started</a>
     </div>
     <div>
       <h2>LESS</h2>
       <p>Modularize your CSS and use all features of LESS preprocessor.</p>
+      <a <%-href("documentation")%> class="button">Get started</a>
     </div>
   </div>
 </section>

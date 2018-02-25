@@ -1,0 +1,70 @@
+@import "variables.less";
+
+/*
+  Main sections
+ */
+
+main > section
+{
+  padding: 100px 0px;
+  text-align: center;
+}
+
+main > section#main
+{
+  h2
+  {
+    margin: 30px 0px 40px 0px;
+  }
+  .button
+  {
+    text-transform: uppercase;
+    padding: 15px 30px;
+    color: @content;
+    border: 1px solid @primary;
+    font-size: 30px;
+  }
+  background-color: @secondary;
+}
+
+main > section#features
+{
+  .cards
+  {
+    .button
+    {
+      margin-top: 20px;
+      color: @primary-reverse;
+      border: 1px solid @primary-reverse;
+      align-self: end;
+      justify-self: center;
+    }
+    div
+    {
+      display: grid;
+      padding: 10px;
+    }
+    padding: 0px 20px;
+    margin-top: 50px;
+  }
+  h1
+  {
+    margin: 0px;
+  }
+  background-color: @primary;
+  color: @primary-reverse;
+}
+
+main .content
+{
+  max-width: 500px;
+  margin: 0px auto;
+}
+
+.button
+{
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+}

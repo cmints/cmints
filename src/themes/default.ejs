@@ -7,22 +7,24 @@
 </head>
 <body>
   <% include ../partials/header %>
-<main class="col5">
-  <!-- Navigation Start -->
-  <%if (page.showDocNav) { %> 
-    <aside class="end">
-      <%- include('../partials/navigation', {items: [sitemap]}) %> 
-    </aside>
-  <% } %>
-  <!-- Navigation End -->
+<main>
+  <div class="col5 device">
+    <!-- Navigation Start -->
+    <%if (page.showDocNav) { %> 
+      <aside>
+        <%- include('../partials/navigation', {items: [sitemap]}) %> 
+      </aside>
+    <% } %>
+    <!-- Navigation End -->
 
-  <article class="cell2-3">
-    <%- body %>
-  </article>
+    <article class="cell2-4">
+      <%- body %>
+    </article>
 
-  <!-- TOC Start -->
-  <%if (page.showDocNav) { %> <% include ../partials/toc %> <% } %>
-  <!-- TOC End -->
+    <!-- TOC Start -->
+    <%if (page.showDocNav) { %> <% include ../partials/toc %> <% } %>
+    <!-- TOC End -->
+  </div>
 </main>
   <% include ../partials/footer %>
 </body>

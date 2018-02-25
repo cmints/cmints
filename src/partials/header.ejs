@@ -1,30 +1,38 @@
-<header class="col5 middle">
-  <a href="/" class="cell1 end"><img id="logo" src="/assets/images/logo.png"></a>
-  <nav class="cell2-3">
+<header>
+  <div class="col5 middle device">
+    <nav class="cell1-4">
+      <ul>
+        <li>
+           <a href="/" class="cell1 end"><img id="logo" src="/assets/images/logo.png"></a>
+        </li>
+        <li>
+          <a <%-href("documentation")%> >
+            {menu-item-docs(header)}
+          </a>
+        </li>
+        <li>
+          <a <%-href("news")%> >
+            {menu-item-news(header)}
+          </a>
+        </li>
+        <li>
+          <a <%-href("blog")%> >
+            {menu-item-blog(header)}
+          </a>
+        </li>
+      </ul>
+    </nav>
     <ul>
       <li>
-        <a <%-href("documentation")%> >
-          {menu-item-docs(header)}
-        </a>
-      </li>
-      <li>
-        <a <%-href("news")%> >
-          {menu-item-news(header)}
-        </a>
-      </li>
-      <li>
-        <a <%-href("blog")%> >
-          {menu-item-blog(header)}
-        </a>
+        <form class="cell5" id="search">
+          <input type="search" id="search">
+        </form>
       </li>
       <li>
         <a href="https://github.com/Manvel/cmints">
-          Github
+          <img id="logo" src="/assets/images/github-mark.png">
         </a>
       </li>
     </ul>
-  </nav>
-  <form class="cell4" id="search">
-    <input type="search" id="search">
-  </form>
+  </div>
 </header>

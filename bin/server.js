@@ -133,20 +133,26 @@ function onRequest(req, res)
     return;
   }
 
+  // Do not allow index in the address
+  if (!ext && name == "index")
+  {
+    resourceNotFound(res);
+    return;
+  }
+
   if (!ext && !(ext = findExtension(page)))
   {
     page = path.join(page, "index");
     ext = findExtension(page);
   }
 
-  // Do not allow index in the address and missing files
-  if (!ext || name == "index")
+  if (!ext)
   {
     resourceNotFound(res);
     return;
   }
 
-  let {encoding, type} = resourcesMap[ext];
+  let {encoding, type} = resourcesMap[ext] || {};
   // Not supported types
   if (!encoding || !type)
   {
@@ -162,6 +168,7 @@ function onRequest(req, res)
     {
       if(reason.code == "ENOENT")
       {
+        console.log("here");
         resourceNotFound(res);
       }
       else
@@ -216,6 +223,16 @@ function parseTemplate(page, ext, locale)
       const pageData = frontMatter(data);
       let pageContent;
 
+      // Add paramenters and EJS helpers to the template
+      templateConfig.page = pageData.attributes;
+      templateConfig.href = (pagePath) =>
+        i18n.hrefAndLang(pagePath, locale).join(" ");
+      templateConfig.currentPage = removeIndex(page);
+      templateConfig.currentLocale = locale;
+      templateConfig.sitemap = sitemap;
+      templateConfig.getPageLocales = (pagePath) =>
+        i18n.getPageLocales(pagePath ? pagePath : page, locale);
+
       // generate page content according to file type
       switch (ext)
       {
@@ -228,23 +245,14 @@ function parseTemplate(page, ext, locale)
           });
           break
         case ".ejs":
-          pageContent = ejs.render(pageData.body);
+          pageContent = ejs.render(pageData.body, templateConfig);
           break
         default:
           pageContent = pageData.body;
       }
 
       // render themes with page contents
-      templateConfig.page = pageData.attributes;
       templateConfig.body = pageContent;
-      templateConfig.currentPage = removeIndex(page);
-      templateConfig.currentLocale = locale;
-      templateConfig.sitemap = sitemap;
-      templateConfig.href = (pagePath) =>
-        i18n.hrefAndLang(pagePath, locale).join(" ");
-      templateConfig.getPageLocales = (pagePath) =>
-        i18n.getPageLocales(pagePath ? pagePath : page, locale);
-
       let layout = pageData.attributes.theme || "default";
       return ejsRender(`${srcPath}/themes/${layout}.ejs`, templateConfig);
     }).then((html) =>

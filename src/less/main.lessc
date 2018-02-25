@@ -3,14 +3,21 @@
 
 body
 {
-  background-color: @primary;
-  color: #ddd;
+  color: @content;
   margin: 0;
 }
 
 a
 {
-  color: @link-color;
+  color: @primary;
+  text-decoration: none;
+}
+
+.device
+{
+  max-width: @desktop-width;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /*
@@ -19,40 +26,30 @@ a
 
 header
 {
-  color: @link-color;
-  background-color: @secondary;
-}
-
-header ul
-{
-  padding: 0;
-  list-style: none;
-}
-
-header ul li
-{
-  display: inline-block;
-  margin: 0 10px;
-  padding: 10px; 
-}
-
-/*
-  Main sections
- */
-
-main > section#main
-{
-  text-align: center;
-}
-
-main > section#features
-{
-  text-align: center;
+  a
+  {
+    text-transform: uppercase;
+  }
+  ul
+  {
+    li
+    {
+      align-self: center;
+      margin: 0 10px;
+      padding: 10px;
+    }
+    display: flex;
+    padding: 0;
+    list-style: none;
+  }
+  color: @primary;
+  box-shadow: 0px 0px 5px 1px #cacaca;
+  position: relative;
 }
 
 footer
 {
-  background-color: @secondary;
+  box-shadow: 0px -1px 1px 0px #cacaca;
   height: 50px;
 }
 
