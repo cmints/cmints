@@ -11,8 +11,8 @@
   <div class="col5 device">
     <!-- Navigation Start -->
     <%if (page.showDocNav) { %> 
-      <aside>
-        <%- include('../partials/navigation', {items: [sitemap]}) %> 
+      <aside id="sitemap">
+        <%- include('../partials/navigation', {items: [getSitemap("documentation")]}) %> 
       </aside>
     <% } %>
     <!-- Navigation End -->
@@ -22,7 +22,11 @@
     </article>
 
     <!-- TOC Start -->
-    <%if (page.showDocNav) { %> <% include ../partials/toc %> <% } %>
+    <%if (page.showDocNav) { %>
+      <aside id="toc">
+        <% include ../partials/toc %> 
+      </aside>
+    <% } %>
     <!-- TOC End -->
   </div>
 </main>

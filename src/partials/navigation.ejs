@@ -5,11 +5,14 @@
       <% items.forEach(function(item){ %>
       <li>
           <% if (item.url) { %>
-            <a <%-href(item.url)%>><%= item.file %></a>
+            <a <%-href(item.url)%>
+              <% if (item.url == currentPage) { %>class="active"<% } %>>
+              <%= item.file %>
+            </a>
           <% } else {  %>
             <%= item.file %>
           <% } %>
-          <%- include('navigation', {items: item.children}) %>
+          <%- include('navigation', {items: item.children, parent: item}) %>
       </li>
       <% }) %>
   <% if (items.length) { %>

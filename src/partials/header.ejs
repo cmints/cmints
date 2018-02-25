@@ -3,23 +3,16 @@
     <nav class="cell1-4">
       <ul>
         <li>
-           <a href="/" class="cell1 end"><img id="logo" src="/assets/images/logo.png"></a>
+           <a href="/" class="cell1 end"><img src="/assets/images/logo.png"></a>
         </li>
-        <li>
-          <a <%-href("documentation")%> >
-            {menu-item-docs(header)}
-          </a>
-        </li>
-        <li>
-          <a <%-href("news")%> >
-            {menu-item-news(header)}
-          </a>
-        </li>
-        <li>
-          <a <%-href("blog")%> >
-            {menu-item-blog(header)}
-          </a>
-        </li>
+        <% for (let navigation of navigations) { %>
+          <li>
+            <a <%-href(navigation.path)%>
+              <% if (navigation.path == currentPage) { %>class="active"<% } %>>
+              {<%-navigation.stringId%>(header)}
+            </a>
+          </li>
+        <% } %>
       </ul>
     </nav>
     <ul>
@@ -29,8 +22,8 @@
         </form>
       </li>
       <li>
-        <a href="https://github.com/Manvel/cmints">
-          <img id="logo" src="/assets/images/github-mark.png">
+        <a href="https://github.com/Manvel/cmints" target="_blank">
+          <img src="/assets/images/github-mark.png">
         </a>
       </li>
     </ul>

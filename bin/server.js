@@ -18,21 +18,16 @@ const walker = promisify(require("../lib/custom-utils").walker);
 const fileExist = fs.existsSync;
 const pageExtestions = [".md", ".ejs", ".html"];
 const less = require("less");
-const {createSitemap} = require("../lib/sitemap");
+const {createSitemap, getSitemap} = require("../lib/sitemap");
 
 // Path
-const {srcPath, pageDir, assetsDir} = require("../config");
+const {srcPath, pageDir, assetsDir, templateData} = require("../config");
 
 // Sitemap holds also the metadata information for each page.
 let sitemap = {};
 
 // Default website data
-let templateConfig = {
-  site: {
-    title: "I18n CMS",
-    description: "CMS with the internationalization done right"
-  }
-};
+let templateConfig = templateData;
 
 // Setup markdown
 let markdown = markdownIt({
@@ -84,7 +79,7 @@ let i18nWatchDirs = [`${pageDir}`, `${srcPath}/themes`,
 glob(`${pageDir}/**/*+(${pageExtestions.join("|")})`, {}).then((filePaths) =>
 {
   filePaths = filePaths.map((filePath) => filePath.replace(`${pageDir}/`, ""));
-  createSitemap(sitemap, filePaths);
+  createSitemap(filePaths);
 });
 
 i18nInit(`${srcPath}/locales`, i18nWatchDirs).then((ready) =>
@@ -229,7 +224,7 @@ function parseTemplate(page, ext, locale)
         i18n.hrefAndLang(pagePath, locale).join(" ");
       templateConfig.currentPage = removeIndex(page);
       templateConfig.currentLocale = locale;
-      templateConfig.sitemap = sitemap;
+      templateConfig.getSitemap = (url) => getSitemap(url);
       templateConfig.getPageLocales = (pagePath) =>
         i18n.getPageLocales(pagePath ? pagePath : page, locale);
 
