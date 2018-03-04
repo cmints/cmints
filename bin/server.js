@@ -163,7 +163,6 @@ function onRequest(req, res)
     {
       if(reason.code == "ENOENT")
       {
-        console.log("here");
         resourceNotFound(res);
       }
       else

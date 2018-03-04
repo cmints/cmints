@@ -1,5 +1,4 @@
 ---
-index.md
 title: test/path1 test
 ---
 
