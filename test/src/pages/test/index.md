@@ -1,6 +1,8 @@
 ---
-title: Index test
+title: Index title
 theme: test/default
 ---
 
-# {test-heading-1[Page Heading] heading 1 }
+# heading 1
+
+Lorem ipsum
