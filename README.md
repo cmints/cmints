@@ -5,12 +5,12 @@ CMS with the internationalization in mind
 
 ```bash
 npm i
-npm run start
+npm start
 ```
 
 ## Test
 
 ```bash
-npm run start
-npm run test
+npm start
+npm test
 ```
