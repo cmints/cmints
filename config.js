@@ -14,7 +14,20 @@ const templateData =
       {path: "blog", stringId: "menu-item-blog"}]
 };
 
+// See https://markdown-it.github.io/markdown-it/#MarkdownIt.new
+const markdownOptions =
+{
+  html:         true,
+  xhtmlOut:     false,
+  breaks:       false,
+  langPrefix:   'language-',
+  linkify:      false,
+  typographer:  false,
+  quotes: '“”‘’'
+};
+
 exports.srcPath = srcPath;
 exports.pageDir = pageDir;
 exports.assetsDir = assetsDir;
 exports.templateData = templateData;
+exports.markdownOptions = markdownOptions;

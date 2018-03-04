@@ -20,42 +20,18 @@ const pageExtestions = [".md", ".ejs", ".html"];
 const less = require("less");
 const {createSitemap, getSitemap} = require("../lib/sitemap");
 
-// Path
-const {srcPath, pageDir, assetsDir, templateData} = require("../config");
+// Configurations
+const {assetsDir, markdownOptions, pageDir, srcPath, templateData} = require("../config");
 
+// Setup markdown
+const markdown = markdownIt(markdownOptions).use(markdownItTocAndAnchor);
 // Sitemap holds also the metadata information for each page.
 let sitemap = {};
-
 // Default website data
 let templateConfig = templateData;
 
-// Setup markdown
-let markdown = markdownIt({
-  html:         true,        // Enable HTML tags in source
-  xhtmlOut:     false,        // Use '/' to close single tags (<br />).
-                              // This is only for full CommonMark compatibility.
-  breaks:       false,        // Convert '\n' in paragraphs into <br>
-  langPrefix:   'language-',  // CSS language prefix for fenced blocks. Can be
-                              // useful for external highlighters.
-  linkify:      false,        // Autoconvert URL-like text to links
 
-  // Enable some language-neutral replacement + quotes beautification
-  typographer:  false,
-
-  // Double + single quotes replacement pairs, when typographer enabled,
-  // and smartquotes on. Could be either a String or an Array.
-  //
-  // For example, you can use '«»„“' for Russian, '„“‚‘' for German,
-  // and ['«\xA0', '\xA0»', '‹\xA0', '\xA0›'] for French (including nbsp).
-  quotes: '“”‘’',
-
-  // Highlighter function. Should return escaped HTML,
-  // or '' if the source string is not changed and should be escaped externally.
-  // If result starts with <pre... internal wrapper is skipped.
-  highlight: function (/*str, lang*/) { return ''; }
-}).use(markdownItTocAndAnchor);
-
-let resourcesMap = {
+const resourcesMap = {
   ".html": {encoding: "utf-8", type: "text/html"},
   ".ejs": {encoding: "utf-8", type: "text/html"},
   ".md": {encoding: "utf-8", type: "text/html"},
@@ -73,8 +49,7 @@ let resourcesMap = {
   ".svg": {encoding: "utf-8", type: "application/image/svg+xml"}
 };
 
-let i18nWatchDirs = [`${pageDir}`, `${srcPath}/themes`,
-                     `${srcPath}/partials`];
+let i18nWatchDirs = [`${pageDir}`, `${srcPath}/themes`, `${srcPath}/partials`];
 
 glob(`${pageDir}/**/*+(${pageExtestions.join("|")})`, {}).then((filePaths) =>
 {
@@ -155,7 +130,7 @@ function onRequest(req, res)
   }
   else if (pageExtestions.includes(ext))
   {
-    parseTemplate(page, ext, locale).then((html) =>
+    parsePage(page, ext, locale).then((html) =>
     {
       html = i18n.translate(html, page, locale);
       writeResponse(res, html, encoding, type);
@@ -208,7 +183,16 @@ function removeIndex(page)
   return path.join(...page);
 }
 
-function parseTemplate(page, ext, locale)
+/**
+ * Parse page according to the extension and passes various parameters to the
+ * template
+ * @param  {String} page   Path to the page in pages directory (without ext.)
+ * @param  {String} ext    Extension of the file -> [".md", ".ejs", ".html"]
+ * @param  {String} locale Locale of the request, used to pass various
+ *                         parameters to the template
+ * @return {Promise}       Promise object
+ */
+let parsePage = (page, ext, locale) =>
 {
   return new Promise((resolve, reject) =>
   {
@@ -282,3 +266,5 @@ function internalServerError(res, message)
   res.writeHead(500);
   res.end.apply(res, message ? [message, "utf-8"] : []);
 }
+
+exports.parsePage = parsePage;
