@@ -9,10 +9,9 @@ const readFile = promisify(fs.readFile);
 const fileExist = fs.existsSync;
 const {parsePage} = require("../lib/parser");
 
-const pageExtestions = [".md", ".ejs", ".html"];
-
 // Configurations
-const {assetsDir, pageDir, srcPath} = require("../config");
+const {assetsDir, layoutsDir, partialsDir, lessDir, lessTargetDir, pageDir,
+      srcPath, pageExtestions} = require("../config");
 
 
 // Sitemap holds also the metadata information for each page.
@@ -36,13 +35,14 @@ const resourcesMap = {
   ".svg": {encoding: "utf-8", type: "application/image/svg+xml"}
 };
 
-let i18nWatchDirs = [`${pageDir}`, `${srcPath}/themes`, `${srcPath}/partials`];
-
+let i18nWatchDirs = [pageDir, partialsDir, layoutsDir];
 i18nInit(`${srcPath}/locales`, i18nWatchDirs).then((ready) =>
 {
   if (ready)
     runServer();
 });
+
+lessProcessor.init(lessDir, lessTargetDir);
 
 function runServer()
 {
@@ -59,8 +59,6 @@ function runServer()
 
   server.listen(port);
 }
-
-lessProcessor.init(`${srcPath}/less`, `${assetsDir}/css`);
 
 function onRequest(req, res)
 {
