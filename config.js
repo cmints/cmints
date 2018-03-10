@@ -1,12 +1,12 @@
 // Paths
 const srcPath = "./src";
 const pageDir = `${srcPath}/pages`;
-const assetsDir = `${srcPath}/assets`;
+const publicDir = `${srcPath}/public`;
 const themeDir = `${srcPath}/theme`;
 const layoutsDir = `${themeDir}/layouts`;
 const partialsDir = `${themeDir}/partials`;
 const lessDir = `${themeDir}/less`;
-const lessTargetDir = `${assetsDir}/css`;
+const lessTargetDir = `${publicDir}/css`;
 
 // Supported Page extensions
 const pageExtestions = [".md", ".ejs", ".html"];
@@ -43,7 +43,7 @@ exports.layoutsDir = layoutsDir;
 exports.partialsDir = partialsDir;
 exports.lessDir = lessDir;
 exports.lessTargetDir = lessTargetDir;
-exports.assetsDir = assetsDir;
+exports.publicDir = publicDir;
 exports.templateData = templateData;
 exports.markdownOptions = markdownOptions;
 exports.pageExtestions = pageExtestions;

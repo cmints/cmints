@@ -10,7 +10,7 @@ const fileExist = fs.existsSync;
 const {parsePage} = require("../lib/parser");
 
 // Configurations
-const {assetsDir, layoutsDir, partialsDir, lessDir, lessTargetDir, pageDir,
+const {publicDir, layoutsDir, partialsDir, lessDir, lessTargetDir, pageDir,
       srcPath, pageExtestions} = require("../config");
 
 

@@ -3,7 +3,7 @@ const targetDir = "./test/src";
 const {srcPath} = require.main.require("config");
 
 // List of folders to be removed after the test
-const testFolders =["src/assets/test/", "src/pages/test/",
+const testFolders =["src/public/test/", "src/pages/test/",
                     "src/locales/ru/test/", "src/theme/layouts/test/"];
 
 function importTest(name, path)
