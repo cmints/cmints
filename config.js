@@ -1,5 +1,6 @@
 // Paths
 const srcPath = "./src";
+const contentDir = `./content`;
 const pageDir = `${srcPath}/pages`;
 const publicDir = `${srcPath}/public`;
 const themeDir = `${srcPath}/theme`;
@@ -37,6 +38,7 @@ const markdownOptions =
 };
 
 exports.srcPath = srcPath;
+exports.contentDir = contentDir;
 exports.pageDir = pageDir;
 exports.themeDir = themeDir;
 exports.layoutsDir = layoutsDir;

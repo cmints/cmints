@@ -2,13 +2,18 @@ const {assert, expect} = require("chai");
 const should = require("chai").should();
 const {get} = require("http");
 const server = `http://localhost:4000`;
+const {contentDir} = require.main.require("config");
+const fs = require("fs");
+const fileExist = fs.existsSync;
 
 const pathCodes = {
   200: ["", "test", "ru/test", "ru/test", "test/path1", "test/path1/subpath1",
-        "public/test/main.css"],
+        "test/main.css"],
   404: ["index", "test/index", "ru/test/index", "test/index.md", "test/path1.md",
-  "test/logo.png", "test/main.css" /*, Fixme "ru/test/path1" */]
+        "test/logo.png", "public/test/main.css" /*, Fixme "ru/test/path1" */]
 };
+const caches = ["en/test/index.html", "ru/test/index.html", "en/test/path1.html",
+                "test/main.css"];
 
 for (let code in pathCodes)
 {
@@ -17,6 +22,23 @@ for (let code in pathCodes)
     requestCodes(`${server}/${requestPath}`, Number(code));
   }
 }
+
+// Testing the cache
+describe(`Test if files have been cached`, () =>
+{
+  for (let cachedFile of caches)
+  {
+    const filePath = `${contentDir}/${cachedFile}`;
+    describe(`Does ${filePath} exist`, () =>
+    {
+      it("Should exist", (done) =>
+      {
+        fileExist(filePath).should.equal(true);
+        done();
+      });
+    });
+  }
+});
 
 function requestCodes(url, code)
 {

@@ -8,10 +8,11 @@ const lessProcessor = require("../lib/less-processor");
 const readFile = promisify(fs.readFile);
 const fileExist = fs.existsSync;
 const {parsePage} = require("../lib/parser");
+const outputFile = promisify(require("fs-extra").outputFile);
 
 // Configurations
 const {publicDir, layoutsDir, partialsDir, lessDir, lessTargetDir, pageDir,
-      srcPath, pageExtestions} = require("../config");
+      contentDir, srcPath, pageExtestions} = require("../config");
 
 
 // Sitemap holds also the metadata information for each page.
@@ -107,12 +108,21 @@ function onRequest(req, res)
   {
     resourceNotImplemented(res);
   }
+  else if (cachePath = getCachedFilePath(page, ext, locale)) // Is cached
+  {
+    readFile(cachePath).then((data) =>
+    {
+      writeResponse(res, data, encoding, type);
+    });
+  }
   else if (pageExtestions.includes(ext))
   {
     parsePage(page, ext, locale).then((html) =>
     {
       html = i18n.translate(html, page, locale);
       writeResponse(res, html, encoding, type);
+      // cache
+      outputFile(path.join(contentDir, locale, page) + ".html", html, {encoding});
     }).catch((reason) =>
     {
       if(reason.code == "ENOENT")
@@ -125,17 +135,38 @@ function onRequest(req, res)
       }
     });
   }
-  else
+  else if (fileExist(path.join(publicDir, page) + ext))
   {
-    readFile(path.join(srcPath, page) + ext, encoding).then((data) =>
+    readFile(path.join(publicDir, page) + ext, encoding).then((data) =>
     {
       writeResponse(res, data, encoding, type);
-    }).catch(reason =>
-    {
-      if(reason.code == "ENOENT")
-        resourceNotFound(res);
+      // cache
+      outputFile(path.join(contentDir, page) + ext, data, {encoding});
     });
   }
+  else
+  {
+    resourceNotFound(res);
+  }
+}
+
+/**
+ * Get the filePath if the file is cached
+ * @param {String} requestPath    requestPath without extension
+ * @param {String} ext            Extension of the file
+ * @param {String} locale         Locale directory name
+ * @return {String}               Return the path or false if not cached
+ */
+function getCachedFilePath(requestPath, ext, locale)
+{
+  const resourcePath = path.join(contentDir, requestPath);
+  const htmlPath = path.join(contentDir, locale, requestPath);
+  if (fileExist(resourcePath + ext))
+    return resourcePath + ext;
+  else if (fileExist(htmlPath + ".html"))
+    return htmlPath + ".html";
+  else
+    return false;
 }
 
 /**
