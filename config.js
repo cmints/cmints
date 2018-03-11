@@ -8,6 +8,7 @@ const layoutsDir = `${themeDir}/layouts`;
 const partialsDir = `${themeDir}/partials`;
 const lessDir = `${themeDir}/less`;
 const lessTargetDir = `${publicDir}/css`;
+const localesDir = `${srcPath}/locales`;
 
 // Supported Page extensions
 const pageExtestions = [".md", ".ejs", ".html"];
@@ -46,6 +47,7 @@ exports.partialsDir = partialsDir;
 exports.lessDir = lessDir;
 exports.lessTargetDir = lessTargetDir;
 exports.publicDir = publicDir;
+exports.localesDir = localesDir;
 exports.templateData = templateData;
 exports.markdownOptions = markdownOptions;
 exports.pageExtestions = pageExtestions;

@@ -9,11 +9,12 @@ const readFile = promisify(fs.readFile);
 const fileExist = fs.existsSync;
 const {parsePage} = require("../lib/parser");
 const outputFile = promisify(require("fs-extra").outputFile);
+const glob = promisify(require("glob").glob);
+const isStatic = process.argv[2] == "--static";
 
 // Configurations
 const {publicDir, layoutsDir, partialsDir, lessDir, lessTargetDir, pageDir,
-      contentDir, srcPath, pageExtestions} = require("../config");
-
+      contentDir, localesDir, srcPath, pageExtestions} = require("../config");
 
 // Sitemap holds also the metadata information for each page.
 let sitemap = {};
@@ -39,7 +40,9 @@ const resourcesMap = {
 let i18nWatchDirs = [pageDir, partialsDir, layoutsDir];
 i18nInit(`${srcPath}/locales`, i18nWatchDirs).then((ready) =>
 {
-  if (ready)
+  if (isStatic)
+    generateStatic();
+  else (ready)
     runServer();
 });
 
@@ -151,6 +154,41 @@ function onRequest(req, res)
 }
 
 /**
+ * Generates static website
+ */
+function generateStatic()
+{
+  // Generate public
+  glob(`${publicDir}/**/*.*`).then((files) =>
+  {
+    for (const file of files)
+    {
+      onRequest({url: file.replace(publicDir, "")});
+    }
+  });
+
+  // Generate pages
+  const pages = glob(`${pageDir}/**/*.*`);
+  const locales = glob(`${localesDir}/*`);
+  Promise.all([pages, locales]).then(([files, locales]) =>
+  {
+    locales = locales.map((locale) => path.parse(locale).base);
+    for (let file of files)
+    {
+      for (const locale of locales)
+      {
+        file = file.replace(pageDir, "");
+        let {dir, name} = path.parse(file);
+        if (name == "index")
+          onRequest({url: path.join("/", locale, dir)});
+        else
+          onRequest({url: path.join("/", locale, dir, name)});
+      }
+    }
+  });
+}
+
+/**
  * Get the filePath if the file is cached
  * @param {String} requestPath    requestPath without extension
  * @param {String} ext            Extension of the file
@@ -182,24 +220,37 @@ function findExtension(page)
 
 function writeResponse(res, data, encoding, type)
 {
+  // Prevent writing head when generating static website
+  if (isStatic)
+    return;
+
   res.writeHead(200, { "Content-Type": type });
   res.end(data, encoding);
 }
 
 function resourceNotFound(res)
 {
+  if (isStatic)
+    return;
+
   res.writeHead(404);
   res.end();
 }
 
 function resourceNotImplemented(res)
 {
+  if (isStatic)
+    return;
+
   res.writeHead(501);
   res.end();
 }
 
 function internalServerError(res, message)
 {
+  if (isStatic)
+    return;
+
   res.writeHead(500);
   res.end.apply(res, message ? [message, "utf-8"] : []);
 }
