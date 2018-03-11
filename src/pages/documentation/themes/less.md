@@ -1,5 +1,5 @@
 ---
-title: Documentation
+title: Less
 showDocNav: true
 ---
 

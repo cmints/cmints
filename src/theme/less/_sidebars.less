@@ -1,9 +1,44 @@
 #sitemap
 {
   .navigation-link;
+  ul
+  {
+    padding: 0px;
+  }
+  > ul > ul
+  {
+    margin-bottom: 15px;
+  }
 }
 
 #toc
 {
   .navigation-link;
+  > ul
+  {
+    ul
+    {
+      padding: 0px 15px;
+    }
+    padding: 0px;
+  }
+}
+
+#sitemap,
+#toc
+{
+  padding: 0px 20px;
+  ul
+  {
+    list-style: none;
+    margin: 0px;
+  }
+  h2
+  {
+    display: inline-block;
+    margin: 0px 0px 10px 0px;
+    padding-top: 15px;
+    border-top: solid 1px @tertiary;
+    color: @primary;
+  }
 }

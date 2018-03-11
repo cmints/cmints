@@ -4,6 +4,11 @@
   Main sections
  */
 
+main
+{
+  padding: 0px;
+}
+
 main > section
 {
   padding: 100px 0px;
@@ -31,6 +36,7 @@ main > section#main
   .button:hover
   {
     background-color: @primary;
+    color: @primary-reverse;
   }
   background-color: @secondary;
 }
@@ -46,6 +52,11 @@ main > section#features
       border: 1px solid @primary-reverse;
       align-self: end;
       justify-self: center;
+    }
+    .button:hover
+    {
+      background-color: @primary-reverse;
+      color: @primary;
     }
     div
     {

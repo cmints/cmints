@@ -1,0 +1,12 @@
+<ul>
+  <% let items = getSitemap("documentation").children; %>
+  <% items.forEach(function(item) { %>
+    <li>
+      <h2><%= item.metadata.title %></h2>
+    </li>
+    <ul>
+      <%- include('../partials/navigation', {items: [{url: item.url, title: item.metadata.subTitle}]}) %>
+      <%- include('../partials/navigation', {items: item.children}) %>
+    </ul>
+  <% }); %>
+</ul>

@@ -11,6 +11,7 @@ const {parsePage} = require("../lib/parser");
 const outputFile = promisify(require("fs-extra").outputFile);
 const glob = promisify(require("glob").glob);
 const isStatic = process.argv[2] == "--static";
+const isCache = process.argv[2] != "--no-cache";
 
 // Configurations
 const {publicDir, layoutsDir, partialsDir, lessDir, lessTargetDir, pageDir,
@@ -111,7 +112,7 @@ function onRequest(req, res)
   {
     resourceNotImplemented(res);
   }
-  else if (cachePath = getCachedFilePath(page, ext, locale)) // Is cached
+  else if (isCache && (cachePath = getCachedFilePath(page, ext, locale)))
   {
     readFile(cachePath).then((data) =>
     {
@@ -125,7 +126,8 @@ function onRequest(req, res)
       html = i18n.translate(html, page, locale);
       writeResponse(res, html, encoding, type);
       // cache
-      outputFile(path.join(contentDir, locale, page) + ".html", html, {encoding});
+      if (isCache)
+        outputFile(path.join(contentDir, locale, page) + ".html", html, {encoding});
     }).catch((reason) =>
     {
       if(reason.code == "ENOENT")
@@ -144,7 +146,8 @@ function onRequest(req, res)
     {
       writeResponse(res, data, encoding, type);
       // cache
-      outputFile(path.join(contentDir, page) + ext, data, {encoding});
+      if (isCache)
+        outputFile(path.join(contentDir, page) + ext, data, {encoding});
     });
   }
   else
