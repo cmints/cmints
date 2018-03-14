@@ -9,6 +9,7 @@ const partialsDir = `${themeDir}/partials`;
 const lessDir = `${themeDir}/less`;
 const lessTargetDir = `${publicDir}/css`;
 const localesDir = `${srcPath}/locales`;
+const {getLanguage, highlight} = require("highlight.js");
 
 // Supported Page extensions
 const pageExtestions = [".md", ".ejs", ".html"];
@@ -35,7 +36,11 @@ const markdownOptions =
   langPrefix:   'language-',
   linkify:      false,
   typographer:  false,
-  quotes: '“”‘’'
+  quotes: '“”‘’',
+  highlight(str, lang)
+  {
+    return (lang && getLanguage(lang)) ? highlight(lang, str).value : "";
+  }
 };
 
 exports.srcPath = srcPath;

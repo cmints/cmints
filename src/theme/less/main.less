@@ -4,11 +4,14 @@
 @import "_header.less";
 @import "_sidebars.less";
 @import "_footer.less";
+@import "highlightjs/tomorrow";
 
 body
 {
   color: @content;
   margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5rem;
 }
 
 a
@@ -34,8 +37,16 @@ article
 {
   h1
   {
+    font-weight: 300;
     margin: 0px;
-    padding-bottom: 10px;
+    padding-bottom: 0.5rem;
     border-bottom: solid 1px @tertiary;
+  }
+  code
+  {
+    line-height: 1rem;
+    display: block;
+    padding: 1rem;
+    background-color: @secondary;
   }
 }

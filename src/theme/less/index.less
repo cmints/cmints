@@ -6,7 +6,23 @@
 
 main
 {
-  padding: 0px;
+  padding: 0;
+  .button
+  {
+    display: inline-block;
+    text-decoration: none;
+    padding: 0.6rem 1rem;
+    border-radius: 5px;
+  }
+  .button:hover
+  {
+    transition: background-color 0.2s 0s;
+  }
+  .content
+  {
+    max-width: 500px;
+    margin: 0px auto;
+  }
 }
 
 main > section
@@ -19,19 +35,19 @@ main > section#main
 {
   img
   {
-    height: 50px;
+    height: 3rem;
   }
   h2
   {
-    margin: 30px 0px 40px 0px;
+    margin: 2rem 0 2.5rem 0;
   }
   .button
   {
     text-transform: uppercase;
-    padding: 15px 30px;
+    padding: 1.2rem 2rem;
     color: @content;
     border: 1px solid @primary;
-    font-size: 30px;
+    font-size: 2rem;
   }
   .button:hover
   {
@@ -47,7 +63,7 @@ main > section#features
   {
     .button
     {
-      margin-top: 20px;
+      margin-top: 1rem;
       color: @primary-reverse;
       border: 1px solid @primary-reverse;
       align-self: end;
@@ -61,10 +77,9 @@ main > section#features
     div
     {
       display: grid;
-      padding: 10px;
+      padding: 0.6rem;
     }
-    padding: 0px 20px;
-    margin-top: 50px;
+    margin-top: 3rem;
   }
   h1
   {
@@ -72,18 +87,4 @@ main > section#features
   }
   background-color: @primary;
   color: @primary-reverse;
-}
-
-main .content
-{
-  max-width: 500px;
-  margin: 0px auto;
-}
-
-.button
-{
-  display: inline-block;
-  text-decoration: none;
-  padding: 10px 15px;
-  border-radius: 5px;
 }

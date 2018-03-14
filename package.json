@@ -15,6 +15,7 @@
     "front-matter": "^2.3.0",
     "fs-extra": "^5.0.0",
     "glob": "^7.1.2",
+    "highlight.js": "^9.12.0",
     "less": "^2.7.3",
     "markdown-it": "^8.4.1",
     "markdown-it-toc-and-anchor": "^4.1.2"
