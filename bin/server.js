@@ -31,11 +31,12 @@ const resourcesMap = {
   ".png": {encoding: "binary", type: "image/png"},
   ".jpg": {encoding: "binary", type: "image/jpg"},
   ".gif": {encoding: "binary", type: "image/gif"},
-  ".woff": {encoding: "utf-8", type: "application/font-woff"},
-  ".ttf": {encoding: "utf-8", type: "application/font-ttf"},
-  ".eot": {encoding: "utf-8", type: "application/vnd.ms-fontobject"},
-  ".otf": {encoding: "utf-8", type: "application/font-otf"},
-  ".svg": {encoding: "utf-8", type: "application/image/svg+xml"}
+  ".woff": {encoding: "binary", type: "application/font-woff"},
+  ".woff2": {encoding: "binary", type: "font/woff2"},
+  ".ttf": {encoding: "binary", type: "application/font-ttf"},
+  ".eot": {encoding: "binary", type: "application/vnd.ms-fontobject"},
+  ".otf": {encoding: "binary", type: "application/font-otf"},
+  ".svg": {encoding: "binary", type: "application/image/svg+xml"}
 };
 
 let i18nWatchDirs = [pageDir, partialsDir, layoutsDir];
