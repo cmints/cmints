@@ -9,6 +9,22 @@
   },
   "test-anchor1": {
     "description": "Test anchor tag absolute",
-    "message": "Это <a>вторая ссылка</a> и <a1>первая</a1>"
+    "message": "Это <a2>вторая ссылка</a2> и <a1>первая</a1>"
+  },
+  "test-anchor2": {
+    "description": "Test anchor tag relative",
+    "message": "Это <a2>вторая ссылка</a2>, <a1>первая</a1> и <a3>третья ссылка</a3>"
+  },
+  "test-span": {
+    "description": "Test span",
+    "message": "Это <span2>второй span</span2> и <span1>первый</span1>"
+  },
+  "test-attribute1": {
+    "description": "Test attributes",
+    "message": "<div1 title='Div название' id='logo'><img1 title='Случайная картинка'>Картинка</div1>"
+  },
+  "test-unsuported-tag": {
+    "description": "Test unsuported tag",
+    "message": "<canvas>Неподдерживаемый i18n tag</canvas>"
   }
 }
