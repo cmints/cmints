@@ -5,6 +5,7 @@ const server = `http://localhost:4000`;
 const {contentDir} = require.main.require("config");
 const fs = require("fs");
 const fileExist = fs.existsSync;
+const isCache = process.argv[3] != "--no-cache";
 
 const pathCodes = {
   200: ["", "test", "ru/test", "ru/test", "test/path1", "test/path1/subpath1",
@@ -15,30 +16,25 @@ const pathCodes = {
 const caches = ["en/test/index.html", "ru/test/index.html", "en/test/path1.html",
                 "test/main.css"];
 
-for (let code in pathCodes)
+function testCaching()
 {
-  for (let requestPath of pathCodes[code])
+  // Testing the cache
+  describe(`Test if files have been cached`, () =>
   {
-    requestCodes(`${server}/${requestPath}`, Number(code));
-  }
-}
-
-// Testing the cache
-describe(`Test if files have been cached`, () =>
-{
-  for (let cachedFile of caches)
-  {
-    const filePath = `${contentDir}/${cachedFile}`;
-    describe(`Does ${filePath} exist`, () =>
+    for (let cachedFile of caches)
     {
-      it("Should exist", (done) =>
+      const filePath = `${contentDir}/${cachedFile}`;
+      describe(`Does ${filePath} exist`, () =>
       {
-        fileExist(filePath).should.equal(true);
-        done();
+        it("Should exist", (done) =>
+        {
+          fileExist(filePath).should.equal(true);
+          done();
+        });
       });
-    });
-  }
-});
+    }
+  });
+}
 
 function requestCodes(url, code)
 {
@@ -54,3 +50,14 @@ function requestCodes(url, code)
     });
   });
 }
+
+for (let code in pathCodes)
+{
+  for (let requestPath of pathCodes[code])
+  {
+    requestCodes(`${server}/${requestPath}`, Number(code));
+  }
+}
+
+if (isCache)
+  testCaching();

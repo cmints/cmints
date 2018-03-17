@@ -2,5 +2,13 @@
   "test-heading-1": {
     "description": "Test heading of main test page",
     "message": "Заголовок"
+  },
+  "test-fix": {
+    "description": "Test fix tag",
+    "message": "<fix2> тэг используется <fix1>-ом"
+  },
+  "test-anchor1": {
+    "description": "Test anchor tag absolute",
+    "message": "Это <a>вторая ссылка</a> и <a1>первая</a1>"
   }
 }

@@ -1,6 +1,6 @@
 ---
 title: Getting started
-navTitle: Overview
+navTitle: Overviews
 showDocNav: true
 ---
 

@@ -5,9 +5,51 @@ showDocNav: true
 
 # {config[Header] Configuration}
 
-{configuration-p1 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.}
+config.js in the root is where you can find all various website configurations:
+
+```javascript
+const templateData =
+{
+  site: {
+    title: "I18n CMS",
+    description: "CMS with the internationalization in mind"
+  },
+  navigations: [
+      {path: "documentation", stringId: "menu-item-docs"},
+      {path: "news", stringId: "menu-item-news"},
+      {path: "blog", stringId: "menu-item-blog"}]
+};
+
+// See https://markdown-it.github.io/markdown-it/#MarkdownIt.new
+const markdownOptions =
+{
+  html:         true,
+  xhtmlOut:     false,
+  breaks:       false,
+  langPrefix:   'language-',
+  linkify:      false,
+  typographer:  false,
+  quotes: '“”‘’',
+  highlight(str, lang)
+  {
+    return (lang && getLanguage(lang)) ? highlight(lang, str).value : "";
+  }
+};
+```
+
+## templateData
+
+*templateData* object holds the data which are passed to the ejs template. So you
+can directly access the values of the that object by simply refferencing them from the .ejs file:
+
+```javascript
+<% for (let navigation of navigations) { %>
+  <li>
+    <a <%-href(navigation.path)%>
+      <% if (navigation.path == currentPage) { %>class="active"<% } %>>
+      {<%-navigation.stringId%>(header)}
+    </a>
+  </li>
+<% } %>
+```
+

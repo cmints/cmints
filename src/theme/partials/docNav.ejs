@@ -6,8 +6,7 @@
     </li>
     <ul>
       <% let indexItem = {items: [item]}; %>
-      <% debugger; %>
-      <% if (item.url == "/documentation/getting-started") { %>
+      <% if (item.url == "documentation/getting-started") { %>
         <% indexItem = {items: [documentation]} %>
       <% } %>
       <%- include('../partials/navigation', indexItem) %>
