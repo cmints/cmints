@@ -1,6 +1,6 @@
 ---
 title: Pages
-Subtitle: Overview
+navTitle: Overview
 showDocNav: true
 ---
 

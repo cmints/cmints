@@ -1,11 +1,12 @@
 <% items.forEach(function(item){ %>
   <li>
     <% let title = ""; %>
-    <% if (item.metadata && item.metadata.title) { %>
+    <% if (!item.metadata) { %>
+      <% let title = item.url; %>
+    <% } else if (item.metadata.navTitle) { %>
+      <% title = item.metadata.navTitle; %>
+    <% } else if (item.metadata.title) { %>
       <% title = item.metadata.title; %>
-    <% } %>
-    <% if (item.title) { %>
-      <% title = item.title; %>
     <% } %>
     <% if (item.url) { %>
       <a <%-href(item.url)%>

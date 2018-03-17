@@ -1,5 +1,6 @@
 ---
 title: Documentation
+navTitle: Overview
 showDocNav: true
 ---
 

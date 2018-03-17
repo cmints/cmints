@@ -1,6 +1,6 @@
 ---
-title: Documentation
-subTitle: Overview
+title: I18n
+navTitle: Overview
 showDocNav: true
 ---
 
