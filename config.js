@@ -39,7 +39,9 @@ const markdownOptions =
   quotes: '“”‘’',
   highlight(str, lang)
   {
-    return (lang && getLanguage(lang)) ? highlight(lang, str).value : "";
+    let result = (lang && getLanguage(lang)) ? highlight(lang, str).value : "";
+    // Replace i18n braces to use inside of code blocks
+    return result.replace(/{/g, "&#123;").replace(/}/g, "&#125;");
   }
 };
 

@@ -29,5 +29,28 @@ If you have both requirements in place, please follow this installation steps.
 
 Get Node.js from the [https://nodejs.org/](https://nodejs.org).
 
-## Install Hexo
-[TO be udpated]
+## Install CMintS
+
+[Fork](https://help.github.com/articles/fork-a-repo/) or clone the [CMintS repository](https://github.com/Manvel/cmints):
+```bash
+git clone https://github.com/Manvel/cmints.git myNewWebsite
+cd myNewWebsite
+```
+
+With cloned CMintS repository you will also get current website downloaded, you can modify existing files, delete or manage the way you want. [Learn more about folders structure](/documentation/getting-started/structure).
+
+### Starting server
+
+For the development purposes Use `--no-cache` flag to disable the caching.
+
+```bash
+npm start -- --no-cache
+npm start # will cache pages, use it for production
+```
+### Generating static content
+
+Run commands below in order to generate static content
+```bash
+npm start
+npm run static
+```

@@ -28,3 +28,4 @@ compilation target directory for `.less` files. The content of the folder will
 be copied to the *content* directory after static content generation.
 
 ## locales
+
