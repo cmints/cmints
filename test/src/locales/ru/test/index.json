@@ -8,12 +8,16 @@
     "message": "<fix2> тэг используется <fix1>-ом"
   },
   "test-anchor1": {
-    "description": "Test anchor tag absolute",
+    "description": "Test anchor tag absolute different order",
     "message": "Это <a2>вторая ссылка</a2> и <a1>первая</a1>"
   },
   "test-anchor2": {
-    "description": "Test anchor tag relative",
+    "description": "Test anchor tags abosule and relative different order",
     "message": "Это <a2>вторая ссылка</a2>, <a1>первая</a1> и <a3>третья ссылка</a3>"
+  },
+  "test-anchor3": {
+    "description": "Test relative Translatable anchor",
+    "message": "<a1>Переведённая ссылка</a1>"
   },
   "test-span": {
     "description": "Test span",

@@ -14,6 +14,8 @@ const translationStrings = [
    'Это <a href="https//www.example2.com">вторая ссылка</a> и <a href="https//www.example1.com">первая</a>'],
   ['{test-anchor2 This is <a href="https//www.example1.com">first link</a>, <a href="/random1">second link</a> and <a href="/random2">third link</a>}',
    'Это <a href="/en/random1" hreflang="en">вторая ссылка</a>, <a href="https//www.example1.com">первая</a> и <a href="/en/random2" hreflang="en">третья ссылка</a>'],
+  ['{test-anchor3 <a href="/test/path1">Translatable hreflang</a>}',
+   '<a href="/ru/test/path1" hreflang="ru">Переведённая ссылка</a>'],
   ['{test-span This is <span>first span</span> and <span>second span</span>}',
    'Это <span>второй span</span> и <span>первый</span>'],
   ['{test-attribute1 <div title="Div title" id="logo"><img src="/random/path" title="Random image" />Picture</div>}',
