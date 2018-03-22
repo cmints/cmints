@@ -10,15 +10,13 @@ const fileExist = fs.existsSync;
 const {parsePage} = require("../lib/parser");
 const outputFile = promisify(require("fs-extra").outputFile);
 const glob = promisify(require("glob").glob);
+const {initSitemap} = require("../lib/sitemap");
 const isStatic = process.argv[2] == "--static";
 const isCache = process.argv[2] != "--no-cache";
 
 // Configurations
 const {publicDir, layoutsDir, partialsDir, lessDir, lessTargetDir, pageDir,
       contentDir, localesDir, srcPath, pageExtestions} = require("../config");
-
-// Sitemap holds also the metadata information for each page.
-let sitemap = {};
 
 const resourcesMap = {
   ".html": {encoding: "utf-8", type: "text/html"},
@@ -38,6 +36,9 @@ const resourcesMap = {
   ".otf": {encoding: "binary", type: "application/font-otf"},
   ".svg": {encoding: "binary", type: "application/image/svg+xml"}
 };
+
+// Initialize sitemap
+initSitemap();
 
 let i18nWatchDirs = [pageDir, partialsDir, layoutsDir];
 i18nInit(`${srcPath}/locales`, i18nWatchDirs).then((ready) =>
