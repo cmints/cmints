@@ -24,7 +24,8 @@
     <!-- TOC Start -->
     <%if (page.showDocNav) { %>
       <aside id="toc">
-        <% include ../partials/toc %> 
+        <h2>Table of content</h2>
+        <%- include('../partials/toc', {items: toc.children}) %> 
       </aside>
     <% } %>
     <!-- TOC End -->

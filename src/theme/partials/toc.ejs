@@ -1,2 +1,14 @@
-<h2>Table of content</h2>
-<%- toc %>
+<% if (items) { %>
+  <ul>
+    <% items.forEach(function(item){ %>
+    <li>
+        <% if (item.id) { %>
+          <a href="#<%= item.id %>"><%= item.title %></a>
+        <% } %>
+        <% if (item.children) { %>
+          <%- include('toc', {items: item.children}) %>
+        <% } %>
+    </li>
+    <% }) %>
+  </ul>
+<% } %>
