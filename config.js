@@ -18,8 +18,8 @@ const pageExtestions = [".md", ".ejs", ".html"];
 const templateData =
 {
   site: {
-    title: "I18n CMS",
-    description: "CMS with the internationalization in mind"
+    title: "CMintS",
+    description: "CMS created with the internationalization in mind"
   },
   navigations: [
       {path: "documentation", stringId: "menu-item-docs"},

@@ -9,6 +9,7 @@ const readFile = promisify(fs.readFile);
 const fileExist = fs.existsSync;
 const {parsePage} = require("../lib/parser");
 const outputFile = promisify(require("fs-extra").outputFile);
+const {remove} = require("fs-extra");
 const glob = promisify(require("glob").glob);
 const {initSitemap} = require("../lib/sitemap");
 const isStatic = process.argv[2] == "--static";
@@ -36,6 +37,9 @@ const resourcesMap = {
   ".otf": {encoding: "binary", type: "application/font-otf"},
   ".svg": {encoding: "binary", type: "application/image/svg+xml"}
 };
+
+// Remove static content generation target directory
+remove(contentDir);
 
 // Initialize sitemap
 initSitemap();
