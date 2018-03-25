@@ -3,26 +3,61 @@ const i18n = require.main.require("lib/i18n");
 const i18nInit = promisify(i18n.init);
 const {srcPath} = require.main.require("config");
 
-const locale = "ru";
 const pagePath = "test/index";
 
-const translationStrings = [
-  ['# {test-heading-1[Page Heading] My heading}', '# Заголовок'],
-  ['{test-fix <fix>CMintS</fix> uses <fix>fix</fix> tag}',
-   'fix тэг используется CMintS-ом'],
-  ['{test-anchor1 This is <a href="https//www.example1.com">first link</a> and <a href="https//www.example2.com">second link</a>}',
-   'Это <a href="https//www.example2.com">вторая ссылка</a> и <a href="https//www.example1.com">первая</a>'],
-  ['{test-anchor2 This is <a href="https//www.example1.com">first link</a>, <a href="/random1">second link</a> and <a href="/random2">third link</a>}',
-   'Это <a href="/en/random1" hreflang="en">вторая ссылка</a>, <a href="https//www.example1.com">первая</a> и <a href="/en/random2" hreflang="en">третья ссылка</a>'],
-  ['{test-anchor3 <a href="/test/path1">Translatable hreflang</a>}',
-   '<a href="/ru/test/path1" hreflang="ru">Переведённая ссылка</a>'],
-  ['{test-span This is <span>first span</span> and <span>second span</span>}',
-   'Это <span>второй span</span> и <span>первый</span>'],
-  ['{test-attribute1 <div title="Div title" id="logo"><img src="/random/path" title="Random image" />Picture</div>}',
-   '<div title="Div название" id="logo"><img src="/random/path" title="Случайная картинка" />Картинка</div>'],
-  ['{test-unsuported-tag <canvas>Unsuported i18n tag</canvas>}',
-   '&ltcanvas&gt;Неподдерживаемый i18n tag&lt/canvas&gt;']
-];
+const translationStrings =
+[
+  {
+    "original": '# {test-heading-1[Page Heading] My heading}',
+    "en": '# My heading',
+    "ru": '# Заголовок'
+  },
+  {
+    "original": '{test-fix <fix>CMintS</fix> uses <fix>fix</fix> tag}',
+    "en": 'CMintS uses fix tag',
+    "ru": 'fix тэг используется CMintS-ом'
+  },
+  {
+    "original": '{test-anchor1 This is <a href="https//www.example1.com">first link</a> and <a href="https//www.example2.com">second link</a>}',
+    "en": 'This is <a href="https//www.example1.com">first link</a> and <a href="https//www.example2.com">second link</a>',
+    "ru": 'Это <a href="https//www.example2.com">вторая ссылка</a> и <a href="https//www.example1.com">первая</a>'
+  },
+  {
+    "original": '{test-anchor2 This is <a href="https//www.example1.com">first link</a>, <a href="/random1">second link</a> and <a href="/random2">third link</a>}',
+    "en": 'This is <a href="https//www.example1.com">first link</a>, <a href="/random1">second link</a> and <a href="/random2">third link</a>',
+    "ru": 'Это <a href="/en/random1" hreflang="en">вторая ссылка</a>, <a href="https//www.example1.com">первая</a> и <a href="/en/random2" hreflang="en">третья ссылка</a>'
+  },
+  {
+    "original": '{test-anchor3 <a href="/test/path1">Translatable hreflang</a>}',
+    "en": '<a href="/test/path1">Translatable hreflang</a>',
+    "ru": '<a href="/ru/test/path1" hreflang="ru">Переведённая ссылка</a>'
+  },
+  {
+    "original": '{test-span This is <span>first span</span> and <span>second span</span>}',
+    "en": 'This is <span>first span</span> and <span>second span</span>',
+    "ru": 'Это <span>второй span</span> и <span>первый</span>'
+  },
+  {
+    "original": '{test-attribute1 <div title="Div title" id="logo"><img src="/random/path" title="Random image" />Picture</div>}',
+    "en": '<div title="Div title" id="logo"><img src="/random/path" title="Random image" />Picture</div>',
+    "ru": '<div title="Div название" id="logo"><img src="/random/path" title="Случайная картинка" />Картинка</div>'
+  },
+  {
+    "original": '{test-unsuported-tag <canvas>Unsuported i18n tag</canvas>}',
+    "en": '<canvas>Unsuported i18n tag</canvas>',
+    "ru": '&ltcanvas&gt;Неподдерживаемый i18n tag&lt/canvas&gt;'
+  },
+  {
+    "original": '{menu-item-about(test/header)}',
+    "en": 'about us',
+    "ru": 'о нас'
+  },
+  {
+    "original": '{menu-item-blog(test/header)}',
+    "en": 'blog',
+    "ru": 'blog'
+  }
+]
 
 describe("Check translate() function", () =>
 {
@@ -36,10 +71,13 @@ describe("Check translate() function", () =>
   });
 
   for (const translationString of translationStrings)
-    translate(translationString[0], translationString[1]);
+  {
+    translate(translationString.original, translationString.ru, "ru");
+    translate(translationString.original, translationString.en, "en");
+  }
 });
 
-function translate(source, result)
+function translate(source, result, locale)
 {
   describe(`String "${source}" at "${pagePath}" path for "${locale} locale"`, () =>
   {
