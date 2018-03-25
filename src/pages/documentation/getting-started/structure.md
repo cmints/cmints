@@ -6,8 +6,8 @@ showDocNav: true
 
 # Project structure
 
-The project structure is straighforward, the website related files are located in
-src folder, so this is the folder that you will use use most.
+The project structure is straighforward, the website related files are located
+in src folder, so this is the folder that you will use most.
 ```javascript
 src
 ├── public
@@ -55,7 +55,8 @@ file. `.json` reflect the path to the page, similar to the structure inside of
 the `pages` directory. [See]() for more information about the i18n files.
 
 ## pages
-Actual content of the website goes here and the structure reflects the path to the page with `index` files points to the actual directory:
+Actual content of the website goes here and the structure reflects the path to
+the page with `index` files points to the actual directory:
 
 ```bash
 ├── about
@@ -81,7 +82,9 @@ extention | Descriptio
 `.html` | HTML files
 
 ## theme
-Actual theme of the project, main folders are [layout]() where actual website layouts reside and [less]() folder which holds website less files which are compiled into the css folder of the [public]() directory:
+Actual theme of the project, main folders are [layout]() where actual website
+layouts reside and [less]() folder which holds website less files which are
+compiled into the css folder of the [public]() directory:
 ```bash
 ├── layouts
 │   ├── default.ejs
