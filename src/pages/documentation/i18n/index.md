@@ -1,6 +1,7 @@
 ---
-title: I18n
+title: Writing translation strings
 navTitle: Overview
+topicTitle: i18n
 showDocNav: true
 ---
 
@@ -126,7 +127,7 @@ that reason `<fix>` tag can be used:
 {fixed-id <fix>CMintS</fix> uses <fix>fix</fix> tag}
 ```
 
-and a locales below:
+and the locales below:
 
  ```json
 "fixed-id": {
@@ -141,7 +142,49 @@ fix тэг используется CMintS-ом
 ```
 
 #### img tag
-[to be updated]
 
-#### title attribute
-[to be updated]
+Similar to the `<a>` and `<fix>` tags `<img>` tag also should keep it's order in
+the translation strings, so for:
+
+```html
+{test-img1 This is <img href="/first.png"> and <img href="/second.png"> image}
+```
+
+and the locales below:
+
+ ```json
+"test-img1": {
+    "description": "Test images order",
+    "message": "Это <img2> картинка и <img1>"
+}
+```
+
+will result into:
+
+```html
+Это <img href="/second.png"> картинка и <img href="/first.png">
+```
+
+#### title and alt attributes
+
+Some attributes are also suppose to be translated in different languages, so
+that attributes can also be used in the translation string tags:
+
+```html
+{test-attribute1 <div title="Website Logo" id="logo"><img src="/random/path" alt="Jumping puma" />Picture</div>}
+```
+
+and the locales below:
+
+ ```json
+"test-img1": {
+    "description": "Test images order",
+    "message": "<div1 title='Логотип сайта' id='logo'><img1 alt='Пума в прыжке'>Картинка</div1>"
+}
+```
+
+will result into:
+
+```html
+<div title="Логотип сайта" id="logo"><img src="/random/path" alt="Пума в прыжке" />Картинка</div>
+```

@@ -1,7 +1,6 @@
 ---
-title: Pages
+title: Themes
 navTitle: Overview
-topicTitle: Pages
 showDocNav: true
 ---
 

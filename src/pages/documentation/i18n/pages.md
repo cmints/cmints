@@ -1,15 +1,12 @@
 ---
-title: Pages
+title: Using i18n strings in the pages
+navTitle: pages
 showDocNav: true
 ---
 
-# {intern[Header] internationalization}
+# Pages
 
-  "test-anchor2": {
-    "description": "Test anchor tags abosule and relative different order",
-    "message": "Это <a2>вторая ссылка</a2>, <a1>первая</a1> и <a3>третья ссылка</a3>"
-  },
-
+## Reusing IDs
 
 Early defined stringId in the page can be used in multiple places, that's
 possible by referencing to the stringId inside of the braces, ex:
@@ -22,3 +19,7 @@ possible by referencing to the stringId inside of the braces, ex:
   {stringId}
 <div>
 ```
+
+## Heading IDs in markdown
+
+CMintS

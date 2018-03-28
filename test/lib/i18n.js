@@ -33,14 +33,19 @@ const translationStrings =
     "ru": '<a href="/ru/test/path1" hreflang="ru">Переведённая ссылка</a>'
   },
   {
+    "original": '{test-img1 This is <img href="/first.png"> and <img href="/second.png"> image}',
+    "en": 'This is <img href="/first.png"> and <img href="/second.png"> image',
+    "ru": 'Это <img href="/second.png"> картинка и <img href="/first.png">'
+  },
+  {
     "original": '{test-span This is <span>first span</span> and <span>second span</span>}',
     "en": 'This is <span>first span</span> and <span>second span</span>',
     "ru": 'Это <span>второй span</span> и <span>первый</span>'
   },
   {
-    "original": '{test-attribute1 <div title="Div title" id="logo"><img src="/random/path" title="Random image" />Picture</div>}',
-    "en": '<div title="Div title" id="logo"><img src="/random/path" title="Random image" />Picture</div>',
-    "ru": '<div title="Div название" id="logo"><img src="/random/path" title="Случайная картинка" />Картинка</div>'
+    "original": '{test-attribute1 <div title="Website Logo" id="logo"><img src="/random/path" alt="Jumping puma" />Picture</div>}',
+    "en": '<div title="Website Logo" id="logo"><img src="/random/path" alt="Jumping puma" />Picture</div>',
+    "ru": '<div title="Логотип сайта" id="logo"><img src="/random/path" alt="Пума в прыжке" />Картинка</div>'
   },
   {
     "original": '{test-unsuported-tag <canvas>Unsuported i18n tag</canvas>}',

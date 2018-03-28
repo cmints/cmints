@@ -19,13 +19,17 @@
     "description": "Test relative Translatable anchor",
     "message": "<a1>Переведённая ссылка</a1>"
   },
+  "test-img1": {
+    "description": "Test images order",
+    "message": "Это <img2> картинка и <img1>"
+  },
   "test-span": {
     "description": "Test span",
     "message": "Это <span2>второй span</span2> и <span1>первый</span1>"
   },
   "test-attribute1": {
     "description": "Test attributes",
-    "message": "<div1 title='Div название' id='logo'><img1 title='Случайная картинка'>Картинка</div1>"
+    "message": "<div1 title='Логотип сайта' id='logo'><img1 alt='Пума в прыжке'>Картинка</div1>"
   },
   "test-unsuported-tag": {
     "description": "Test unsuported tag",

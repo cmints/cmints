@@ -1,6 +1,7 @@
 ---
 title: Themes
 navTitle: Overview
+topicTitle: Themes
 showDocNav: true
 ---
 
