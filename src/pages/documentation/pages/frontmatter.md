@@ -1,5 +1,6 @@
 ---
-title: EJS in pages
+title: Front Matter
+navTitle: Front Matter
 showDocNav: true
 ---
 
