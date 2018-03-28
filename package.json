@@ -4,9 +4,9 @@
   "description": "CMS with internationalization done right",
   "main": "app.js",
   "scripts": {
-    "start": "node bin/server.js",
+    "start": "node bin/app.js",
     "test": "mocha test/main.js",
-    "static": "node bin/server.js --static"
+    "static": "node bin/app.js --static"
   },
   "author": "",
   "license": "GPL-3.0",

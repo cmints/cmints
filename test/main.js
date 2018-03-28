@@ -25,7 +25,7 @@ describe("Testing cmints", () =>
     });
   });
 
-  importTest("Server test", './bin/server');
+  importTest("Server test", './lib/server');
   importTest("I18n test", './lib/i18n');
   importTest("Parser test", './lib/parser');
 
