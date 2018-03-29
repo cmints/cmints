@@ -78,6 +78,37 @@ translation string below:
 Will be converted to `Heading` for the source(default) locale and to `Заголовок`
 for the russian locale.
 
+### Defining the path
+
+In order to use translation string from a specific path rather than defining source text in the page content, it's possible to define the file path next to the stringID:
+
+```html
+{menu-item-about(menu/header)}
+```
+
+The expression above means - use string with the ID menu-item-about from the `{locale}/menu/header.json` files:
+
+```json
+/* /en/menu/header.json */
+{
+  "menu-item-about": {
+    "description": "Menu item label",
+    "message": "about us"
+  }
+}
+```
+```json
+/* /ru/menu/header.json */
+{
+  "menu-item-about": {
+    "description": "Menu item label",
+    "message": "о нас"
+  }
+}
+```
+
+Considering the en and ru locales above, the expression `{menu-item-about(menu/header)}`, will be converted to "about us" for the "en" locale and to the "о нас" for the "ru" locale. 
+
 ### Using tags
 
 Current tags `a, img, p, span, div, em, i, b, strong` can be used by default in
