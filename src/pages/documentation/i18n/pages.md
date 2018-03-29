@@ -22,11 +22,15 @@ In order to make a content translatable the [translation blocks](/documentation/
 <p>{about-us-p2[Second paragraph of in  About Us section] Another awesome <em>source text</em> goes here}</p>
 ```
 
-**EJS `.ejs` pages:** [TODO: Add a better example with the usage of variables]
+**EJS `.ejs` pages:**
 ```html
-<h1>{about-us[Heading about us] About Us}<h1>
-<p>{about-us-p1[First paragraph of in  About Us section] My awesome <em>source text</em> goes here}</p>
-<p>{about-us-p2[Second paragraph of in  About Us section] Another awesome <em>source text</em> goes here}</p>
+<%
+const paragraphs = ["My awesome <em>source text</em> goes here", 
+                    "Another awesome <em>source text</em> goes here"]
+%>
+<% for (let i = 0; i < paragraphs.length; i++) { %>
+  <p>{about-us-p<%= i +1 %>[<%= i +1 %> paragraph of About Us section] <%- paragraphs[i] %>}</p>
+<% } %>
 ```
 
 ## Reusing IDs

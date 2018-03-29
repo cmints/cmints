@@ -19,7 +19,7 @@ src
     │   ├── _sidebars.less
     │   ├── _variables.less
     │   ├── index.less
-    │   ├── main.less
+    │   └── main.less
     └── partials
         ├── footer.ejs
         └── header.ejs
@@ -30,6 +30,23 @@ CMintS uses EJS as a templating language and LESS as a CSS Preprocessor.
 
 ## Layouts
 
-Layouts folder holds different layouts for the website, in some cases you would like to use diffrent layouts for the different pages, ex.: Homepage may contain more complex layout rather than the documentations page and Blog page can have a different layout in same website, for that reason you can define layout for each page type and select them from actual page using Front Matter.
+Layouts folder holds different layouts for the website, in some cases you would
+like to use diffrent layouts for specific pages, ex.: Homepage may contain more
+complex layout rather than the documentations page and Blog page can have a
+different layout in same website, for that reason you can define layout for each
+page type and select them from actual page using Front Matter. By default the
+layout named default.ejs from layouts folder is used. In the example below
+home.ejs layout is used for the page:
+
+```html
+---
+layout: home
+title: CMS with the internationalization done right
+---
+
+# Homepage
+This page is using home.ejs layout
+```
 
 ## Less
+

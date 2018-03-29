@@ -1,6 +1,6 @@
 ---
 title: Index title
-theme: test/default
+layout: test/default
 ---
 
 # heading 1
