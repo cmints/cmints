@@ -11,7 +11,10 @@
     <!-- Navigation Start -->
     <%if (page.showDocNav) { %> 
       <aside id="sitemap">
-        <% include ../partials/docNav %>
+        <% let documentation = getSitemap("documentation"); %>
+        <%if (documentation) { %>
+          <% include ../partials/docNav %>
+        <% } %>
       </aside>
     <% } %>
     <!-- Navigation End -->
