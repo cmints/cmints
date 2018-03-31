@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node bin/app.js",
     "test": "mocha test/main.js",
-    "static": "node bin/app.js --static"
+    "static": "node bin/app.js --static",
+    "crowdin": "node lib/crowdin.js"
   },
   "author": "",
   "license": "GPL-3.0",
@@ -19,6 +20,7 @@
     "less": "^2.7.3",
     "markdown-it": "^8.4.1",
     "markdown-it-anchor": "^4.0.0",
+    "request": "^2.85.0",
     "string": "^3.3.3"
   },
   "devDependencies": {

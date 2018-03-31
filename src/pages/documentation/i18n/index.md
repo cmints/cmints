@@ -5,13 +5,14 @@ topicTitle: i18n
 showDocNav: true
 ---
 
-# internationalization
+# {i18n[Heading text] internationalization}
 
-Internaltionalization is one of the core features of CMintS. The idea behind is
-to use common structure and syntax in content pages, themes and provide
-additional helpers for multilanguage website management.
+{i18n-p1[internationalization paragraph] Internaltionalization is one of the
+core features of CMintS. The idea behind is to use common structure and syntax
+in content pages, themes and provide additional helpers for multilanguage
+website management.}
 
-## Locales directory structure
+## {locales-structure[Heading text] Locales directory structure}
 
 Locale files should be located in the `src/locales` directory:
 
@@ -48,6 +49,7 @@ path.
 
 Locale files hold list of the translations strings, the translation strings
 consist of stringid, message and optional description.
+
 ```json
 {
   "heading-main": {

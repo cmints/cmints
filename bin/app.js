@@ -1,5 +1,4 @@
 const {promisify} = require('util');
-const fs = require("fs");
 const i18n = require("../lib/i18n");
 const i18nInit = promisify(i18n.init);
 const lessProcessor = require("../lib/less-processor");
