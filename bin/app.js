@@ -6,6 +6,8 @@ const lessProcessorInit = promisify(lessProcessor.init);
 const {remove} = require("fs-extra");
 const {initSitemap} = require("../lib/sitemap");
 const {runServer, generateStatic} = require("../lib/server");
+const {runCrowdinSync} = require("../lib/crowdin");
+const argv = require("minimist")(process.argv.slice(2));
 
 // Configurations
 const {layoutsDir, partialsDir, lessDir, lessTargetDir, pageDir,
@@ -34,8 +36,10 @@ function prepareApp(callback)
 
 prepareApp(() =>
 {
-  if (process.argv[2] == "--static")
+  if (argv.static)
     generateStatic();
+  else if (argv.crowdin)
+    runCrowdinSync(argv);
   else
-    runServer(process.argv[2] != "--no-cache");
+    runServer(argv.cache != false);
 });
