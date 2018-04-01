@@ -1,6 +1,51 @@
+/*
+  Simulating app.js
+*/
+const {promisify} = require('util');
+const i18n = require("../lib/i18n");
+const i18nInit = promisify(i18n.init);
+const lessProcessor = require("../lib/less-processor");
+const lessProcessorInit = promisify(lessProcessor.init);
+const {initSitemap} = require("../lib/sitemap");
+const {runServer, generateStatic} = require("../lib/server");
+const {runCrowdinSync} = require("../lib/crowdin");
+const argv = require("minimist")(process.argv.slice(2));
+
+// Configurations
+const {layoutsDir, partialsDir, lessDir, lessTargetDir, pageDir,
+  contentDir, localesDir} = require("../config");
+
+function prepareApp(callback)
+{
+  // Remove static content generation target directory
+  remove(contentDir);
+
+  // Initialize sitemap
+  initSitemap();
+
+  let i18nWatchDirs = [pageDir, partialsDir, layoutsDir];
+  let launchPreparation = [
+    i18nInit(localesDir, i18nWatchDirs),
+    lessProcessorInit(lessDir, lessTargetDir)
+  ];
+
+  Promise.all(launchPreparation).then(() =>
+  {
+    if (callback)
+      callback(null, true);
+  });
+}
+/*
+  End of simulation
+*/
+
+
+
 const {copy, remove} = require("fs-extra");
 const targetDir = "./test/src";
 const {srcPath} = require.main.require("config");
+const util = require('util');
+const setTimeoutPromise = util.promisify(setTimeout);
 
 // List of folders to be removed after the test
 const testFolders =["src/test/", "src/pages/test/",
@@ -11,7 +56,7 @@ function importTest(name, path)
 {
   describe(name, () =>
   {
-      require(path);
+    require(path);
   });
 }
 
@@ -21,7 +66,11 @@ describe("Testing cmints", () =>
   {
     copy(targetDir, srcPath).then(() =>
     {
-      done();
+      prepareApp(() =>
+      {
+        runServer(argv.cache != false);
+        done();
+      })
     });
   });
 
@@ -33,6 +82,11 @@ describe("Testing cmints", () =>
   {
     for (let testFolder of testFolders)
       remove(testFolder);
+
     done();
+    setTimeoutPromise(50).then(() =>
+    {
+      process.exit();
+    });
   })
 });

@@ -30,8 +30,10 @@ npm run static
 
 ## Test
 ```bash
-npm start
+# tests with page caching
 npm test
+# tests without page caching
+npm test -- --no-cache
 ```
 
 ## Crowdin integration
