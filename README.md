@@ -33,3 +33,13 @@ npm run static
 npm start
 npm test
 ```
+
+## Crowdin integration
+```bash
+# Upload source files and source locales to the crowdin
+npm run crowdin-update-source -- --key {crowdin-key}
+# Download translations from the crowdin
+npm run crowdin-get-translations -- --key {crowdin-key}
+# Upload locaes to the crowdin
+npm run crowdin-update-translations -- --key {crowdin-key}
+```

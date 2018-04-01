@@ -8,6 +8,7 @@
     "test": "mocha test/main.js",
     "static": "node bin/app.js --static",
     "crowdin-update-source": "node bin/app.js --crowdin update-sources",
+    "crowdin-update-translations": "node bin/app.js --crowdin update-translations",
     "crowdin-get-translations": "node bin/app.js --crowdin get-translations"
   },
   "author": "",
