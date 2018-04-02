@@ -8,8 +8,8 @@
       <% if (item.url == "documentation/getting-started") { %>
         <% indexItem = {items: [documentation]} %>
       <% } %>
-      <%- include('../partials/navigation', indexItem) %>
-      <%- include('../partials/navigation', {items: item.children}) %>
+      <%- include('partials/navigation', indexItem) %>
+      <%- include('partials/navigation', {items: item.children}) %>
     </ul>
   <% }); %>
 </ul>

@@ -50,3 +50,6 @@ This page is using home.ejs layout
 
 ## Less
 
+Less files inside of the less directory are being processed into the public/css
+directory, only filenames starting with "_" are not compiled into the target
+directory, but yet they can be used by other less files.

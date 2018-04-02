@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-  <% include ../partials/head %>
-  <% include ../partials/meta %>
+  <% include partials/head %>
+  <% include partials/meta %>
 </head>
 <body>
-  <% include ../partials/header %>
+  <% include partials/header %>
 <main>
   <div class="col5 device">
     <!-- Navigation Start -->
@@ -13,7 +13,7 @@
       <aside id="sitemap">
         <% let documentation = getSitemap("documentation"); %>
         <%if (documentation) { %>
-          <% include ../partials/docNav %>
+          <% include partials/docNav %>
         <% } %>
       </aside>
     <% } %>
@@ -27,12 +27,12 @@
     <%if (page.showDocNav) { %>
       <aside id="toc">
         <h2>Table of content</h2>
-        <%- include('../partials/toc', {items: toc.children}) %> 
+        <%- include('partials/toc', {items: toc.children}) %> 
       </aside>
     <% } %>
     <!-- TOC End -->
   </div>
 </main>
-  <% include ../partials/footer %>
+  <% include partials/footer %>
 </body>
 </html>

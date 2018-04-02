@@ -12,7 +12,7 @@ const {runCrowdinSync} = require("../lib/crowdin");
 const argv = require("minimist")(process.argv.slice(2));
 
 // Configurations
-const {layoutsDir, partialsDir, lessDir, lessTargetDir, pageDir,
+const {layoutsDir, lessDir, lessTargetDir, pageDir,
   contentDir, localesDir} = require("../config");
 
 function prepareApp(callback)
@@ -23,7 +23,7 @@ function prepareApp(callback)
   // Initialize sitemap
   initSitemap();
 
-  let i18nWatchDirs = [pageDir, partialsDir, layoutsDir];
+  let i18nWatchDirs = [pageDir, layoutsDir];
   let launchPreparation = [
     i18nInit(localesDir, i18nWatchDirs),
     lessProcessorInit(lessDir, lessTargetDir)
