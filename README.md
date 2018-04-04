@@ -1,5 +1,7 @@
 # CMS
-CMS with the internationalization in mind
+[![Build Status](https://travis-ci.org/Manvel/cmints.svg?branch=master)](https://travis-ci.org/Manvel/cmints)
+
+CMS created with the internationalization in mind
 
 ## Dependencies
 - [NodeJs](https://nodejs.org/en/download/)
