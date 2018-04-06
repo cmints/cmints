@@ -8,7 +8,7 @@ const fileExist = fs.existsSync;
 const isCache = process.argv[3] != "--no-cache";
 
 const pathCodes = {
-  200: ["", "test", "ru/test", "ru/test", "test/path1", "test/path1/subpath1",
+  200: ["test", "ru/test", "ru/test", "test/path1", "test/path1/subpath1",
         "test/main.css"],
   404: ["index", "test/index", "ru/test/index", "test/index.md", "test/path1.md",
         "test/logo.png", "public/test/main.css", "de/test/path1"]
