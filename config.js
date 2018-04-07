@@ -8,6 +8,8 @@ const layoutsDir = `${themeDir}/layouts`;
 const lessDir = `${themeDir}/less`;
 const lessTargetDir = `${publicDir}/css`;
 const localesDir = `${srcPath}/locales`;
+const port = 4000;
+const address = "127.0.0.1";
 const {getLanguage, highlight} = require("highlight.js");
 
 // Supported Page extensions
@@ -56,3 +58,5 @@ exports.localesDir = localesDir;
 exports.templateData = templateData;
 exports.markdownOptions = markdownOptions;
 exports.pageExtestions = pageExtestions;
+exports.port = port;
+exports.address = address;

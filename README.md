@@ -15,7 +15,12 @@ npm i
 
 ### For the production:
 ```bash
+# http server
 npm start
+
+# https server, replace {PRIVATE_KEY} with the path to the private key file
+# and {CERTIFICATE} with the path to the certiface file
+npm start -- --https -k {PRIVATE_KEY} -c {CERTIFICATE}
 ```
 
 ### For development

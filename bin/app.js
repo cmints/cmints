@@ -41,5 +41,5 @@ prepareApp(() =>
   else if (argv.crowdin)
     runCrowdinSync(argv);
   else
-    runServer(argv.cache != false);
+    runServer(argv);
 });
