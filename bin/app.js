@@ -11,7 +11,7 @@ const argv = require("minimist")(process.argv.slice(2));
 
 // Configurations
 const {layoutsDir, lessDir, lessTargetDir, pageDir,
-  contentDir, localesDir} = require("../config");
+  contentDir, localesDir} = require("../config").dirs;
 
 function prepareApp(callback)
 {

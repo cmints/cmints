@@ -13,7 +13,7 @@ const argv = require("minimist")(process.argv.slice(2));
 
 // Configurations
 const {layoutsDir, lessDir, lessTargetDir, pageDir,
-  contentDir, localesDir} = require("../config");
+  contentDir, localesDir} = require("../config").dirs;
 
 function prepareApp(callback)
 {
@@ -43,7 +43,7 @@ function prepareApp(callback)
 
 const {copy, remove} = require("fs-extra");
 const targetDir = "./test/src";
-const {srcPath} = require.main.require("config");
+const {srcPath} = require.main.require("config").dirs;
 const util = require('util');
 const setTimeoutPromise = util.promisify(setTimeout);
 

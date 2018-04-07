@@ -2,7 +2,7 @@ const {assert, expect} = require("chai");
 const should = require("chai").should();
 const {get} = require("http");
 const server = `http://localhost:4000`;
-const {contentDir} = require.main.require("config");
+const {contentDir} = require.main.require("config").dirs;
 const fs = require("fs");
 const fileExist = fs.existsSync;
 const isCache = process.argv[3] != "--no-cache";

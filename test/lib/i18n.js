@@ -1,7 +1,7 @@
 const {promisify} = require("util");
 const i18n = require.main.require("lib/i18n");
 const i18nInit = promisify(i18n.init);
-const {srcPath} = require.main.require("config");
+const {srcPath} = require.main.require("config").dirs;
 
 const pagePath = "test/index";
 

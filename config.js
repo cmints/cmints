@@ -1,35 +1,38 @@
-// Paths
+// Directories
 const srcPath = "./src";
-const contentDir = `./content`;
-const pageDir = `${srcPath}/pages`;
-const publicDir = `${srcPath}/public`;
+const contentDir = "./content";
 const themeDir = `${srcPath}/theme`;
-const layoutsDir = `${themeDir}/layouts`;
-const lessDir = `${themeDir}/less`;
-const lessTargetDir = `${publicDir}/css`;
-const localesDir = `${srcPath}/locales`;
-const port = 4000;
-const address = "127.0.0.1";
-const {getLanguage, highlight} = require("highlight.js");
+const publicDir = `${srcPath}/public`;
+const dirs = 
+{
+  srcPath, contentDir, publicDir, themeDir,
+  pageDir: `${srcPath}/pages`,
+  layoutsDir: `${themeDir}/layouts`,
+  lessDir: `${themeDir}/less`,
+  lessTargetDir: `${publicDir}/css`,
+  localesDir: `${srcPath}/locales`
+};
+
+// Server
+let port = 4000;
+let address = "127.0.0.1";
 
 // Supported Page extensions
 const pageExtestions = [".md", ".ejs", ".html"];
 
 // Default data passed to the template
-const templateData =
+let templateData =
 {
   site: {
     title: "CMintS",
     description: "CMS created with the internationalization in mind"
-  },
-  navigations: [
-      {path: "documentation", stringId: "menu-item-docs"},
-      {path: "news", stringId: "menu-item-news"},
-      {path: "blog", stringId: "menu-item-blog"}]
+  }
 };
 
+// Markdown configuration
+const {getLanguage, highlight} = require("highlight.js");
 // See https://markdown-it.github.io/markdown-it/#MarkdownIt.new
-const markdownOptions =
+let markdownOptions =
 {
   html:         true,
   xhtmlOut:     false,
@@ -46,15 +49,27 @@ const markdownOptions =
   }
 };
 
-exports.srcPath = srcPath;
-exports.contentDir = contentDir;
-exports.pageDir = pageDir;
-exports.themeDir = themeDir;
-exports.layoutsDir = layoutsDir;
-exports.lessDir = lessDir;
-exports.lessTargetDir = lessTargetDir;
-exports.publicDir = publicDir;
-exports.localesDir = localesDir;
+
+// Loading user configurations
+try {
+  const userConfig = require(`${srcPath}/config`);
+  if (userConfig.templateData)
+    templateData = Object.assign(templateData, userConfig.templateData);
+  if (userConfig.markdownOptions)
+    markdownOptions = Object.assign(markdownOptions, userConfig.markdownOptions);
+
+  port = userConfig.port ? userConfig.port : port;
+  address = userConfig.address ? userConfig.address : address;
+}
+catch (e) {
+  if (e.code == "MODULE_NOT_FOUND")
+    console.log("Info: No custom config setup");
+  else
+    console.error(e)
+}
+
+
+exports.dirs = dirs;
 exports.templateData = templateData;
 exports.markdownOptions = markdownOptions;
 exports.pageExtestions = pageExtestions;
