@@ -13,9 +13,8 @@ const dirs =
   localesDir: `${srcPath}/locales`
 };
 
-// Server
-let port = 4000;
-let address = "127.0.0.1";
+// Default port
+const port = 4000;
 
 // Supported Page extensions
 const pageExtestions = [".md", ".ejs", ".html"];
@@ -57,9 +56,6 @@ try {
     templateData = Object.assign(templateData, userConfig.templateData);
   if (userConfig.markdownOptions)
     markdownOptions = Object.assign(markdownOptions, userConfig.markdownOptions);
-
-  port = userConfig.port ? userConfig.port : port;
-  address = userConfig.address ? userConfig.address : address;
 }
 catch (e) {
   if (e.code == "MODULE_NOT_FOUND")
@@ -74,4 +70,3 @@ exports.templateData = templateData;
 exports.markdownOptions = markdownOptions;
 exports.pageExtestions = pageExtestions;
 exports.port = port;
-exports.address = address;

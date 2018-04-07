@@ -18,6 +18,9 @@ npm i
 # http server
 npm start
 
+# Optional port parameter if ommited the server will run on port 4000
+npm start -p {PORT}
+
 # https server, replace {PRIVATE_KEY} with the path to the private key file
 # and {CERTIFICATE} with the path to the certiface file
 npm start -- --https -k {PRIVATE_KEY} -c {CERTIFICATE}
