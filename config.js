@@ -16,6 +16,9 @@ const dirs =
 // Default port
 const port = 4000;
 
+// I18n configuration
+let defaultLocale = "en";
+
 // Supported Page extensions
 const pageExtestions = [".md", ".ejs", ".html"];
 
@@ -56,6 +59,8 @@ try {
     templateData = Object.assign(templateData, userConfig.templateData);
   if (userConfig.markdownOptions)
     markdownOptions = Object.assign(markdownOptions, userConfig.markdownOptions);
+  if (userConfig.defaultLocale)
+    defaultLocale = userConfig.defaultLocale;
 }
 catch (e) {
   if (e.code == "MODULE_NOT_FOUND")
@@ -70,3 +75,4 @@ exports.templateData = templateData;
 exports.markdownOptions = markdownOptions;
 exports.pageExtestions = pageExtestions;
 exports.port = port;
+exports.defaultLocale = defaultLocale;

@@ -11,6 +11,12 @@ CMS created with the internationalization in mind
 npm i
 ```
 
+## Example projects
+Generate example project for quick start, by running:
+```bash
+npm run example
+```
+
 ## Running the server
 
 ### For the production:
