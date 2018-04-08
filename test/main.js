@@ -48,7 +48,7 @@ const util = require('util');
 const setTimeoutPromise = util.promisify(setTimeout);
 
 // List of folders to be removed after the test
-const testFolders =["src/test/", "src/pages/test/", "src/locales/en-US/test/",
+const testFolders =["src/test/", "src/pages/test/", "src/locales/en/test/",
                     "src/locales/ru/test/", "src/theme/layouts/test/",
                     "content/en/test", "content/ru/test", "content/test",
                     "src/public/test/"];

@@ -25,7 +25,7 @@ const translationStrings =
   {
     "original": '{test-anchor2 This is <a href="https//www.example1.com">first link</a>, <a href="/random1">second link</a> and <a href="/random2">third link</a>}',
     "en": 'This is <a href="https//www.example1.com">first link</a>, <a href="/random1">second link</a> and <a href="/random2">third link</a>',
-    "ru": 'Это <a href="/en-US/random1" hreflang="en-US">вторая ссылка</a>, <a href="https//www.example1.com">первая</a> и <a href="/en-US/random2" hreflang="en-US">третья ссылка</a>'
+    "ru": 'Это <a href="/en/random1" hreflang="en">вторая ссылка</a>, <a href="https//www.example1.com">первая</a> и <a href="/en/random2" hreflang="en">третья ссылка</a>'
   },
   {
     "original": '{test-anchor3 <a href="/test/path1">Translatable hreflang</a>}',
@@ -78,7 +78,7 @@ describe("Check translate() function", () =>
   for (const translationString of translationStrings)
   {
     translate(translationString.original, translationString.ru, "ru");
-    translate(translationString.original, translationString.en, "en-US");
+    translate(translationString.original, translationString.en, "en");
   }
 });
 
