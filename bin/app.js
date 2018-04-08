@@ -3,7 +3,7 @@ const i18n = require("../lib/i18n");
 const i18nInit = promisify(i18n.init);
 const lessProcessor = require("../lib/less-processor");
 const lessProcessorInit = promisify(lessProcessor.init);
-const {remove} = require("fs-extra");
+const {removeSync} = require("fs-extra");
 const {initSitemap} = require("../lib/sitemap");
 const {runServer, generateStatic} = require("../lib/server");
 const {runCrowdinSync} = require("../lib/crowdin");
@@ -17,7 +17,7 @@ const {layoutsDir, lessDir, lessTargetDir, pageDir,
 function prepareApp(callback)
 {
   // Remove static content generation target directory
-  remove(contentDir);
+  removeSync(contentDir);
 
   // Initialize sitemap
   initSitemap();
