@@ -7,6 +7,7 @@
     "start": "node bin/app.js",
     "test": "mocha test/main.js",
     "static": "node bin/app.js --static",
+    "example": "node bin/app.js --example",
     "crowdin-update-source": "node bin/app.js --crowdin update-sources",
     "crowdin-update-translations": "node bin/app.js --crowdin update-translations",
     "crowdin-get-translations": "node bin/app.js --crowdin get-translations"

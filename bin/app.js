@@ -7,6 +7,7 @@ const {remove} = require("fs-extra");
 const {initSitemap} = require("../lib/sitemap");
 const {runServer, generateStatic} = require("../lib/server");
 const {runCrowdinSync} = require("../lib/crowdin");
+const {createExampleProject} = require("../lib/example");
 const argv = require("minimist")(process.argv.slice(2));
 
 // Configurations
@@ -34,12 +35,19 @@ function prepareApp(callback)
   });
 }
 
-prepareApp(() =>
+if (argv.example)
 {
-  if (argv.static)
-    generateStatic();
-  else if (argv.crowdin)
-    runCrowdinSync(argv);
-  else
-    runServer(argv);
-});
+  createExampleProject();
+}
+else
+{
+  prepareApp(() =>
+  {
+    if (argv.static)
+      generateStatic();
+    else if (argv.crowdin)
+      runCrowdinSync(argv);
+    else
+      runServer(argv);
+  });
+}
