@@ -9,9 +9,9 @@ const isCache = process.argv[3] != "--no-cache";
 
 const pathCodes = {
   200: ["test", "ru/test", "ru/test", "test/path1", "test/path1/subpath1",
-        "test/main.css"],
+        "test/main.css", "test/verification"],
   404: ["index", "test/index", "ru/test/index", "test/index.md", "test/path1.md",
-        "test/logo.png", "public/test/main.css", "de/test/path1"]
+        "test/logo.png", "public/test/main.css", "de/test/path1", "test/nofile"]
 };
 const caches = ["en/test/index.html", "ru/test/index.html",
                 "en/test/path1.html", "test/main.css"];
