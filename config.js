@@ -14,7 +14,10 @@ const dirs =
 };
 
 // Default port
-const port = 4000;
+const port = {
+  https: 4000,
+  http: 3000
+};
 
 // I18n configuration
 let defaultLocale = "en";
