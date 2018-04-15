@@ -14,7 +14,7 @@ const dirs =
 };
 
 // Default port
-const port = {
+let port = {
   https: 4000,
   http: 3000
 };
@@ -64,6 +64,8 @@ try {
     markdownOptions = Object.assign(markdownOptions, userConfig.markdownOptions);
   if (userConfig.defaultLocale)
     defaultLocale = userConfig.defaultLocale;
+  if (userConfig.port)
+    port = userConfig.port;
 }
 catch (e) {
   if (e.code == "MODULE_NOT_FOUND")
