@@ -62,7 +62,42 @@ const translationStrings =
     "en": 'blog',
     "ru": 'blog'
   }
-]
+];
+
+const descriptionTags = [
+  {
+    "input": 
+`Top level directories in the <fix><code>src/locales</code></fix> are the locale codes.
+Actual directory structure reflects the page path, so for example translations
+for the <fix><code>about/teams.md</code></fix> <a href="documentation/pages">page</a> translations
+should be located in <fix><code>/de/about/teams.json</code></fix> file to be accessible
+through <fix><code>/de/about/teams</code></fix> website path.`,
+    "output":
+`<fix> placeholders:
+<fix1> - <code>src/locales</code>
+<fix2> - <code>about/teams.md</code>
+<fix3> - <code>/de/about/teams.json</code>
+<fix4> - <code>/de/about/teams</code>
+<a> placeholders:
+<a1>page</a1> - <a href="documentation/pages">page</a>
+`
+  }
+];
+
+describe("Test updateDescriptionTags() function", () =>
+{
+  for (const {input, output} of descriptionTags)
+  {
+    it(`Input: \n${input} \n\nShould match the output of: \n${output}`, (done) =>
+    {
+      const result = i18n.updateDescriptionTags(input);
+      result.should.equal(output);
+      done();
+    });
+  }
+  
+});
+
 
 describe("Check translate() function", () =>
 {
