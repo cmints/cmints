@@ -3,6 +3,10 @@
 
 CMS created with the internationalization in mind
 
+**Note:** CMintS is under extensive beta development. Contributions will speed
+up the development especially if they are in form of Bugreports, Documentation
+updates and Content Translations. Thanks for stars and word spreading.❤️
+
 ## Dependencies
 - [NodeJs](https://nodejs.org/en/download/)
 
