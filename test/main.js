@@ -6,13 +6,15 @@ const i18n = require("../lib/i18n");
 const i18nInit = promisify(i18n.init);
 const lessProcessor = require("../lib/less-processor");
 const lessProcessorInit = promisify(lessProcessor.init);
+const bundler = require("../lib/bundle");
+const bundlerInit = promisify(bundler.init);
 const {initSitemap} = require("../lib/sitemap");
 const {runServer, generateStatic} = require("../lib/server");
 const {runCrowdinSync} = require("../lib/crowdin");
 const argv = require("minimist")(process.argv.slice(2));
 
 // Configurations
-const {layoutsDir, lessDir, lessTargetDir, pageDir,
+const {layoutsDir, lessDir, lessTargetDir, pageDir, bundleDir, bundleTargetDir,
   contentDir, localesDir} = require("../config").dirs;
 
 function prepareApp(callback)
@@ -26,7 +28,8 @@ function prepareApp(callback)
   let i18nWatchDirs = [pageDir, layoutsDir];
   let launchPreparation = [
     i18nInit(localesDir, i18nWatchDirs),
-    lessProcessorInit(lessDir, lessTargetDir)
+    lessProcessorInit(lessDir, lessTargetDir),
+    bundlerInit(bundleDir, bundleTargetDir)
   ];
 
   Promise.all(launchPreparation).then(() =>
