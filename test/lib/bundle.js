@@ -14,8 +14,7 @@ const files = [
   `${resultDir}/public/css/test/subFolder/button.css`],
   [`${publicDir}/css/test/main.css`,
   `${resultDir}/public/css/test/main.css`]
-
-]
+];
 
 for (const file of files)
 {
