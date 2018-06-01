@@ -11,7 +11,8 @@ const pathCodes = {
   200: ["test", "ru/test", "ru/test", "test/path1", "test/path1/subpath1",
         "test/main.css", "test/verification", "test?query#fragment"],
   404: ["index", "test/index", "ru/test/index", "test/index.md", "test/path1.md",
-        "test/logo.png", "public/test/main.css", "de/test/path1", "test/nofile"]
+        "test/logo.png", "public/test/main.css", "de/test/path1", "test/nofile",
+        "js/test/modules/_robot.js", "css/test/modules/_variables.js"]
 };
 const caches = ["en/test/index.html", "ru/test/index.html",
                 "en/test/path1.html", "test/main.css"];

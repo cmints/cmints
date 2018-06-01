@@ -54,7 +54,9 @@ const setTimeoutPromise = util.promisify(setTimeout);
 const testFolders =["src/test/", "src/pages/test/", "src/locales/en/test/",
                     "src/locales/ru/test/", "src/theme/layouts/test/",
                     "content/en/test", "content/ru/test", "content/test",
-                    "src/public/test/", "src/public/js/test", "src/theme/js/test/"];
+                    "src/public/test/", "src/public/js/test",
+                    "src/theme/js/test/", "src/public/css/test/",
+                    "src/theme/less/test/"];
 
 function importTest(name, path)
 {
@@ -81,7 +83,7 @@ describe("Testing cmints", () =>
   importTest("Server test", './lib/server');
   importTest("I18n test", './lib/i18n');
   importTest("Parser test", './lib/parser');
-  importTest("Browserify Bundle test", './lib/bundle');
+  importTest("Bundling test", './lib/bundle');
 
   after((done) =>
   {
