@@ -4,8 +4,6 @@
 const {promisify} = require('util');
 const i18n = require("../lib/i18n");
 const i18nInit = promisify(i18n.init);
-const lessProcessor = require("../lib/less-processor");
-const lessProcessorInit = promisify(lessProcessor.init);
 const bundler = require("../lib/bundle");
 const bundlerInit = promisify(bundler.init);
 const {initSitemap} = require("../lib/sitemap");
@@ -28,8 +26,8 @@ function prepareApp(callback)
   let i18nWatchDirs = [pageDir, layoutsDir];
   let launchPreparation = [
     i18nInit(localesDir, i18nWatchDirs),
-    lessProcessorInit(lessDir, lessTargetDir),
-    bundlerInit(bundleDir, bundleTargetDir)
+    bundlerInit(lessDir, lessTargetDir, "less"),
+    bundlerInit(bundleDir, bundleTargetDir, "js")
   ];
 
   Promise.all(launchPreparation).then(() =>
