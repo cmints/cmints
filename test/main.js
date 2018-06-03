@@ -12,7 +12,7 @@ const {runCrowdinSync} = require("../lib/crowdin");
 const argv = require("minimist")(process.argv.slice(2));
 
 // Configurations
-const {layoutsDir, lessDir, lessTargetDir, pageDir, bundleDir, bundleTargetDir,
+const {layoutsDir, lessDir, lessTargetDir, pageDir, browserifyDir, browserifyTargetDir,
   contentDir, localesDir} = require("../config").dirs;
 
 function prepareApp(callback)
@@ -27,7 +27,7 @@ function prepareApp(callback)
   let launchPreparation = [
     i18nInit(localesDir, i18nWatchDirs),
     bundlerInit(lessDir, lessTargetDir, "less"),
-    bundlerInit(bundleDir, bundleTargetDir, "js")
+    bundlerInit(browserifyDir, browserifyTargetDir, "js")
   ];
 
   Promise.all(launchPreparation).then(() =>

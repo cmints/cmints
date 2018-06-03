@@ -10,8 +10,8 @@ const dirs =
   layoutsDir: `${themeDir}/layouts`,
   lessDir: `${themeDir}/less`,
   lessTargetDir: `${publicDir}/css`,
-  bundleDir: `${themeDir}/js`,
-  bundleTargetDir: `${publicDir}/js`,
+  browserifyDir: `${themeDir}/js`,
+  browserifyTargetDir: `${publicDir}/js`,
   localesDir: `${srcPath}/locales`
 };
 
