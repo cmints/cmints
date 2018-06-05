@@ -82,6 +82,7 @@ describe("Testing cmints", () =>
   importTest("I18n test", './lib/i18n');
   importTest("Parser test", './lib/parser');
   importTest("Bundling test", './lib/bundle');
+  importTest("Slugify test", './lib/slugify');
 
   after((done) =>
   {
