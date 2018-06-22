@@ -2,6 +2,7 @@ const {promisify} = require("util");
 const i18n = require.main.require("lib/i18n");
 const i18nInit = promisify(i18n.init);
 const {srcPath} = require.main.require("config").dirs;
+const {generateSourceJson} = require.main.require("lib/i18n");
 
 const pagePath = "test/index";
 
@@ -95,7 +96,41 @@ describe("Test updateDescriptionTags() function", () =>
       done();
     });
   }
-  
+});
+
+const generateSourceJsonIO = [
+  {
+    "input": 
+`
+  <p>{i18n-msg["i18n" feature text] Comprehensive internationalization out of the box.}<</p>
+  <p>{tms-msg["TMS integration" feature text] Handy API to integrate your project with the Crowdin.}</p>
+  <p>This suppose to be ignored -> {menu-item-about(test/header)}</p>
+`,
+    "output":
+    {
+      "i18n-msg": {
+        "message": "Comprehensive internationalization out of the box.",
+        "description": "\"i18n\" feature text\n"
+      },
+      "tms-msg": {
+        "message": "Handy API to integrate your project with the Crowdin.",
+        "description": "\"TMS integration\" feature text\n"
+      }
+    }
+  }
+];
+
+describe("Test generateSourceJson() function", () =>
+{
+  for (const {input, output} of generateSourceJsonIO)
+  {
+    it(`Input: \n${input} \n\nShould match the output of: \n${output}`, (done) =>
+    {
+      const result = i18n.generateSourceJson(input);
+      JSON.stringify(result).should.equal(JSON.stringify(output));
+      done();
+    });
+  }
 });
 
 
