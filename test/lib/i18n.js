@@ -102,12 +102,17 @@ const generateSourceJsonIO = [
   {
     "input": 
 `
+  <h2 id="what-is-cmints">{what-is-cmints[Page heading] What is <fix>CMintS</fix>?}</h2>
   <p>{i18n-msg["i18n" feature text] Comprehensive internationalization out of the box.}<</p>
   <p>{tms-msg["TMS integration" feature text] Handy API to integrate your project with the Crowdin.}</p>
   <p>This suppose to be ignored -> {menu-item-about(test/header)}</p>
 `,
     "output":
     {
+      "what-is-cmints": {
+        "message": "What is <fix>CMintS</fix>?",
+        "description": "Page heading\n<fix> placeholders:\n<fix1> - CMintS\n"
+      },
       "i18n-msg": {
         "message": "Comprehensive internationalization out of the box.",
         "description": "\"i18n\" feature text\n"
