@@ -105,6 +105,8 @@ const generateSourceJsonIO = [
   <h2 id="what-is-cmints">{what-is-cmints[Page heading] What is <fix>CMintS</fix>?}</h2>
   <p>{i18n-msg["i18n" feature text] Comprehensive internationalization out of the box.}<</p>
   <p>{tms-msg["TMS integration" feature text] Handy API to integrate your project with the Crowdin.}</p>
+  <p>{cmints-ejs CMS is using <a href="http://ejs.co/">EJS</a> as a <a href="https://example.com/">templating
+engine</a>}</p>
   <p>This suppose to be ignored -> {menu-item-about(test/header)}</p>
 `,
     "output":
@@ -120,6 +122,10 @@ const generateSourceJsonIO = [
       "tms-msg": {
         "message": "Handy API to integrate your project with the Crowdin.",
         "description": "\"TMS integration\" feature text\n"
+      },
+      "cmints-ejs": {
+        "message": "CMS is using <a href=\"http://ejs.co/\">EJS</a> as a <a href=\"https://example.com/\">templating\nengine</a>",
+        "description": "\n<a> placeholders:\n<a1>EJS</a1> - <a href=\"http://ejs.co/\">EJS</a>\n<a2>templating engine</a2> - <a href=\"https://example.com/\">templating engine</a>\n"
       }
     }
   }
