@@ -9,10 +9,12 @@ const isCache = process.argv[3] != "--no-cache";
 
 const pathCodes = {
   200: ["test", "ru/test", "ru/test", "test/path1", "test/path1/subpath1",
-        "test/main.css", "test/verification", "test?query#fragment"],
+        "test/main.css", "test/verification", "test?query#fragment",
+        "test/no-extension"],
   404: ["index", "test/index", "ru/test/index", "test/index.md", "test/path1.md",
         "test/logo.png", "public/test/main.css", "de/test/path1", "test/nofile",
-        "js/test/modules/_robot.js", "css/test/modules/_variables.js"]
+        "js/test/modules/_robot.js", "css/test/modules/_variables.js"],
+  501: ["test/unsupported.smth"]
 };
 const caches = ["en/test/index.html", "ru/test/index.html",
                 "en/test/path1.html", "test/main.css"];
