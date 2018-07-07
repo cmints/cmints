@@ -2,7 +2,6 @@ const {promisify} = require("util");
 const i18n = require.main.require("lib/i18n");
 const i18nInit = promisify(i18n.init);
 const {srcPath} = require.main.require("config").dirs;
-const {generateSourceJson} = require.main.require("lib/i18n");
 
 const pagePath = "test/index";
 
@@ -175,3 +174,42 @@ function translate(source, result, locale)
     });
   });
 }
+
+const acceptLanguageToLocale = 
+[
+  {
+    locales: ["ru", "en"],
+    acceptLanguageHeader: "en-US,en;q=0.9,ru;q=0.8,ru-RU;q=0.7,hy-AM;q=0.6,hy;q=0.5",
+    result: "en"
+  },
+  {
+    locales: ["ru", "en-GB"],
+    acceptLanguageHeader: "en-US,en;q=0.9,ru;q=0.8,ru-RU;q=0.7,hy-AM;q=0.6,hy;q=0.5",
+    result: "en-GB"
+  },
+  {
+    locales: ["de", "en", "de"],
+    acceptLanguageHeader: "en-US,en;q=0.9,ru;q=0.8,ru-RU;q=0.7,hy-AM;q=0.6,hy;q=0.5",
+    result: "de"
+  },
+  {
+    locales: ["en", "es"],
+    acceptLanguageHeader: "ru;q=0.8,ru-RU;q=0.7,hy-AM;q=0.6,hy;q=0.5",
+    result: "en"
+  }
+];
+
+describe("Check getLocaleFromHeader() function", () =>
+{
+  for ({locales, acceptLanguageHeader, result} of acceptLanguageToLocale)
+  {
+    describe(`Page with "${locales}" and "${acceptLanguageHeader}" accept-langauge headers`, () =>
+    {
+      it(`Should show page for ${result} locale`, (done) =>
+      {
+        i18n.getLocaleFromHeader(locales, acceptLanguageHeader).should.equal(result);
+        done();
+      });
+    });
+  }
+});
