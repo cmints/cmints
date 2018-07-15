@@ -1,4 +1,4 @@
-const should = require("chai").should();
+require("chai").should();
 const {get} = require("http");
 const server = `http://localhost:3000`;
 const {contentDir} = require.main.require("config").dirs;
