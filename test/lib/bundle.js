@@ -3,7 +3,6 @@ const fs = require("fs");
 const readFile = promisify(fs.readFile);
 const resultDir = "./test/results";
 const {publicDir} = require("../../config").dirs;
-const ensureFile = require("fs-extra").ensureFile;
 
 const files = [
   [`${publicDir}/js/test/beep.js`,
@@ -43,7 +42,6 @@ function compare(sourceFile, resultFile)
                    readFile(resultFile, "utf-8")]).then(([sourceContent,
                                                           resultContent]) =>
       {
-        let smth = sourceContent == resultContent;
         sourceContent.should.be.equal(resultContent)
         done();
       }).catch((err) =>

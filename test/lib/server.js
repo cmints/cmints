@@ -1,4 +1,3 @@
-const {assert, expect} = require("chai");
 const should = require("chai").should();
 const {get} = require("http");
 const server = `http://localhost:3000`;

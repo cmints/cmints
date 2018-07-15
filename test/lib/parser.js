@@ -4,7 +4,6 @@ const resultDir = `${testDir}/results/test`;
 const {promisify} = require("util");
 const fs = require("fs");
 const readFile = promisify(fs.readFile);
-const path = require("path");
 
 let parserArgs = ["test/index", ".md", "ru"];
 let resultFile = "index.html";

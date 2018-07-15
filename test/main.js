@@ -7,8 +7,7 @@ const i18nInit = promisify(i18n.init);
 const bundler = require("../lib/bundle");
 const bundlerInit = promisify(bundler.init);
 const {initSitemap} = require("../lib/sitemap");
-const {runServer, generateStatic} = require("../lib/server");
-const {runCrowdinSync} = require("../lib/crowdin");
+const {runServer} = require("../lib/server");
 const argv = require("minimist")(process.argv.slice(2));
 
 // Configurations
