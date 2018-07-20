@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node bin/app.js",
-    "test": "mocha test/main.js",
+    "test": "npm run test-mocha && npm run test-eslint",
+    "test-mocha": "mocha test/main.js",
+    "test-eslint": "./node_modules/.bin/eslint bin/**/*.js lib/**/*.js test/**/*.js",
     "static": "node bin/app.js --static",
     "example": "node bin/app.js --example",
     "crowdin-update-source": "node bin/app.js --crowdin update-sources",
