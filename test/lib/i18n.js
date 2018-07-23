@@ -8,14 +8,14 @@ const pagePath = "test/index";
 const translationStrings =
 [
   {
-    "original": '# {test-heading-1[Page Heading] My heading}',
-    "en": '# My heading',
-    "ru": '# Заголовок'
+    "original": "# {test-heading-1[Page Heading] My heading}",
+    "en": "# My heading",
+    "ru": "# Заголовок"
   },
   {
-    "original": '{test-fix <fix>CMintS</fix> uses <fix>fix</fix> tag}',
-    "en": 'CMintS uses fix tag',
-    "ru": 'fix тэг используется CMintS-ом'
+    "original": "{test-fix <fix>CMintS</fix> uses <fix>fix</fix> tag}",
+    "en": "CMintS uses fix tag",
+    "ru": "fix тэг используется CMintS-ом"
   },
   {
     "original": '{test-anchor1 This is <a href="https//www.example1.com">first link</a> and <a href="https//www.example2.com">second link</a>}',
@@ -38,9 +38,9 @@ const translationStrings =
     "ru": 'Это <img href="/second.png"> картинка и <img href="/first.png">'
   },
   {
-    "original": '{test-span This is <span>first span</span> and <span>second span</span>}',
-    "en": 'This is <span>first span</span> and <span>second span</span>',
-    "ru": 'Это <span>второй span</span> и <span>первый</span>'
+    "original": "{test-span This is <span>first span</span> and <span>second span</span>}",
+    "en": "This is <span>first span</span> and <span>second span</span>",
+    "ru": "Это <span>второй span</span> и <span>первый</span>"
   },
   {
     "original": '{test-attribute1 <div title="Website Logo" id="logo"><img src="/random/path" alt="Jumping puma" />Picture</div>}',
@@ -48,19 +48,19 @@ const translationStrings =
     "ru": '<div title="Логотип сайта" id="logo"><img src="/random/path" alt="Пума в прыжке" />Картинка</div>'
   },
   {
-    "original": '{test-unsuported-tag <canvas>Unsuported i18n tag</canvas>}',
-    "en": '<canvas>Unsuported i18n tag</canvas>',
-    "ru": '&ltcanvas&gt;Неподдерживаемый i18n tag&lt/canvas&gt;'
+    "original": "{test-unsuported-tag <canvas>Unsuported i18n tag</canvas>}",
+    "en": "<canvas>Unsuported i18n tag</canvas>",
+    "ru": "&ltcanvas&gt;Неподдерживаемый i18n tag&lt/canvas&gt;"
   },
   {
-    "original": '{menu-item-about(test/header)}',
-    "en": 'about us',
-    "ru": 'о нас'
+    "original": "{menu-item-about(test/header)}",
+    "en": "about us",
+    "ru": "о нас"
   },
   {
-    "original": '{menu-item-blog(test/header)}',
-    "en": 'blog',
-    "ru": 'blog'
+    "original": "{menu-item-blog(test/header)}",
+    "en": "blog",
+    "ru": "blog"
   }
 ];
 

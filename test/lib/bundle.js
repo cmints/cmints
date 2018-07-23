@@ -24,7 +24,7 @@ const privateModule = `${publicDir}/js/test/modules/_robot.js`;
 
 describe(`Check if private module ${privateModule} exists`, () =>
 {
-  it(`Private module shouldn't exist`, (done) =>
+  it("Private module shouldn't exist", (done) =>
   {
     const isModuleExist = fs.existsSync(privateModule);
     isModuleExist.should.be.false;
@@ -36,7 +36,7 @@ function compare(sourceFile, resultFile)
 {
   describe(`Content of ${sourceFile} and ${resultFile}`, () =>
   {
-    it(`Should be same`, (done) =>
+    it("Should be same", (done) =>
     {
       Promise.all([readFile(sourceFile, "utf-8"), 
                    readFile(resultFile, "utf-8")]).then(([sourceContent,

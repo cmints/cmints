@@ -1,6 +1,6 @@
 require("chai").should();
 const {get} = require("http");
-const server = `http://localhost:3000`;
+const server = "http://localhost:3000";
 const {contentDir} = require.main.require("config").dirs;
 const fs = require("fs");
 const fileExist = fs.existsSync;
@@ -21,7 +21,7 @@ const caches = ["en/test/index.html", "ru/test/index.html",
 function testCaching()
 {
   // Testing the cache
-  describe(`Test if files have been cached`, () =>
+  describe("Test if files have been cached", () =>
   {
     for (let cachedFile of caches)
     {

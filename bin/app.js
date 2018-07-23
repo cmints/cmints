@@ -1,4 +1,4 @@
-const {promisify} = require('util');
+const {promisify} = require("util");
 const i18n = require("../lib/i18n");
 const i18nInit = promisify(i18n.init);
 const bundler = require("../lib/bundle");

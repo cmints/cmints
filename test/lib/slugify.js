@@ -14,7 +14,7 @@ function slugifyTests(sourceText, slugifiedText)
 {
   describe(`"${sourceText}" should be converted to "${slugifiedText}"`, () =>
   {
-    it(`Should be same`, (done) =>
+    it("Should be same", (done) =>
     {
       slugify(sourceText).should.be.equal(slugifiedText);
       done();
