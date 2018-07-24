@@ -3,7 +3,15 @@
       "ecmaVersion": 6
   },
   "rules": {
+    "array-bracket-spacing": "error",
+    "arrow-spacing": "error",
+    "block-scoped-var": "error",
+    "block-spacing": "error",
+    "camelcase": "error",
+    "comma-spacing": "error",
+    "computed-property-spacing": "error",
     "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": true }],
+    "no-var": "error",
     "quotes": ["error", "double", {"avoidEscape": true}]
   }
 }
