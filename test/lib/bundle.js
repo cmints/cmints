@@ -10,9 +10,9 @@ const files = [
   [`${publicDir}/js/test/subFolder/boop.js`,
    `${resultDir}/public/js/test/subFolder/boop.js`],
   [`${publicDir}/css/test/subFolder/button.css`,
-  `${resultDir}/public/css/test/subFolder/button.css`],
+   `${resultDir}/public/css/test/subFolder/button.css`],
   [`${publicDir}/css/test/main.css`,
-  `${resultDir}/public/css/test/main.css`]
+   `${resultDir}/public/css/test/main.css`]
 ];
 
 for (const file of files)

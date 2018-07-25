@@ -11,8 +11,7 @@ parserResult(parserArgs, `${resultDir}/${resultFile}`);
 
 function parserResult(parserArgs, resultPath)
 {
-  it(`Comparing parsePage('${parserArgs.join("', '")}'), against ${resultPath}`,
-    (done) =>
+  it(`Comparing parsePage('${parserArgs.join("', '")}'), against ${resultPath}`, (done) =>
   {
     let promises = [parsePage(...parserArgs),
                     readFile(resultPath, "utf-8")];

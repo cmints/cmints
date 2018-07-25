@@ -10,6 +10,8 @@
     "camelcase": "error",
     "comma-spacing": "error",
     "computed-property-spacing": "error",
+    "func-call-spacing": "error",
+    "indent": ["error", 2, { "FunctionDeclaration": {"parameters": "first"}, "SwitchCase": 1, "CallExpression": {"arguments": "first"}, "ArrayExpression": "first" }],
     "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": true }],
     "no-var": "error",
     "quotes": ["error", "double", {"avoidEscape": true}]
