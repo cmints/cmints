@@ -24,6 +24,9 @@ let port = {
 // I18n configuration
 let defaultLocale = "en";
 
+// crowdinProject
+let crowdinId = null;
+
 // Supported Page extensions
 const pageExtestions = [".md", ".ejs", ".html"];
 
@@ -44,7 +47,7 @@ let markdownOptions =
   html:         true,
   xhtmlOut:     false,
   breaks:       false,
-  langPrefix:   'language-',
+  langPrefix:   "language-",
   linkify:      false,
   typographer:  false,
   quotes: '“”‘’',
@@ -68,6 +71,8 @@ try {
     defaultLocale = userConfig.defaultLocale;
   if (userConfig.port)
     port = userConfig.port;
+  if (userConfig.crowdinId)
+    crowdinId = userConfig.crowdinId;
 }
 catch (e) {
   if (e.code == "MODULE_NOT_FOUND")
@@ -76,10 +81,5 @@ catch (e) {
     console.error(e)
 }
 
-
-exports.dirs = dirs;
-exports.templateData = templateData;
-exports.markdownOptions = markdownOptions;
-exports.pageExtestions = pageExtestions;
-exports.port = port;
-exports.defaultLocale = defaultLocale;
+module.exports = {dirs, templateData, markdownOptions, pageExtestions, port,
+  defaultLocale, crowdinId};
