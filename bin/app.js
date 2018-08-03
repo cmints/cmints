@@ -45,7 +45,7 @@ else
   prepareApp(() =>
   {
     if (argv.static)
-      generateStatic();
+      generateStatic(process.exit);
     else if (argv.crowdin)
       runCrowdinSync(argv);
     else
