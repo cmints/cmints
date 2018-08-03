@@ -1,59 +1,8 @@
-/*
-  Simulating app.js
-*/
-const {promisify} = require('util');
-const i18n = require("../lib/i18n");
-const i18nInit = promisify(i18n.init);
-const bundler = require("../lib/bundle");
-const bundlerInit = promisify(bundler.init);
-const {initSitemap} = require("../lib/sitemap");
 const {runServer} = require("../lib/server");
 const argv = require("minimist")(process.argv.slice(2));
+const {prepareApp} = require("./bin/app");
+const {copyTestDir, finishRemoveTestDir} = require("./prepost");
 
-// Configurations
-const {layoutsDir, lessDir, lessTargetDir, pageDir, browserifyDir, browserifyTargetDir,
-  contentDir, localesDir} = require("../config").dirs;
-
-function prepareApp(callback)
-{
-  // Remove static content generation target directory
-  remove(contentDir);
-
-  // Initialize sitemap
-  initSitemap();
-
-  let i18nWatchDirs = [pageDir, layoutsDir];
-  let launchPreparation = [
-    i18nInit(localesDir, i18nWatchDirs),
-    bundlerInit(lessDir, lessTargetDir, "less"),
-    bundlerInit(browserifyDir, browserifyTargetDir, "js")
-  ];
-
-  Promise.all(launchPreparation).then(() =>
-  {
-    if (callback)
-      callback(null, true);
-  });
-}
-/*
-  End of simulation
-*/
-
-
-
-const {copy, remove} = require("fs-extra");
-const targetDir = "./test/src";
-const {srcPath} = require.main.require("config").dirs;
-const util = require('util');
-const setTimeoutPromise = util.promisify(setTimeout);
-
-// List of folders to be removed after the test
-const testFolders =["src/test/", "src/pages/test/", "src/locales/en/test/",
-                    "src/locales/ru/test/", "src/theme/layouts/test/",
-                    "content/en/test", "content/ru/test", "content/test",
-                    "src/public/test/", "src/public/js/test",
-                    "src/theme/js/test/", "src/public/css/test/",
-                    "src/theme/less/test/"];
 
 function importTest(name, path)
 {
@@ -63,35 +12,44 @@ function importTest(name, path)
   });
 }
 
-describe("Testing cmints", () =>
+function runRegularTest()
 {
-  before((done) =>
+  describe("Testing cmints", () =>
   {
-    copy(targetDir, srcPath).then(() =>
+    before((done) =>
     {
-      prepareApp(() =>
+      copyTestDir().then(() =>
       {
-        runServer(argv);
-        done();
-      })
+        prepareApp(() =>
+        {
+          runServer(argv);
+          done();
+        })
+      });
     });
+  
+    importTest("Server test", "./lib/server");
+    importTest("I18n test", "./lib/i18n");
+    importTest("Parser test", "./lib/parser");
+    importTest("Bundling test", "./lib/bundle");
+    importTest("Slugify test", "./lib/slugify");
+  
+    after(finishRemoveTestDir);
   });
+}
+const {generateStatic} = require.main.require("lib/server");
 
-  importTest("Server test", './lib/server');
-  importTest("I18n test", './lib/i18n');
-  importTest("Parser test", './lib/parser');
-  importTest("Bundling test", './lib/bundle');
-  importTest("Slugify test", './lib/slugify');
-
-  after((done) =>
+if (argv.static)
+{
+  copyTestDir().then(() =>
   {
-    for (let testFolder of testFolders)
-      remove(testFolder);
-
-    done();
-    setTimeoutPromise(50).then(() =>
+    prepareApp(() =>
     {
-      process.exit();
-    });
-  })
-});
+      generateStatic(process.exit);
+    })
+  });
+}
+else
+{
+  runRegularTest();
+}
