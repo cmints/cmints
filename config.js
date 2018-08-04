@@ -3,6 +3,8 @@ const srcPath = "./src";
 const contentDir = "./content";
 const themeDir = `${srcPath}/theme`;
 const publicDir = `${srcPath}/public`;
+let multiLang = true;
+
 const dirs = 
 {
   srcPath, contentDir, publicDir, themeDir,
@@ -81,5 +83,9 @@ catch (e) {
     console.error(e)
 }
 
+// When localesDir doesn't exist make a single language website
+if (!require("fs").existsSync(dirs.localesDir))
+  multiLang = false;
+
 module.exports = {dirs, templateData, markdownOptions, pageExtestions, port,
-  defaultLocale, crowdinId};
+  defaultLocale, crowdinId, multiLang};
