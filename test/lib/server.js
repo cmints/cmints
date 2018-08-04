@@ -4,7 +4,8 @@ const server = "http://localhost:3000";
 const {contentDir} = require.main.require("config").dirs;
 const fs = require("fs");
 const fileExist = fs.existsSync;
-const isCache = process.argv[3] != "--no-cache";
+const argv = require("minimist")(process.argv.slice(2));
+const {finishRemoveTestDir} = require("../prepost");
 
 const pathCodes = {
   200: ["test", "ru/test", "ru/test", "test/path1", "test/path1/subpath1",
@@ -53,13 +54,26 @@ function requestCodes(url, code)
   });
 }
 
-for (let code in pathCodes)
+if (argv.static)
 {
-  for (let requestPath of pathCodes[code])
+  // THIS TEST IS CALLED DIRECTLY
+  describe("Testing static content generation", () =>
   {
-    requestCodes(`${server}/${requestPath}`, Number(code));
+    testCaching();
+    after(finishRemoveTestDir);
+  });
+}
+else
+{
+  for (let code in pathCodes)
+  {
+    for (let requestPath of pathCodes[code])
+    {
+      requestCodes(`${server}/${requestPath}`, Number(code));
+    }
   }
+
+  testCaching();
 }
 
-if (isCache)
-  testCaching();
+
