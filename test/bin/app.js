@@ -1,14 +1,14 @@
 const {promisify} = require("util");
-const i18n = require.main.require("lib/i18n");
+const i18n = require("../../lib/i18n");
 const i18nInit = promisify(i18n.init);
-const bundler = require.main.require("lib/bundle");
+const bundler = require("../../lib/bundle");
 const bundlerInit = promisify(bundler.init);
-const {initSitemap} = require.main.require("lib/sitemap");
+const {initSitemap} = require("../../lib/sitemap");
 const {removeSync} = require("fs-extra");
 
 // Configurations
 const {layoutsDir, lessDir, lessTargetDir, pageDir, browserifyDir, browserifyTargetDir,
-  contentDir, localesDir} = require.main.require("config").dirs;
+  contentDir, localesDir} = require("../../config").dirs;
 
 
 const prepareApp = (callback) =>

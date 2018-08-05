@@ -1,8 +1,6 @@
-const targetDir = "./test/src";
 const util = require("util");
 const setTimeoutPromise = util.promisify(setTimeout);
-const {copy, remove} = require("fs-extra");
-const {srcPath} = require.main.require("config").dirs;
+const {remove} = require("fs-extra");
 
 // List of folders to be removed after the test
 const testFolders =["src/test/", "src/pages/test/", "src/locales/en/test/",
@@ -12,11 +10,6 @@ const testFolders =["src/test/", "src/pages/test/", "src/locales/en/test/",
                     "src/theme/js/test/", "src/public/css/test/",
                     "src/theme/less/test/"];
 
-
-const copyTestDir = () =>
-{
-  return copy(targetDir, srcPath);
-}
 
 const finishRemoveTestDir = (done) =>
 {
@@ -30,4 +23,4 @@ const finishRemoveTestDir = (done) =>
   });
 }
 
-module.exports = {copyTestDir, finishRemoveTestDir}
+module.exports = {finishRemoveTestDir}
