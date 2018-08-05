@@ -5,7 +5,7 @@ const {contentDir} = require.main.require("config").dirs;
 const fs = require("fs");
 const fileExist = fs.existsSync;
 const argv = require("minimist")(process.argv.slice(2));
-const {finishRemoveTestDir} = require("../prepost");
+const {finishRemoveTestDir} = require("../post-test");
 
 const pathCodes = {
   200: ["test", "ru/test", "ru/test", "test/path1", "test/path1/subpath1",
