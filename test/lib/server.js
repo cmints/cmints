@@ -20,7 +20,7 @@ const pathCodes = {
 const caches = ["en/index.html", "ru/index.html",
                 "en/path1.html", "main.css"];
 
- // Add Gzip to the caches array
+// Add Gzip to the caches array
 const gzipCaches = caches.map((cachedFile) => cachedFile + gzipExt);
 caches.push(...gzipCaches);
 
