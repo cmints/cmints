@@ -8,7 +8,7 @@
     "test": "npm run test-mocha && npm run test-static-gen && npm run test-eslint",
     "test-mocha": "node test/pre-test.js && mocha test/main.js",
     "test-eslint": "./node_modules/.bin/eslint bin/**/*.js lib/**/*.js test/**/*.js",
-    "test-static-gen": "node test/pre-test.js --static && mocha test/lib/server.js --static",
+    "test-static-gen": "node test/pre-test.js --static && npm run static && mocha test/lib/server.js --static",
     "static": "node bin/app.js --static",
     "example": "node bin/app.js --example",
     "crowdin-update-source": "node bin/app.js --crowdin update-sources",
