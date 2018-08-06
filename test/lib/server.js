@@ -6,6 +6,7 @@ const fs = require("fs");
 const fileExist = fs.existsSync;
 const argv = require("minimist")(process.argv.slice(2));
 const {finishRemoveTestDir} = require("../post-test");
+const gzipExt = ".gzip";
 
 const pathCodes = {
   200: ["", "ru", "ru", "path1", "path1/subpath1",
@@ -18,6 +19,10 @@ const pathCodes = {
 };
 const caches = ["en/index.html", "ru/index.html",
                 "en/path1.html", "main.css"];
+
+ // Add Gzip to the caches array
+const gzipCaches = caches.map((cachedFile) => cachedFile + gzipExt);
+caches.push(...gzipCaches);
 
 function testCaching()
 {
