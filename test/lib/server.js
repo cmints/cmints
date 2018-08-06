@@ -8,16 +8,16 @@ const argv = require("minimist")(process.argv.slice(2));
 const {finishRemoveTestDir} = require("../post-test");
 
 const pathCodes = {
-  200: ["test", "ru/test", "ru/test", "test/path1", "test/path1/subpath1",
-        "test/main.css", "test/verification", "test?query#fragment",
-        "test/no-extension"],
-  404: ["index", "test/index", "ru/test/index", "test/index.md", "test/path1.md",
-        "test/logo.png", "public/test/main.css", "de/test/path1", "test/nofile",
-        "js/test/modules/_robot.js", "css/test/modules/_variables.js"],
-  501: ["test/unsupported.smth"]
+  200: ["", "ru", "ru", "path1", "path1/subpath1",
+        "main.css", "verification", "?query#fragment",
+        "no-extension"],
+  404: ["index", "index", "ru/index", "index.md", "path1.md",
+        "logo.png", "public/main.css", "de/path1", "nofile",
+        "js/modules/_robot.js", "css/modules/_variables.js"],
+  501: ["unsupported.smth"]
 };
-const caches = ["en/test/index.html", "ru/test/index.html",
-                "en/test/path1.html", "test/main.css"];
+const caches = ["en/index.html", "ru/index.html",
+                "en/path1.html", "main.css"];
 
 function testCaching()
 {

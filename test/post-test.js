@@ -1,20 +1,12 @@
 const util = require("util");
 const setTimeoutPromise = util.promisify(setTimeout);
-const {remove} = require("fs-extra");
-
-// List of folders to be removed after the test
-const testFolders =["src/test/", "src/pages/test/", "src/locales/en/test/",
-                    "src/locales/ru/test/", "src/theme/layouts/test/",
-                    "content/en/test", "content/ru/test", "content/test",
-                    "src/public/test/", "src/public/js/test",
-                    "src/theme/js/test/", "src/public/css/test/",
-                    "src/theme/less/test/"];
-
+const {removeSync, moveSync} = require("fs-extra");
+const {srcPath} = require("../config").dirs;
 
 const finishRemoveTestDir = (done) =>
 {
-  for (let testFolder of testFolders)
-    remove(testFolder);
+  removeSync(srcPath);
+  moveSync(`${srcPath}-tmp`, srcPath)
 
   done();
   setTimeoutPromise(50).then(() =>

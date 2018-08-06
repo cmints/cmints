@@ -3,7 +3,7 @@ const i18n = require.main.require("lib/i18n");
 const i18nInit = promisify(i18n.init);
 const {srcPath} = require.main.require("config").dirs;
 
-const pagePath = "test/index";
+const pagePath = "index";
 
 const translationStrings =
 [
@@ -28,9 +28,9 @@ const translationStrings =
     "ru": 'Это <a href="/en/random1" hreflang="en">вторая ссылка</a>, <a href="https//www.example1.com">первая</a> и <a href="/en/random2" hreflang="en">третья ссылка</a>'
   },
   {
-    "original": '{test-anchor3 <a href="/test/path1">Translatable hreflang</a>}',
-    "en": '<a href="/test/path1">Translatable hreflang</a>',
-    "ru": '<a href="/ru/test/path1" hreflang="ru">Переведённая ссылка</a>'
+    "original": '{test-anchor3 <a href="/path1">Translatable hreflang</a>}',
+    "en": '<a href="/path1">Translatable hreflang</a>',
+    "ru": '<a href="/ru/path1" hreflang="ru">Переведённая ссылка</a>'
   },
   {
     "original": '{test-img1 This is <img href="/first.png"> and <img href="/second.png"> image}',
@@ -53,12 +53,12 @@ const translationStrings =
     "ru": "&ltcanvas&gt;Неподдерживаемый i18n tag&lt/canvas&gt;"
   },
   {
-    "original": "{menu-item-about(test/header)}",
+    "original": "{menu-item-about(header)}",
     "en": "about us",
     "ru": "о нас"
   },
   {
-    "original": "{menu-item-blog(test/header)}",
+    "original": "{menu-item-blog(header)}",
     "en": "blog",
     "ru": "blog"
   }
@@ -106,7 +106,7 @@ const generateSourceJsonIO = [
   <p>{tms-msg["TMS integration" feature text] Handy API to integrate your project with the Crowdin.}</p>
   <p>{cmints-ejs CMS is using <a href="http://ejs.co/">EJS</a> as a <a href="https://example.com/">templating
 engine</a>}</p>
-  <p>This suppose to be ignored -> {menu-item-about(test/header)}</p>
+  <p>This suppose to be ignored -> {menu-item-about(header)}</p>
 `,
     "output":
     {

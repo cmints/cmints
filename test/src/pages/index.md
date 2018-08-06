@@ -1,6 +1,6 @@
 ---
 title: Index title
-layout: test/default
+layout: default
 ---
 
 ## {what-is-cmints[Page heading] What is <fix>CMintS</fix>?}

@@ -35,5 +35,4 @@ function runMainTest()
   });
 }
 
-
 runMainTest();

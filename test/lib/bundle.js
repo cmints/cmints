@@ -5,14 +5,14 @@ const resultDir = "./test/results";
 const {publicDir} = require("../../config").dirs;
 
 const files = [
-  [`${publicDir}/js/test/beep.js`,
-   `${resultDir}/public/js/test/beep.js`],
-  [`${publicDir}/js/test/subFolder/boop.js`,
-   `${resultDir}/public/js/test/subFolder/boop.js`],
-  [`${publicDir}/css/test/subFolder/button.css`,
-   `${resultDir}/public/css/test/subFolder/button.css`],
-  [`${publicDir}/css/test/main.css`,
-   `${resultDir}/public/css/test/main.css`]
+  [`${publicDir}/js/beep.js`,
+   `${resultDir}/public/js/beep.js`],
+  [`${publicDir}/js/subFolder/boop.js`,
+   `${resultDir}/public/js/subFolder/boop.js`],
+  [`${publicDir}/css/subFolder/button.css`,
+   `${resultDir}/public/css/subFolder/button.css`],
+  [`${publicDir}/css/main.css`,
+   `${resultDir}/public/css/main.css`]
 ];
 
 for (const file of files)
@@ -20,7 +20,7 @@ for (const file of files)
   compare(file[0], file[1]);
 }
 
-const privateModule = `${publicDir}/js/test/modules/_robot.js`;
+const privateModule = `${publicDir}/js/modules/_robot.js`;
 
 describe(`Check if private module ${privateModule} exists`, () =>
 {
