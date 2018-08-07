@@ -22,6 +22,7 @@ let port = {
   https: 4000,
   http: 3000
 };
+let hostname = "127.0.0.1";
 
 // I18n configuration
 let defaultLocale = "en";
@@ -73,12 +74,14 @@ try {
     defaultLocale = userConfig.defaultLocale;
   if (userConfig.port)
     port = userConfig.port;
+  if (userConfig.hostname)
+    hostname = userConfig.hostname;
   if (userConfig.crowdinId)
     crowdinId = userConfig.crowdinId;
 }
 catch (e) {
   if (e.code == "MODULE_NOT_FOUND")
-    console.log("Info: No custom config setup");
+    console.log("Info: No custom config setup, see: https://cmints.io/documentation/getting-started/configuration");
   else
     console.error(e)
 }
@@ -88,4 +91,4 @@ if (!require("fs").existsSync(dirs.localesDir))
   multiLang = false;
 
 module.exports = {dirs, templateData, markdownOptions, pageExtestions, port,
-  defaultLocale, crowdinId, multiLang};
+  hostname, defaultLocale, crowdinId, multiLang};
