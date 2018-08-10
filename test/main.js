@@ -27,6 +27,7 @@ function runMainTest()
   
     importTest("Server test", "./lib/server");
     importTest("I18n test", "./lib/i18n");
+    importTest("Sitemap test", "./lib/sitemap");
     importTest("Parser test", "./lib/parser");
     importTest("Bundling test", "./lib/bundle");
     importTest("Slugify test", "./lib/slugify");
