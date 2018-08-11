@@ -1,8 +1,8 @@
 {
-  "name": "node-cms",
+  "name": "cmints",
   "version": "1.0.0",
   "description": "CMS with internationalization done right",
-  "main": "app.js",
+  "main": "bin/app.js",
   "scripts": {
     "start": "node bin/app.js",
     "test": "npm run test-mocha && npm run test-static-gen && npm run test-eslint",
@@ -15,8 +15,8 @@
     "crowdin-update-translations": "node bin/app.js --crowdin update-translations",
     "crowdin-get-translations": "node bin/app.js --crowdin get-translations"
   },
-  "author": "",
-  "license": "GPL-3.0",
+  "author": "Manvel Saroyan",
+  "license": "MIT",
   "dependencies": {
     "accept-language": "^3.0.18",
     "adm-zip": "^0.4.11",
