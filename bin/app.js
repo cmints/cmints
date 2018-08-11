@@ -13,6 +13,7 @@ const argv = require("minimist")(process.argv.slice(2));
 // Configurations
 const {layoutsDir, lessDir, lessTargetDir, pageDir, browserifyDir, browserifyTargetDir,
   contentDir, localesDir} = require("../config").dirs;
+const {defaultLocale, i18nPrefix, i18nPostfix} = require("../config");
 
 function prepareApp(callback)
 {
@@ -24,7 +25,7 @@ function prepareApp(callback)
 
   let i18nWatchDirs = [pageDir, layoutsDir];
   let launchPreparation = [
-    i18nInit(localesDir, i18nWatchDirs),
+    i18nInit(localesDir, i18nWatchDirs, {defaultLocale, prefix: i18nPrefix, postfix: i18nPostfix}),
     bundlerInit(lessDir, lessTargetDir, "less"),
     bundlerInit(browserifyDir, browserifyTargetDir, "js")
   ];

@@ -1,7 +1,9 @@
 const {promisify} = require("util");
 const i18n = require.main.require("lib/i18n");
 const i18nInit = promisify(i18n.init);
-const {srcPath} = require.main.require("config").dirs;
+const config = require.main.require("config");
+const {localesDir, pageDir, layoutsDir} = config.dirs;
+const {i18nPrefix, i18nPostfix} = config;
 
 const pagePath = "index";
 
@@ -61,6 +63,25 @@ const translationStrings =
     "original": "{menu-item-blog(header)}",
     "en": "blog",
     "ru": "blog"
+  }
+];
+
+const translationPrefixedStrings =
+[
+  {
+    "original": "# {{test-heading-1[Page Heading] My heading}}",
+    "en": "# My heading",
+    "ru": "# Заголовок"
+  },
+  {
+    "original": "{{test-fix <fix>CMintS</fix> uses <fix>fix</fix> tag}}",
+    "en": "CMintS uses fix tag",
+    "ru": "fix тэг используется CMintS-ом"
+  },
+  {
+    "original": "{{menu-item-about(header)}}",
+    "en": "about us",
+    "ru": "о нас"
   }
 ];
 
@@ -146,20 +167,34 @@ describe("Test generateSourceJson() function", () =>
 
 describe("Check translate() function", () =>
 {
-  before((done) =>
-  {
-    i18nInit(`${srcPath}/locales`, []).then((ready) =>
-    {
-      if (ready)
-        done();
-    });
-  });
-
   for (const translationString of translationStrings)
   {
     translate(translationString.original, translationString.ru, "ru");
     translate(translationString.original, translationString.en, "en");
   }
+});
+
+describe("Check translate() function", () =>
+{
+  before((done) =>
+  {
+    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {prefix: "{{", postfix: "}}"}).then(() => {
+      done();
+    });
+  });
+  
+  for (const translationString of translationPrefixedStrings)
+  {
+    translate(translationString.original, translationString.ru, "ru");
+    translate(translationString.original, translationString.en, "en");
+  }
+
+  after((done) =>
+  {
+    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {prefix: i18nPrefix, postfix: i18nPostfix}).then(() => {
+      done();
+    });
+  });
 });
 
 function translate(source, result, locale)
