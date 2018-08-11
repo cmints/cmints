@@ -24,13 +24,14 @@ let port = {
 };
 let hostname = "127.0.0.1";
 
-// I18n configuration
-let defaultLocale = "en";
-let i18nPrefix = "{";
-let i18nPostfix = "}";
-
-// crowdinProject
-let crowdinId = null;
+// i18n configuration
+i18nOptions = {
+  defaultLocale: "en",
+  prefix: "{",
+  postfix: "}",
+  // crowdinProject
+  crowdinId: null
+};
 
 // Supported Page extensions
 const pageExtestions = [".md", ".ejs", ".html"];
@@ -72,18 +73,12 @@ try {
     templateData = Object.assign(templateData, userConfig.templateData);
   if (userConfig.markdownOptions)
     markdownOptions = Object.assign(markdownOptions, userConfig.markdownOptions);
-  if (userConfig.defaultLocale)
-    defaultLocale = userConfig.defaultLocale;
-  if (userConfig.i18nPrefix)
-    i18nPrefix = userConfig.i18nPrefix;
-  if (userConfig.i18nPostfix)
-    i18nPostfix = userConfig.i18nPostfix;
+  if (userConfig.i18nOptions)
+    i18nOptions = Object.assign(i18nOptions, userConfig.i18nOptions);
   if (userConfig.port)
     port = userConfig.port;
   if (userConfig.hostname)
     hostname = userConfig.hostname;
-  if (userConfig.crowdinId)
-    crowdinId = userConfig.crowdinId;
 }
 catch (e) {
   if (e.code == "MODULE_NOT_FOUND")
@@ -97,4 +92,4 @@ if (!require("fs").existsSync(dirs.localesDir))
   multiLang = false;
 
 module.exports = {dirs, templateData, markdownOptions, pageExtestions, port,
-  hostname, defaultLocale, i18nPrefix, i18nPostfix, crowdinId, multiLang};
+  hostname, i18nOptions, multiLang};

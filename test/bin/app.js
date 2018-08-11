@@ -9,7 +9,7 @@ const {removeSync} = require("fs-extra");
 // Configurations
 const {layoutsDir, lessDir, lessTargetDir, pageDir, browserifyDir, browserifyTargetDir,
   contentDir, localesDir} = require("../../config").dirs;
-const {defaultLocale, i18nPrefix, i18nPostfix} = require("../../config");
+const {i18nOptions} = require("../../config");
 
 
 const prepareApp = (callback) =>
@@ -22,7 +22,7 @@ const prepareApp = (callback) =>
 
   let i18nWatchDirs = [pageDir, layoutsDir];
   let launchPreparation = [
-    i18nInit(localesDir, i18nWatchDirs, {defaultLocale, prefix: i18nPrefix, postfix: i18nPostfix}),
+    i18nInit(localesDir, i18nWatchDirs, i18nOptions),
     bundlerInit(lessDir, lessTargetDir, "less"),
     bundlerInit(browserifyDir, browserifyTargetDir, "js")
   ];
