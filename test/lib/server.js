@@ -12,11 +12,19 @@ const pathCodes = {
   200: ["", "ru", "ru", "path1", "path1/subpath1",
         "main.css", "verification", "?query#fragment",
         "no-extension"],
-  404: ["index", "index", "ru/index", "index.md", "path1.md",
-        "logo.png", "public/main.css", "de/path1", "nofile",
-        "js/modules/_robot.js", "css/modules/_variables.js"],
   501: ["unsupported.smth"]
 };
+
+const notFounds =
+{
+  // return defined 404.md page
+  "text/html": ["nofile", "de/path1"],
+  // no content-type header
+  "none": ["index", "ru/index", "index.md", "path1.md",
+           "logo.png", "public/main.css",
+           "js/modules/_robot.js", "css/modules/_variables.js"]
+};
+
 const caches = ["en/index.html", "ru/index.html",
                 "en/path1.html", "main.css"];
 
@@ -44,15 +52,31 @@ function testCaching()
   });
 }
 
-function requestCodes(url, code)
+function requestCodes(url, code, type)
 {
   describe(`Status code for ${url}`, () =>
   {
-    it(`should return ${code}`, (done) =>
+    let contentTypeText = "";
+    if (type)
+      contentTypeText = ` and contentType is ${type}`;
+
+    it(`res.statusCode is ${code}${contentTypeText}`, (done) =>
     {
       get(url, (res) =>
       {
         res.statusCode.should.equal(code);
+        if (type)
+        {
+          const contentType = res.headers["content-type"];
+          if (type == "none")
+          {
+            (typeof contentType).should.equal("undefined");
+          }
+          else
+          {
+            res.headers["content-type"].should.equal(type)
+          }
+        }
         done();
       });
     });
@@ -75,6 +99,16 @@ else
     for (let requestPath of pathCodes[code])
     {
       requestCodes(`${server}/${requestPath}`, Number(code));
+    }
+  }
+
+  for (const type in notFounds)
+  {
+    const paths = notFounds[type];
+    for (const path of paths)
+    {
+      //const contentType = type == "none" ? null : type;
+      requestCodes(`${server}/${path}`, 404, type);
     }
   }
 
