@@ -1,6 +1,6 @@
 // Directories
 const srcPath = "./src";
-const contentDir = "./content";
+const contentDir = `${srcPath}/content`;
 const themeDir = `${srcPath}/theme`;
 const publicDir = `${srcPath}/public`;
 let multiLang = true;
@@ -14,7 +14,8 @@ const dirs =
   lessTargetDir: `${publicDir}/css`,
   browserifyDir: `${themeDir}/js`,
   browserifyTargetDir: `${publicDir}/js`,
-  localesDir: `${srcPath}/locales`
+  localesDir: `${srcPath}/locales`,
+  tempDir: `${srcPath}/temp`
 };
 
 // Default port

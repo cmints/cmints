@@ -231,6 +231,11 @@ const acceptLanguageToLocale =
     locales: ["en", "es"],
     acceptLanguageHeader: "ru;q=0.8,ru-RU;q=0.7,hy-AM;q=0.6,hy;q=0.5",
     result: "en"
+  },
+  {
+    locales: ["en", "ru"],
+    acceptLanguageHeader: "ru,en-US;q=0.9,en;q=0.8",
+    result: "ru"
   }
 ];
 
