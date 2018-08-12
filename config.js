@@ -42,7 +42,9 @@ let templateData =
   site: {
     title: "CMintS",
     description: "CMS created with the internationalization in mind"
-  }
+  },
+  page: {},
+  i18n: {}
 };
 
 // Markdown configuration
