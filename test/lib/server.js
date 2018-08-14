@@ -18,10 +18,9 @@ const pathCodes = {
 const notFounds =
 {
   // return defined 404.md page
-  "text/html": ["nofile", "de/path1"],
+  "text/html": ["index", "ru/index", "nofile", "de/path1"],
   // no content-type header
-  "none": ["index", "ru/index", "index.md", "path1.md",
-           "logo.png", "public/main.css",
+  "none": ["index.md", "path1.md", "logo.png", "public/main.css",
            "js/modules/_robot.js", "css/modules/_variables.js"]
 };
 
