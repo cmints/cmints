@@ -11,14 +11,16 @@ const gzipExt = ".gzip";
 const pathCodes = {
   200: ["", "ru", "ru", "path1", "path1/subpath1",
         "main.css", "verification", "?query#fragment",
-        "no-extension", "2018/10/20/permalink", "permalinkpath", "toppermalinktarget"],
+        "no-extension", "2018/10/20/permalink", "ru/2018/10/20/permalink",
+        "permalinkpath", "toppermalinktarget"],
   501: ["unsupported.smth"]
 };
 
 const notFounds =
 {
   // return defined 404.md page
-  "text/html": ["index", "ru/index", "nofile", "de/path1", "permalinks", "permalinks/subpath", "toplevelpermalink"],
+  "text/html": ["index", "ru/index", "nofile", "de/path1", "permalinks", 
+                "ru/permalinks", "permalinks/subpath", "toplevelpermalink"],
   // no content-type header
   "none": ["index.md", "path1.md", "logo.png", "public/main.css",
            "js/modules/_robot.js", "css/modules/_variables.js"]
