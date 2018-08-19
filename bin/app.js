@@ -5,7 +5,6 @@ const bundler = require("../lib/bundle");
 const bundlerInit = promisify(bundler.init);
 const {removeSync} = require("fs-extra");
 const {initSitemap} = require("../lib/sitemap");
-const initPermalink = promisify(require("../lib/permalink").initPermalink);
 const initSitedata = promisify(require("../lib/sitedata").initSitedata);
 const {runServer, generateStatic} = require("../lib/server");
 const {runCrowdinSync} = require("../lib/crowdin");
@@ -27,7 +26,6 @@ function prepareApp(callback)
   let i18nWatchDirs = [pageDir, layoutsDir];
   let launchPreparation = [
     initSitedata(),
-    initPermalink(),
     i18nInit(localesDir, i18nWatchDirs, i18nOptions),
     bundlerInit(lessDir, lessTargetDir, "less"),
     bundlerInit(browserifyDir, browserifyTargetDir, "js")

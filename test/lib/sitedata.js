@@ -2,14 +2,19 @@ const {queryPages} = require.main.require("lib/sitedata");
 
 const siteDataTests = [
   {
-    filter : (data) => data.pathname === "sitedata",
+    filter : (data) => data.path === "sitedata",
     attributeName: "title",
     result: "Sitedata test"
   },
   {
-    filter : (data) => data.pathname === "sitedata",
-    attributeName: "pathname",
+    filter : (data) => data.path === "sitedata",
+    attributeName: "path",
     result: "sitedata"
+  },
+  {
+    filter : (data) => data.path === "another/sitedata/permalink",
+    attributeName: "path",
+    result: "another/sitedata/permalink"
   }
 ];
 
