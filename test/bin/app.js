@@ -3,7 +3,6 @@ const i18n = require("../../lib/i18n");
 const i18nInit = promisify(i18n.init);
 const bundler = require("../../lib/bundle");
 const bundlerInit = promisify(bundler.init);
-const {initSitemap} = require("../../lib/sitemap");
 const initSitedata = promisify(require("../../lib/sitedata").initSitedata);
 const {removeSync} = require("fs-extra");
 
@@ -17,9 +16,6 @@ const prepareApp = (callback) =>
 {
   // Remove static content generation target directory
   removeSync(contentDir);
-
-  // Initialize sitemap
-  initSitemap();
 
   let i18nWatchDirs = [pageDir, layoutsDir];
   let launchPreparation = [
