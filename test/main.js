@@ -1,6 +1,6 @@
 const {runServer} = require("../lib/server");
 const argv = require("minimist")(process.argv.slice(2));
-const {prepareApp} = require("./bin/app");
+const {init} = require("../lib/cmints");
 const {finishRemoveTestDir} = require("./post-test");
 
 
@@ -18,7 +18,7 @@ function runMainTest()
   {
     before((done) =>
     {
-      prepareApp(() =>
+      init(() =>
       {
         runServer(argv);
         done();
