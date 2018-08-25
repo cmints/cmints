@@ -71,7 +71,9 @@ let markdownOptions =
 
 // Loading user configurations
 try {
-  const userConfig = require(`${srcPath}/config`);
+  const path = require("path");
+  // Use workspace path in order to load config when installed globally
+  const userConfig = require(path.resolve(`${srcPath}/config.js`));
   if (userConfig.templateData)
     templateData = Object.assign(templateData, userConfig.templateData);
   if (userConfig.markdownOptions)
