@@ -1,5 +1,8 @@
 // Directories
-const srcPath = "./src";
+let {srcPath} = require("minimist")(process.argv.slice(2));
+if (!srcPath)
+  srcPath = "./src";
+
 const contentDir = `${srcPath}/content`;
 const themeDir = `${srcPath}/theme`;
 const publicDir = `${srcPath}/public`;
