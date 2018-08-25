@@ -2,18 +2,21 @@
   "name": "cmints",
   "version": "1.0.0",
   "description": "CMS with internationalization done right",
-  "main": "bin/app.js",
+  "main": "lib/cli.js",
+  "bin": {
+    "cmints": "./bin/app"
+  },
   "scripts": {
-    "start": "node bin/app.js",
+    "start": "node lib/cli.js",
     "test": "npm run test-mocha && npm run test-static-gen && npm run test-eslint",
     "test-mocha": "node test/pre-test.js && mocha test/main.js",
     "test-eslint": "./node_modules/.bin/eslint bin/**/*.js lib/**/*.js test/**/*.js",
     "test-static-gen": "node test/pre-test.js --static && npm run static && mocha test/lib/server.js --static",
-    "static": "node bin/app.js --static",
-    "example": "node bin/app.js --example",
-    "crowdin-update-source": "node bin/app.js --crowdin update-sources",
-    "crowdin-update-translations": "node bin/app.js --crowdin update-translations",
-    "crowdin-get-translations": "node bin/app.js --crowdin get-translations"
+    "static": "node lib/cli.js --static",
+    "example": "node lib/cli.js --example",
+    "crowdin-update-source": "node lib/cli.js --crowdin update-sources",
+    "crowdin-update-translations": "node lib/cli.js --crowdin update-translations",
+    "crowdin-get-translations": "node lib/cli.js --crowdin get-translations"
   },
   "author": "Manvel Saroyan",
   "license": "MIT",
