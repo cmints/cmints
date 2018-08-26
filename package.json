@@ -1,6 +1,6 @@
 {
   "name": "cmints",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "CMS and Static Site Generator created with the internationalization in mind",
   "author": "Manvel Saroyan",
   "license": "MIT",
@@ -9,16 +9,16 @@
     "cmints": "./bin/app"
   },
   "scripts": {
-    "start": "node lib/cli.js --start",
+    "start": "node lib/cli.js src --start",
     "test": "npm run test-mocha && npm run test-static-gen && npm run test-eslint",
-    "test-mocha": "node test/pre-test.js && mocha test/main.js",
+    "test-mocha": "node test/pre-test.js src && mocha test/main.js --src=src",
     "test-eslint": "./node_modules/.bin/eslint bin/**/*.js lib/**/*.js test/**/*.js",
-    "test-static-gen": "node test/pre-test.js --static && npm run static && mocha test/lib/server.js --static",
-    "static": "node lib/cli.js --static",
-    "example": "node lib/cli.js --example",
-    "crowdin-update-source": "node lib/cli.js --crowdin update-sources",
-    "crowdin-update-translations": "node lib/cli.js --crowdin update-translations",
-    "crowdin-get-translations": "node lib/cli.js --crowdin get-translations"
+    "test-static-gen": "node test/pre-test.js src --static && npm run static && mocha test/lib/server.js --src=src --static",
+    "static": "node lib/cli.js src --static",
+    "example": "node lib/cli.js src --example",
+    "crowdin-update-source": "node lib/cli.js src --crowdin update-sources",
+    "crowdin-update-translations": "node lib/cli.js src --crowdin update-translations",
+    "crowdin-get-translations": "node lib/cli.js src --crowdin get-translations"
   },
   "dependencies": {
     "accept-language": "^3.0.18",

@@ -2,6 +2,4 @@
 
 "use strict";
 
-// Use execution directory as the src path when using the global installation
-process.argv.push(["srcPath", "./"]);
 require("../lib/cli");
