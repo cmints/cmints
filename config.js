@@ -1,10 +1,9 @@
 const argv = require("minimist")(process.argv.slice(2));
 const path = require("path");
 
-const src = argv.src || argv._.shift() || "./";
-
+const src = argv.src || argv._.shift();
 // Directories
-const srcPath = path.relative("", src);
+const srcPath = src ? path.relative("", src) : ".";
 const contentDir = `${srcPath}/content`;
 const themeDir = `${srcPath}/theme`;
 const publicDir = `${srcPath}/public`;
