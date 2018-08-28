@@ -12,40 +12,43 @@ the development speed up. Thanks for stars and word spreading.❤️
 
 ## Installation
 ```bash
-npm i
+npm install -g cmints
 ```
 
 ## Example projects
 Generate example project for quick start, by running:
 ```bash
-npm run example
+cmints --example
 ```
 
 ## Running the server
 
 ### For the production:
 ```bash
-# http server
-npm start
+# Run http server serving current folder 
+cmints --start
 
-# Optional port parameter if ommited the server will run on port 4000
-npm start -p {PORT}
+# Replace optional {PATH} with the path to the folder you wish to serve.
+cmints {PATH} --start
 
-# https server, replace {PRIVATE_KEY} with the path to the private key file
-# and {CERTIFICATE} with the path to the certiface file
-npm start -- --https -k {PRIVATE_KEY} -c {CERTIFICATE}
+# Optional port parameter, if ommited the server will run on port 4000
+cmints --start -p {PORT}
+
+# https server: Replace {PATH} with the path to the folder you wish to serve
+# Replace {PRIVATE_KEY} with the path to the private key file
+# Replace {CERTIFICATE} with the path to the certiface file
+cmints {PATH} --start --https -k {PRIVATE_KEY} -c {CERTIFICATE}
 ```
 
 ### For development
 Use `--no-cache` flag to disable the caching.
 ```bash
-npm start -- --no-cache
+cmints --start --no-cache
 ```
 
 ## Generating a static content
 ```bash
-npm start
-npm run static
+cmints --static
 ```
 
 ## Test
@@ -59,9 +62,9 @@ npm test -- --no-cache
 ## Crowdin integration
 ```bash
 # Upload source files and source locales to the crowdin
-npm run crowdin-update-source -- --key {crowdin-key}
+cmints --crowdin update-sources --key {crowdin-key}
 # Download translations from the crowdin
-npm run crowdin-get-translations -- --key {crowdin-key}
+cmints --crowdin update-translations --key {crowdin-key}
 # Upload locaes to the crowdin
-npm run crowdin-update-translations -- --key {crowdin-key}
+cmints --crowdin get-translations --key {crowdin-key}
 ```

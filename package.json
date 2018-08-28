@@ -1,10 +1,14 @@
 {
   "name": "cmints",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "description": "CMS and Static Site Generator created with the internationalization in mind",
   "author": "Manvel Saroyan",
   "license": "MIT",
   "main": "lib/cmints.js",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/Manvel/cmints"
+  },
   "bin": {
     "cmints": "./bin/app"
   },
