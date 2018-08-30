@@ -18,7 +18,11 @@ npm install -g cmints
 ## Example projects
 Generate example project for quick start, by running:
 ```bash
+# Download example project into current directory
 cmints --example
+
+# Replace optional {PATH} with the path to the download target directory
+cmints {PATH} --example
 ```
 
 ## Running the server
