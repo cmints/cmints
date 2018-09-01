@@ -34,5 +34,13 @@
   "test-unsuported-tag": {
     "description": "Test unsuported tag",
     "message": "<canvas>Неподдерживаемый i18n tag</canvas>"
+  },
+  "escaped-path": {
+    "description": "Testing escaping tag",
+    "message": "Замените {PATH} таргетной директорией"
+  },
+  "escaped-fixed-path": {
+    "description": "Testing escaping tag inside fix",
+    "message": "Замените <fix1> таргетной директорией"
   }
 }
