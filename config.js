@@ -53,7 +53,6 @@ let templateData =
 };
 
 // Markdown configuration
-const {getLanguage, highlight} = require("highlight.js");
 // See https://markdown-it.github.io/markdown-it/#MarkdownIt.new
 let markdownOptions =
 {
@@ -63,13 +62,7 @@ let markdownOptions =
   langPrefix:   "language-",
   linkify:      false,
   typographer:  false,
-  quotes: '“”‘’',
-  highlight(str, lang)
-  {
-    let result = (lang && getLanguage(lang)) ? highlight(lang, str).value : "";
-    // Replace i18n braces to use inside of code blocks
-    return result.replace(/{/g, "&#123;").replace(/}/g, "&#125;");
-  }
+  quotes: '“”‘’'
 };
 
 
