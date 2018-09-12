@@ -65,10 +65,8 @@ let markdownOptions =
   quotes: '“”‘’'
 };
 
-
 // Loading user configurations
 try {
-  const path = require("path");
   // Use workspace path in order to load config when installed globally
   const userConfig = require(path.resolve(`${srcPath}/config.js`));
   if (userConfig.templateData)
