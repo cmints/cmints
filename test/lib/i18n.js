@@ -63,16 +63,6 @@ const translationStrings =
     "original": "{menu-item-blog(header)}",
     "en": "blog",
     "ru": "blog"
-  },
-  {
-    "original": "{escaped-path replace \\{PATH\\} with target directory}",
-    "en": "replace {PATH} with target directory",
-    "ru": "Замените {PATH} таргетной директорией"
-  },
-  {
-    "original": "{escaped-fixed-path replace <fix>\\{PATH\\}</fix> with target directory}",
-    "en": "replace {PATH} with target directory",
-    "ru": "Замените {PATH} таргетной директорией"
   }
 ];
 
