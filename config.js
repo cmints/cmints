@@ -62,8 +62,7 @@ let markdownOptions =
   langPrefix:   "language-",
   linkify:      false,
   typographer:  false,
-  quotes: '“”‘’',
-  htmlEntities: ["&#125;", "&#123;"]
+  quotes: '“”‘’'
 };
 
 // Loading user configurations
