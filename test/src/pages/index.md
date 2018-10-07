@@ -10,3 +10,5 @@ layout: default
 implemented with the Internationalization in mind. <fix>CMintS</fix> is quite
 easy to install, it has only few requirements.
 }
+
+{Curly-brackets curly &#123; & &#125; brackets}
