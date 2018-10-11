@@ -7,7 +7,6 @@ const srcPath = src ? path.relative("", src) : ".";
 const contentDir = `${srcPath}/content`;
 const themeDir = `${srcPath}/theme`;
 const publicDir = `${srcPath}/public`;
-let multiLang = true;
 
 const dirs = 
 {
@@ -28,6 +27,9 @@ let port = {
   http: 3000
 };
 let hostname = "127.0.0.1";
+
+// Create gzip files
+let gzip = true;
 
 // i18n configuration
 i18nOptions = {
@@ -79,6 +81,8 @@ try {
     port = userConfig.port;
   if (userConfig.hostname)
     hostname = userConfig.hostname;
+  if (userConfig.gzip === false)
+    gzip = false;
 }
 catch (e) {
   if (e.code == "MODULE_NOT_FOUND")
@@ -88,8 +92,7 @@ catch (e) {
 }
 
 // When localesDir doesn't exist make a single language website
-if (!require("fs").existsSync(dirs.localesDir))
-  multiLang = false;
+const multiLang = require("fs").existsSync(dirs.localesDir);
 
 module.exports = {dirs, templateData, markdownOptions, pageExtestions, port,
-  hostname, i18nOptions, multiLang};
+  hostname, i18nOptions, multiLang, gzip};
