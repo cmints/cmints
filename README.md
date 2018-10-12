@@ -72,3 +72,8 @@ cmints --crowdin update-translations --key {crowdin-key}
 # Upload locaes to the crowdin
 cmints --crowdin get-translations --key {crowdin-key}
 ```
+
+# Thanks to the awesome contributors
+
+- @ZloeSabo
+  - [PR#114](https://github.com/Manvel/cmints/pull/114)
