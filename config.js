@@ -1,5 +1,6 @@
 const argv = require("minimist")(process.argv.slice(2));
 const path = require("path");
+const os   = require("os");
 
 const src = argv.src || argv._.shift();
 // Directories
@@ -18,7 +19,7 @@ const dirs =
   browserifyDir: `${themeDir}/js`,
   browserifyTargetDir: `${publicDir}/js`,
   localesDir: `${srcPath}/locales`,
-  tempDir: `${srcPath}/temp`
+  tempDir: `${os.tmpdir()}/${process.pid}`
 };
 
 // Default port
