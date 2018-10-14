@@ -4,7 +4,7 @@ const os   = require("os");
 
 const src = argv.src || argv._.shift();
 // Directories
-const srcPath = path.resolve(src ? path.relative("", src) : ".");
+const srcPath = src ? path.relative("", src) : ".";
 const contentDir = `${srcPath}/content`;
 const themeDir = `${srcPath}/theme`;
 const publicDir = `${srcPath}/public`;
