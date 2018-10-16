@@ -68,6 +68,9 @@ let markdownOptions =
   quotes: '“”‘’'
 };
 
+// Link to the example project ZIP file
+let example = "https://github.com/Manvel/cmints-website/archive/example.zip";
+
 // Loading user configurations
 try {
   // Use workspace path in order to load config when installed globally
@@ -84,6 +87,8 @@ try {
     hostname = userConfig.hostname;
   if (userConfig.gzip === false)
     gzip = false;
+  if (userConfig.example)
+    example = userConfig.example;
 }
 catch (e) {
   if (e.code == "MODULE_NOT_FOUND")
@@ -96,4 +101,4 @@ catch (e) {
 const multiLang = require("fs").existsSync(dirs.localesDir);
 
 module.exports = {dirs, templateData, markdownOptions, pageExtestions, port,
-  hostname, i18nOptions, multiLang, gzip};
+  hostname, i18nOptions, multiLang, gzip, example};
