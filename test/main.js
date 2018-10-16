@@ -31,6 +31,7 @@ function runMainTest()
     importTest("Parser test", "./lib/parser");
     importTest("Bundling test", "./lib/bundle");
     importTest("Slugify test", "./lib/slugify");
+    importTest("Example test", "./lib/example");
 
     after(finishRemoveTestDir);
   });
