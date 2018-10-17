@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 const {promisify} = require("util");
 const i18n = require.main.require("lib/i18n");
 const i18nInit = promisify(i18n.init);
