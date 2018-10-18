@@ -19,7 +19,7 @@ const pathCodes = {
 const notFounds =
 {
   // return defined 404.md page
-  "text/html": ["index", "ru/index", "nofile", "de/path1", "permalinks", 
+  "text/html": ["index", "ru/index", "nofile", "de/path1", "permalinks",
                 "ru/permalinks", "permalinks/subpath", "toplevelpermalink"],
   // no content-type header
   "none": ["index.md", "path1.md", "logo.png", "public/main.css",
@@ -75,7 +75,7 @@ function requestCodes(url, code, type)
           }
           else
           {
-            res.headers["content-type"].should.equal(type)
+            res.headers["content-type"].should.equal(type);
           }
         }
         done();
@@ -108,7 +108,7 @@ else
     const paths = notFounds[type];
     for (const path of paths)
     {
-      //const contentType = type == "none" ? null : type;
+      // const contentType = type == "none" ? null : type;
       requestCodes(`${server}/${path}`, 404, type);
     }
   }

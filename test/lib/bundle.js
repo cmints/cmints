@@ -38,11 +38,11 @@ function compare(sourceFile, resultFile)
   {
     it("Should be same", (done) =>
     {
-      Promise.all([readFile(sourceFile, "utf-8"), 
+      Promise.all([readFile(sourceFile, "utf-8"),
                    readFile(resultFile, "utf-8")]).then(([sourceContent,
                                                           resultContent]) =>
       {
-        sourceContent.should.be.equal(resultContent)
+        sourceContent.should.be.equal(resultContent);
         done();
       }).catch((err) =>
       {
