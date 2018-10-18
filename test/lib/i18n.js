@@ -222,12 +222,12 @@ const acceptLanguageToLocale =
   {
     locales: ["ru", "en-GB"],
     acceptLanguageHeader: "en-US,en;q=0.9,ru;q=0.8,ru-RU;q=0.7,hy-AM;q=0.6,hy;q=0.5",
-    result: "en-GB"
+    result: "ru"
   },
   {
     locales: ["de", "en", "de"],
     acceptLanguageHeader: "en-US,en;q=0.9,ru;q=0.8,ru-RU;q=0.7,hy-AM;q=0.6,hy;q=0.5",
-    result: "de"
+    result: "en"
   },
   {
     locales: ["en", "es"],
@@ -243,7 +243,7 @@ const acceptLanguageToLocale =
 
 describe("Check getLocaleFromHeader() function", () =>
 {
-  for ({locales, acceptLanguageHeader, result} of acceptLanguageToLocale)
+  for (const {locales, acceptLanguageHeader, result} of acceptLanguageToLocale)
   {
     describe(`Page with "${locales}" and "${acceptLanguageHeader}" accept-langauge headers`, () =>
     {
