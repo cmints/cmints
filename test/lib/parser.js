@@ -17,6 +17,10 @@ parserResult(parserArgs, `${resultDir}/${resultFile}`);
 parserArgs = ["helpers/index", ".ejs", "ru"];
 resultFile = "helpers/index.html";
 parserResult(parserArgs, `${resultDir}/${resultFile}`);
+// Testing permalink helpers
+parserArgs = ["helpers/permalink", ".ejs", "ru"];
+resultFile = "helpers/another-permalink.html";
+parserResult(parserArgs, `${resultDir}/${resultFile}`);
 
 function parserResult(parserArgs, resultPath)
 {
