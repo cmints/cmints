@@ -1,3 +1,5 @@
+"use strict";
+
 /* eslint-disable max-len */
 
 const {promisify} = require("util");

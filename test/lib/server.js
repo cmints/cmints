@@ -1,3 +1,5 @@
+"use strict";
+
 require("chai").should();
 const {get} = require("http");
 const server = "http://localhost:3000";

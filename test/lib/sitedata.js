@@ -1,3 +1,5 @@
+"use strict";
+
 const {queryPages} = require.main.require("lib/sitedata");
 
 const siteDataTests = [

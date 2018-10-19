@@ -1,3 +1,5 @@
+"use strict";
+
 const {slugify} = require.main.require("lib/toc").tocOptions;
 
 const slugifyMaps = [

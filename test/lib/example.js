@@ -1,3 +1,5 @@
+"use strict";
+
 const {promisify} = require("util");
 const example = require.main.require("lib/example");
 const createExampleProject = promisify(example.createExampleProject);
