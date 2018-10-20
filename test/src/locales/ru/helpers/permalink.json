@@ -1,5 +1,8 @@
 {
   "helpers-permalink": {
     "message": "Помощники и постоянная ссылка"
+  },
+  "permalink-link": {
+    "message": "ссылка <a1>тута</a1>"
   }
 }

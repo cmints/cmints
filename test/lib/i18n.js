@@ -9,7 +9,109 @@ const config = require.main.require("config");
 const {localesDir, pageDir, layoutsDir} = config.dirs;
 const {prefix, postfix} = config.i18nOptions;
 
-const pagePath = "index";
+// /////////////////////////////////////////////////////////////////////////////
+// //////////////////// updateDescriptionTags() ////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
+
+const descriptionTags = [
+  {
+    input:
+`Top level directories in the <fix><code>src/locales</code></fix> are the locale codes.
+Actual directory structure reflects the page path, so for example translations
+for the <fix><code>about/teams.md</code></fix> <a href="documentation/pages">page</a> translations
+should be located in <fix><code>/de/about/teams.json</code></fix> file to be accessible
+through <fix><code>/de/about/teams</code></fix> website path.`,
+    output:
+`<fix> placeholders:
+<fix1> - <code>src/locales</code>
+<fix2> - <code>about/teams.md</code>
+<fix3> - <code>/de/about/teams.json</code>
+<fix4> - <code>/de/about/teams</code>
+<a> placeholders:
+<a1>page</a1> - <a href="documentation/pages">page</a>
+`
+  }
+];
+
+describe("Test updateDescriptionTags() function", () =>
+{
+  for (const {input, output} of descriptionTags)
+  {
+    it(`Input: \n${input} \n\nShould match the output of: \n${output}`, (done) =>
+    {
+      const result = i18n.updateDescriptionTags(input);
+      result.should.equal(output);
+      done();
+    });
+  }
+});
+
+// /////////////////////////////////////////////////////////////////////////////
+// //////////////////// generateSourceJson() ///////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
+
+const generateSourceJsonIO = [
+  {
+    input:
+`
+  <h2 id="what-is-cmints">{what-is-cmints[Page heading] What is <fix>CMintS</fix>?}</h2>
+  <p>{i18n-msg["i18n" feature text] Comprehensive internationalization out of the box.}<</p>
+  <p>{tms-msg["TMS integration" feature text] Handy API to integrate your project with the Crowdin.}</p>
+  <p>{cmints-ejs CMS is using <a href="http://ejs.co/">EJS</a> as a <a href="https://example.com/">templating
+engine</a>}</p>
+  <p>This suppose to be ignored -> {menu-item-about(header)}</p>
+`,
+    output:
+    {
+      "what-is-cmints": {
+        message: "What is <fix>CMintS</fix>?",
+        description: "Page heading\n<fix> placeholders:\n<fix1> - CMintS\n"
+      },
+      "i18n-msg": {
+        message: "Comprehensive internationalization out of the box.",
+        description: "\"i18n\" feature text\n"
+      },
+      "tms-msg": {
+        message: "Handy API to integrate your project with the Crowdin.",
+        description: "\"TMS integration\" feature text\n"
+      },
+      "cmints-ejs": {
+        message: "CMS is using <a href=\"http://ejs.co/\">EJS</a> as a <a href=\"https://example.com/\">templating\nengine</a>",
+        description: "\n<a> placeholders:\n<a1>EJS</a1> - <a href=\"http://ejs.co/\">EJS</a>\n<a2>templating engine</a2> - <a href=\"https://example.com/\">templating engine</a>\n"
+      }
+    }
+  }
+];
+
+describe("Test generateSourceJson() function", () =>
+{
+  for (const {input, output} of generateSourceJsonIO)
+  {
+    it(`Input: \n${input} \n\nShould match the output of: \n${output}`, (done) =>
+    {
+      const result = i18n.generateSourceJson(input);
+      JSON.stringify(result).should.equal(JSON.stringify(output));
+      done();
+    });
+  }
+});
+
+// /////////////////////////////////////////////////////////////////////////////
+// //////////////////// translate() ////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
+
+function translate(source, result, locale, pagePath = "index")
+{
+  describe(`String "${source}" at "${pagePath}" path for "${locale} locale"`, () =>
+  {
+    it(`Should match the output of ${result}`, (done) =>
+    {
+      const translation = i18n.translate(source, pagePath, locale);
+      translation.should.equal(result);
+      done();
+    });
+  });
+}
 
 const translationStrings =
 [
@@ -67,8 +169,23 @@ const translationStrings =
     original: "{menu-item-blog(header)}",
     en: "blog",
     ru: "blog"
+  },
+  {
+    original: "{permalink-link Link is <a href='/helpers/another-permalink'>here</a>}",
+    en: "Link is <a href='/helpers/another-permalink'>here</a>",
+    ru: 'ссылка <a href="/ru/helpers/another-permalink" hreflang="ru">тута</a>',
+    page: "helpers/permalink"
   }
 ];
+
+describe("Check translate() function", () =>
+{
+  for (const translationString of translationStrings)
+  {
+    translate(translationString.original, translationString.ru, "ru", translationString.page);
+    translate(translationString.original, translationString.en, "en", translationString.page);
+  }
+});
 
 const translationPrefixedStrings =
 [
@@ -89,96 +206,7 @@ const translationPrefixedStrings =
   }
 ];
 
-const descriptionTags = [
-  {
-    input:
-`Top level directories in the <fix><code>src/locales</code></fix> are the locale codes.
-Actual directory structure reflects the page path, so for example translations
-for the <fix><code>about/teams.md</code></fix> <a href="documentation/pages">page</a> translations
-should be located in <fix><code>/de/about/teams.json</code></fix> file to be accessible
-through <fix><code>/de/about/teams</code></fix> website path.`,
-    output:
-`<fix> placeholders:
-<fix1> - <code>src/locales</code>
-<fix2> - <code>about/teams.md</code>
-<fix3> - <code>/de/about/teams.json</code>
-<fix4> - <code>/de/about/teams</code>
-<a> placeholders:
-<a1>page</a1> - <a href="documentation/pages">page</a>
-`
-  }
-];
-
-describe("Test updateDescriptionTags() function", () =>
-{
-  for (const {input, output} of descriptionTags)
-  {
-    it(`Input: \n${input} \n\nShould match the output of: \n${output}`, (done) =>
-    {
-      const result = i18n.updateDescriptionTags(input);
-      result.should.equal(output);
-      done();
-    });
-  }
-});
-
-const generateSourceJsonIO = [
-  {
-    input:
-`
-  <h2 id="what-is-cmints">{what-is-cmints[Page heading] What is <fix>CMintS</fix>?}</h2>
-  <p>{i18n-msg["i18n" feature text] Comprehensive internationalization out of the box.}<</p>
-  <p>{tms-msg["TMS integration" feature text] Handy API to integrate your project with the Crowdin.}</p>
-  <p>{cmints-ejs CMS is using <a href="http://ejs.co/">EJS</a> as a <a href="https://example.com/">templating
-engine</a>}</p>
-  <p>This suppose to be ignored -> {menu-item-about(header)}</p>
-`,
-    output:
-    {
-      "what-is-cmints": {
-        message: "What is <fix>CMintS</fix>?",
-        description: "Page heading\n<fix> placeholders:\n<fix1> - CMintS\n"
-      },
-      "i18n-msg": {
-        message: "Comprehensive internationalization out of the box.",
-        description: "\"i18n\" feature text\n"
-      },
-      "tms-msg": {
-        message: "Handy API to integrate your project with the Crowdin.",
-        description: "\"TMS integration\" feature text\n"
-      },
-      "cmints-ejs": {
-        message: "CMS is using <a href=\"http://ejs.co/\">EJS</a> as a <a href=\"https://example.com/\">templating\nengine</a>",
-        description: "\n<a> placeholders:\n<a1>EJS</a1> - <a href=\"http://ejs.co/\">EJS</a>\n<a2>templating engine</a2> - <a href=\"https://example.com/\">templating engine</a>\n"
-      }
-    }
-  }
-];
-
-describe("Test generateSourceJson() function", () =>
-{
-  for (const {input, output} of generateSourceJsonIO)
-  {
-    it(`Input: \n${input} \n\nShould match the output of: \n${output}`, (done) =>
-    {
-      const result = i18n.generateSourceJson(input);
-      JSON.stringify(result).should.equal(JSON.stringify(output));
-      done();
-    });
-  }
-});
-
-
-describe("Check translate() function", () =>
-{
-  for (const translationString of translationStrings)
-  {
-    translate(translationString.original, translationString.ru, "ru");
-    translate(translationString.original, translationString.en, "en");
-  }
-});
-
-describe("Check translate() function", () =>
+describe("Check translate() function with a custom prefix", () =>
 {
   before((done) =>
   {
@@ -201,18 +229,9 @@ describe("Check translate() function", () =>
   });
 });
 
-function translate(source, result, locale)
-{
-  describe(`String "${source}" at "${pagePath}" path for "${locale} locale"`, () =>
-  {
-    it(`Should match the output of ${result}`, (done) =>
-    {
-      const translation = i18n.translate(source, pagePath, locale);
-      translation.should.equal(result);
-      done();
-    });
-  });
-}
+// /////////////////////////////////////////////////////////////////////////////
+// //////////////////// getLocaleFromHeader() //////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
 
 const acceptLanguageToLocale =
 [
