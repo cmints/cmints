@@ -6,27 +6,33 @@ const resultDir = `${testDir}/results`;
 const {promisify} = require("util");
 const fs = require("fs");
 const readFile = promisify(fs.readFile);
+const path = require("path");
 
-let parserArgs = [];
-let resultFile = "";
-// Testing index.html
-parserArgs = ["index", ".md", "ru"];
-resultFile = "index.html";
-parserResult(parserArgs, `${resultDir}/${resultFile}`);
-// Testing helpers helpers/index.html
-parserArgs = ["helpers/index", ".ejs", "ru"];
-resultFile = "helpers/index.html";
-parserResult(parserArgs, `${resultDir}/${resultFile}`);
-// Testing permalink helpers
-parserArgs = ["helpers/permalink", ".ejs", "ru"];
-resultFile = "helpers/another-permalink.html";
-parserResult(parserArgs, `${resultDir}/${resultFile}`);
-
-function parserResult(parserArgs, resultPath)
-{
-  it(`Comparing parsePage('${parserArgs.join("', '")}'), against ${resultPath}`, (done) =>
+const parserData = [
   {
-    let promises = [parsePage(...parserArgs),
+    page: "index.md",
+    language: "ru",
+    resultFile: "index.html"
+  },
+  {
+    page: "helpers/index.ejs",
+    language: "ru",
+    resultFile: "helpers/index.html"
+  },
+  {
+    page: "helpers/permalink.ejs",
+    language: "ru",
+    resultFile: "helpers/another-permalink.html"
+  }
+];
+
+function parserResult(page, language, resultPath)
+{
+  it(`Comparing parsePage('${page}') for ${language} language, against ${resultPath}`, (done) =>
+  {
+    const {dir, name, ext} = path.parse(page);
+    const pathname = path.join(dir, name);
+    let promises = [parsePage(pathname, ext, language),
                     readFile(resultPath, "utf-8")];
     Promise.all(promises).then((results) =>
     {
@@ -38,4 +44,9 @@ function parserResult(parserArgs, resultPath)
       done(err);
     });
   });
+}
+
+for (const {page, language, resultFile} of parserData)
+{
+  parserResult(page, language, path.join(resultDir, resultFile));
 }
