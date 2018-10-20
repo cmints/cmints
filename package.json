@@ -20,6 +20,7 @@
     "test-eslint": "./node_modules/.bin/eslint bin/**/*.js lib/**/*.js test/**/*.js",
     "test-static-gen": "node test/pre-test.js src --static && npm run static && mocha test/lib/server.js --src=src --static",
     "static": "node lib/cli.js src --static",
+    "deploy-gh-pages": "npm run static -- --deploy=gh-pages",
     "example": "node lib/cli.js src --example",
     "crowdin-update-source": "node lib/cli.js src --crowdin update-sources",
     "crowdin-update-translations": "node lib/cli.js src --crowdin update-translations",
