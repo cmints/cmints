@@ -14,7 +14,8 @@ const pathCodes = {
   200: ["", "ru", "ru", "path1", "path1/subpath1",
         "main.css", "verification", "?query#fragment",
         "no-extension", "2018/10/20/permalink", "ru/2018/10/20/permalink",
-        "permalinkpath", "toppermalinktarget", "images/logo.png"],
+        "permalinkpath", "toppermalinktarget", "images/logo.png",
+        "hello-world.html", "markup"],
   501: ["unsupported.smth"]
 };
 
@@ -26,7 +27,7 @@ const notFounds =
                 "images"],
   // no content-type header
   "none": ["index.md", "path1.md", "logo.png", "public/main.css",
-           "js/modules/_robot.js", "css/modules/_variables.js"]
+           "js/modules/_robot.js", "css/modules/_variables.js", "markup.html"]
 };
 
 const caches = ["en/index.html", "ru/index.html",
