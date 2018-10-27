@@ -44,6 +44,12 @@ let i18nOptions = {
   crowdinId: null
 };
 
+let deployment =
+{
+  where: "gh-pages",
+  gitDir: srcPath
+};
+
 // Supported Page extensions
 const pageExtestions = [".md", ".ejs", ".html"];
 
@@ -87,6 +93,8 @@ const loadUserConfig = () =>
       markdownOptions = Object.assign(markdownOptions, userConfig.markdownOptions);
     if (userConfig.i18nOptions)
       i18nOptions = Object.assign(i18nOptions, userConfig.i18nOptions);
+    if (userConfig.deployment)
+      deployment = Object.assign(deployment, userConfig.deployment);
     if (userConfig.port)
       port = userConfig.port;
     if (userConfig.hostname)
@@ -111,4 +119,4 @@ const multiLang = require("fs").existsSync(dirs.localesDir);
 
 module.exports = {dirs, templateData, markdownOptions, pageExtestions, port,
   hostname, i18nOptions, multiLang, gzip, example, loadUserConfig,
-  userConfigFile};
+  userConfigFile, deployment};
