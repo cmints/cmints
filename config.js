@@ -10,6 +10,7 @@ const srcPath = src ? path.relative("", src) : ".";
 const contentDir = `${srcPath}/content`;
 const themeDir = `${srcPath}/theme`;
 const publicDir = `${srcPath}/public`;
+const userConfigFile = `${srcPath}/config.js`;
 
 const dirs =
 {
@@ -73,34 +74,41 @@ let markdownOptions =
 // Link to the example project ZIP file
 let example = "https://github.com/Manvel/cmints-website/archive/example.zip";
 
-// Loading user configurations
-try {
-  // Use workspace path in order to load config when installed globally
-  const userConfig = require(path.resolve(`${srcPath}/config.js`));
-  if (userConfig.templateData)
-    templateData = Object.assign(templateData, userConfig.templateData);
-  if (userConfig.markdownOptions)
-    markdownOptions = Object.assign(markdownOptions, userConfig.markdownOptions);
-  if (userConfig.i18nOptions)
-    i18nOptions = Object.assign(i18nOptions, userConfig.i18nOptions);
-  if (userConfig.port)
-    port = userConfig.port;
-  if (userConfig.hostname)
-    hostname = userConfig.hostname;
-  if (userConfig.gzip === false)
-    gzip = false;
-  if (userConfig.example)
-    example = userConfig.example;
+const loadUserConfig = () =>
+{
+  delete require.cache[path.resolve(userConfigFile)];
+  // Loading user configurations
+  try {
+    // Use workspace path in order to load config when installed globally
+    const userConfig = require(path.resolve(userConfigFile));
+    if (userConfig.templateData)
+      templateData = Object.assign(templateData, userConfig.templateData);
+    if (userConfig.markdownOptions)
+      markdownOptions = Object.assign(markdownOptions, userConfig.markdownOptions);
+    if (userConfig.i18nOptions)
+      i18nOptions = Object.assign(i18nOptions, userConfig.i18nOptions);
+    if (userConfig.port)
+      port = userConfig.port;
+    if (userConfig.hostname)
+      hostname = userConfig.hostname;
+    if (userConfig.gzip === false)
+      gzip = false;
+    if (userConfig.example)
+      example = userConfig.example;
+  }
+  catch (e) {
+    if (e.code == "MODULE_NOT_FOUND")
+      console.log("Info: No custom config setup, see: https://cmints.io/documentation/getting-started/configuration");
+    else
+      console.error(e)
+  }
 }
-catch (e) {
-  if (e.code == "MODULE_NOT_FOUND")
-    console.log("Info: No custom config setup, see: https://cmints.io/documentation/getting-started/configuration");
-  else
-    console.error(e)
-}
+
+loadUserConfig();
 
 // When localesDir doesn't exist make a single language website
 const multiLang = require("fs").existsSync(dirs.localesDir);
 
 module.exports = {dirs, templateData, markdownOptions, pageExtestions, port,
-  hostname, i18nOptions, multiLang, gzip, example};
+  hostname, i18nOptions, multiLang, gzip, example, loadUserConfig,
+  userConfigFile};
