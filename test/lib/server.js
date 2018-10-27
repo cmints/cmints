@@ -7,7 +7,6 @@ const {contentDir} = require.main.require("config").dirs;
 const fs = require("fs");
 const fileExist = fs.existsSync;
 const argv = require("minimist")(process.argv.slice(2));
-const {finishRemoveTestDir} = require("../post-test");
 const gzipExt = ".gzip";
 
 const pathCodes = {
@@ -94,7 +93,7 @@ if (argv.static)
   describe("Testing static content generation", () =>
   {
     testCaching();
-    after(finishRemoveTestDir);
+    after(process.exit);
   });
 }
 else

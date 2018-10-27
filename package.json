@@ -22,17 +22,19 @@
     "cmints": "./bin/app"
   },
   "scripts": {
-    "start": "node lib/cli.js src --start",
-    "test": "npm run test-mocha && npm run test-static-gen && npm run test-eslint",
-    "test-mocha": "node test/pre-test.js src && mocha test/main.js --src=src",
-    "test-eslint": "./node_modules/.bin/eslint bin/**/*.js lib/**/*.js test/**/*.js",
-    "test-static-gen": "node test/pre-test.js src --static && npm run static && mocha test/lib/server.js --src=src --static",
-    "static": "node lib/cli.js src --static",
-    "deploy-gh-pages": "npm run static -- --deploy=gh-pages",
-    "example": "node lib/cli.js src --example",
     "crowdin-update-source": "node lib/cli.js src --crowdin update-sources",
     "crowdin-update-translations": "node lib/cli.js src --crowdin update-translations",
-    "crowdin-get-translations": "node lib/cli.js src --crowdin get-translations"
+    "crowdin-get-translations": "node lib/cli.js src --crowdin get-translations",
+    "deploy-gh-pages": "npm run static -- --deploy=gh-pages",
+    "example": "node lib/cli.js src --example",
+    "start": "node lib/cli.js src --start",
+    "static": "node lib/cli.js src --static",
+    "test": "npm run test-mocha && npm run test-static-gen && npm run test-eslint",
+    "test-eslint": "./node_modules/.bin/eslint bin/**/*.js lib/**/*.js test/**/*.js",
+    "test-mocha": "npm run test-pre && mocha test/main.js --src=src && npm run test-post",
+    "test-pre": "node test/pre-test.js src",
+    "test-post": "node test/post-test.js src",
+    "test-static-gen": "npm run test-pre && npm run static && mocha test/lib/server.js --src=src --static && npm run test-post"
   },
   "dependencies": {
     "accept-language": "^3.0.18",

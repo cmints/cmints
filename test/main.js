@@ -1,8 +1,8 @@
+"use strict";
+
 const {runServer} = require("../lib/server");
 const argv = require("minimist")(process.argv.slice(2));
 const {init} = require("../lib/cmints");
-const {finishRemoveTestDir} = require("./post-test");
-
 
 function importTest(name, path)
 {
@@ -33,7 +33,7 @@ function runMainTest()
     importTest("Slugify test", "./lib/slugify");
     importTest("Example test", "./lib/example");
 
-    after(finishRemoveTestDir);
+    after(process.exit);
   });
 }
 
