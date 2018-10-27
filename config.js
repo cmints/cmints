@@ -1,3 +1,5 @@
+"use strict";
+
 const argv = require("minimist")(process.argv.slice(2));
 const path = require("path");
 const os   = require("os");
@@ -9,7 +11,7 @@ const contentDir = `${srcPath}/content`;
 const themeDir = `${srcPath}/theme`;
 const publicDir = `${srcPath}/public`;
 
-const dirs = 
+const dirs =
 {
   srcPath, contentDir, publicDir, themeDir,
   pageDir: `${srcPath}/pages`,
@@ -33,7 +35,7 @@ let hostname = "127.0.0.1";
 let gzip = true;
 
 // i18n configuration
-i18nOptions = {
+let i18nOptions = {
   defaultLocale: "en",
   prefix: "{",
   postfix: "}",
