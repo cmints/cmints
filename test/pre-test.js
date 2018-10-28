@@ -1,9 +1,9 @@
 "use strict";
 
-const {copySync, moveSync, ensureDirSync} = require("fs-extra");
-const {srcPath} = require("../config").dirs;
-const targetDir = "./test/src";
+const {copySync, emptyDirSync} = require("fs-extra");
+const testDir = "./test";
+const sourceDir = `${testDir}/src`;
+const destinationDir = `${testDir}/src-temp`;
 
-ensureDirSync(srcPath);
-moveSync(srcPath, `${srcPath}-tmp`);
-copySync(targetDir, srcPath);
+emptyDirSync(destinationDir);
+copySync(sourceDir, destinationDir);

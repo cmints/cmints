@@ -1,7 +1,7 @@
 "use strict";
 
-const {removeSync, moveSync} = require("fs-extra");
-const {srcPath} = require("../config").dirs;
+const {removeSync} = require("fs-extra");
+const testDir = "./test";
+const destinationDir = `${testDir}/src-temp`;
 
-removeSync(srcPath);
-moveSync(`${srcPath}-tmp`, srcPath)
+removeSync(destinationDir);
