@@ -24,7 +24,7 @@ function runMainTest()
         done();
       });
     });
-  
+
     importTest("Server test", "./lib/server");
     importTest("I18n test", "./lib/i18n");
     importTest("Sitedata test", "./lib/sitedata");

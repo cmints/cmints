@@ -46,9 +46,17 @@ function testCaching()
       const filePath = `${contentDir}/${cachedFile}`;
       describe(`Does ${filePath} exist`, () =>
       {
-        it("Should exist", (done) =>
+        const shouldExist = !(argv.nogzip && filePath.includes(gzipExt));
+        it(`Should${shouldExist ? "" : "n't"} exist`, (done) =>
         {
-          fileExist(filePath).should.equal(true);
+          if (shouldExist)
+          {
+            fileExist(filePath).should.equal(shouldExist);
+          }
+          else
+          {
+            fileExist(filePath).should.equal(shouldExist);
+          }
           done();
         });
       });
@@ -90,7 +98,7 @@ function requestCodes(url, code, type)
 if (argv.static)
 {
   // THIS TEST IS CALLED DIRECTLY
-  describe("Testing static content generation", () =>
+  describe(`Testing static content generation ${argv.nogzip ? "" : "without cache"}`, () =>
   {
     testCaching();
     after(process.exit);
