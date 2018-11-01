@@ -50,6 +50,8 @@ let deployment =
   gitDir: srcPath
 };
 
+let generationType = "Index";
+
 // Supported Page extensions
 const pageExtestions = [".md", ".ejs", ".html"];
 
@@ -97,6 +99,8 @@ const loadUserConfig = () =>
       deployment = Object.assign(deployment, userConfig.deployment);
     if (userConfig.port)
       port = userConfig.port;
+    if (userConfig.generationType)
+      generationType = userConfig.generationType;
     if (userConfig.hostname)
       hostname = userConfig.hostname;
     if (userConfig.gzip === true)
@@ -119,4 +123,4 @@ const multiLang = require("fs").existsSync(dirs.localesDir);
 
 module.exports = {dirs, templateData, markdownOptions, pageExtestions, port,
   hostname, i18nOptions, multiLang, gzip, example, loadUserConfig,
-  userConfigFile, deployment};
+  userConfigFile, deployment, generationType};
