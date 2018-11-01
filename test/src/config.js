@@ -2,9 +2,9 @@
 
 const argv = require("minimist")(process.argv.slice(2));
 
-if (argv.nogzip)
+if (argv.addgzip)
 {
-  module.exports = {gzip: false};
+  module.exports = {gzip: true};
 }
 else
 {

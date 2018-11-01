@@ -35,7 +35,7 @@
     "test-pre": "node test/pre-test.js",
     "test-post": "node test/post-test.js",
     "test-static-gen": "npm run test-pre && npm run static -- --src=test/src-temp && mocha test/lib/server.js --src=test/src-temp --static && npm run test-post",
-    "test-static-gen-nogzip": "npm run test-pre && npm run static -- --src=test/src-temp --nogzip && mocha test/lib/server.js --src=test/src-temp --static --nogzip && npm run test-post"
+    "test-static-gen-nogzip": "npm run test-pre && npm run static -- --src=test/src-temp --addgzip && mocha test/lib/server.js --src=test/src-temp --static --testgzip && npm run test-post"
   },
   "dependencies": {
     "accept-language": "^3.0.18",

@@ -46,7 +46,9 @@ function testCaching()
       const filePath = `${contentDir}/${cachedFile}`;
       describe(`Does ${filePath} exist`, () =>
       {
-        const shouldExist = !(argv.nogzip && filePath.includes(gzipExt));
+        let shouldExist = true;
+        if (!argv.testgzip && filePath.includes(gzipExt))
+          shouldExist = false;
         it(`Should${shouldExist ? "" : "n't"} exist`, (done) =>
         {
           if (shouldExist)
@@ -128,7 +130,7 @@ function requestCodes(url, code, type)
 if (argv.static)
 {
   // THIS TEST IS CALLED DIRECTLY
-  describe(`Testing static content generation ${argv.nogzip ? "" : "without cache"}`, () =>
+  describe(`Testing static content generation ${argv.testgzip ? "" : "with cache"}`, () =>
   {
     testCaching();
     testPermalinkGeneration();

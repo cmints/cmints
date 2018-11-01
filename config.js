@@ -33,7 +33,7 @@ let port = {
 let hostname = "127.0.0.1";
 
 // Create gzip files
-let gzip = true;
+let gzip = false;
 
 // i18n configuration
 let i18nOptions = {
@@ -99,8 +99,8 @@ const loadUserConfig = () =>
       port = userConfig.port;
     if (userConfig.hostname)
       hostname = userConfig.hostname;
-    if (userConfig.gzip === false)
-      gzip = false;
+    if (userConfig.gzip === true)
+      gzip = true;
     if (userConfig.example)
       example = userConfig.example;
   }
