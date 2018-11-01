@@ -65,10 +65,10 @@ function testCaching()
 }
 
 const generatedPermalinks = [
-  ["2018/10/20/permalink.html", false],
-  ["ru/2018/10/20/permalink.html", false],
-  ["ru/permalinks/index.html", true],
-  ["en/permalinks/index.html", true]
+  ["en/2018/10/20/permalink.html", true],
+  ["ru/2018/10/20/permalink.html", true],
+  ["ru/permalinks/index.html", false],
+  ["en/permalinks/index.html", false]
 ];
 
 function testPermalinkGeneration()
