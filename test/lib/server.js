@@ -64,6 +64,36 @@ function testCaching()
   });
 }
 
+const generatedPermalinks = [
+  ["2018/10/20/permalink.html", false],
+  ["ru/2018/10/20/permalink.html", false],
+  ["ru/permalinks/index.html", true],
+  ["en/permalinks/index.html", true]
+];
+
+function testPermalinkGeneration()
+{
+  describe("Test if permalink files are generated correctly", () =>
+  {
+    for (const [generatedFile, exists] of generatedPermalinks)
+    {
+      const filePath = `${contentDir}/${generatedFile}`;
+      it(`${filePath} Should${exists ? "" : "n't"} exist`, (done) =>
+      {
+        if (exists)
+        {
+          fileExist(filePath).should.equal(exists);
+        }
+        else
+        {
+          fileExist(filePath).should.equal(exists);
+        }
+        done();
+      });
+    }
+  });
+}
+
 function requestCodes(url, code, type)
 {
   describe(`Status code for ${url}`, () =>
@@ -101,6 +131,7 @@ if (argv.static)
   describe(`Testing static content generation ${argv.nogzip ? "" : "without cache"}`, () =>
   {
     testCaching();
+    testPermalinkGeneration();
     after(process.exit);
   });
 }
