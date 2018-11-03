@@ -31,6 +31,7 @@ let port = {
   http: 3000
 };
 let hostname = "127.0.0.1";
+let root = "";
 
 // Create gzip files
 let gzip = false;
@@ -104,6 +105,8 @@ const loadUserConfig = () =>
       generationType = userConfig.generationType;
     if (userConfig.hostname)
       hostname = userConfig.hostname;
+    if (userConfig.root)
+      root = userConfig.root;
     if (userConfig.gzip === true)
       gzip = true;
     if (userConfig.example)
@@ -124,4 +127,4 @@ const multiLang = require("fs").existsSync(dirs.localesDir);
 
 module.exports = {dirs, templateData, markdownOptions, pageExtestions, port,
   hostname, i18nOptions, multiLang, gzip, example, loadUserConfig,
-  userConfigFile, deployment, generationType};
+  userConfigFile, deployment, generationType, root};
