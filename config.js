@@ -46,7 +46,8 @@ let i18nOptions = {
 
 let deployment =
 {
-  where: "gh-pages",
+  where: "git",
+  branch: "gh-pages",
   gitDir: srcPath
 };
 
