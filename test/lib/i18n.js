@@ -276,3 +276,67 @@ describe("Check getLocaleFromHeader() function", () =>
     });
   }
 });
+
+// /////////////////////////////////////////////////////////////////////////////
+// ////////////////////// hrefAndLang() ////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////////////////
+
+const root = "/cmints-website";
+
+const pathLocales =
+[
+  {
+    path: "",
+    locale: "ru",
+    result: ['href="/ru"', 'hreflang="ru"'],
+    resultRoot: [`href="${root}/ru"`, 'hreflang="ru"']
+  },
+  {
+    path: "helpers/another-permalink",
+    locale: "ru",
+    result: ['href="/ru/helpers/another-permalink"', 'hreflang="ru"'],
+    resultRoot: [`href="${root}/ru/helpers/another-permalink"`, 'hreflang="ru"']
+  }
+];
+
+function testHrefLang(path, locale, result, root)
+{
+  it(`hrefAndLang("${path}", ${locale}) with root of '${root}' should return [${result.toString()}]`, (done) =>
+  {
+    const [href, hreflang] = i18n.hrefAndLang(path, locale);
+    console.log(href, hreflang);
+    href.should.equal(result[0]);
+    hreflang.should.equal(result[1]);
+    done();
+  });
+}
+
+describe("Check hrefAndLang() function", () =>
+{
+  for (const {path, locale, result} of pathLocales)
+  {
+    testHrefLang(path, locale, result, "");
+  }
+});
+
+describe(`Check hrefAndLang() function with root set to "${root}"`, () =>
+{
+  before((done) =>
+  {
+    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {root: "/cmints-website"}).then(() => {
+      done();
+    });
+  });
+
+  for (const {path, locale, resultRoot} of pathLocales)
+  {
+    testHrefLang(path, locale, resultRoot, root);
+  }
+
+  after((done) =>
+  {
+    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {root: ""}).then(() => {
+      done();
+    });
+  });
+});
