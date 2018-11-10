@@ -143,11 +143,48 @@ function generationDouble()
   }
 }
 
+function generationIndex()
+{
+  const staticFiles = [
+    {
+      path: "en/2018/10/20/permalink.html",
+      exist: false
+    },
+    {
+      path: "2018/10/20/permalink.html",
+      exist: true
+    },
+    {
+      path: "index.html",
+      exist: true
+    },
+    {
+      path: "en/index.html",
+      exist: false
+    }];
+  for (const {path, exist} of staticFiles)
+  {
+    const filePath = `${contentDir}/${path}`;
+    it(`${filePath} Should${exist ? "" : "n't"}  exist`, (done) =>
+    {
+      fileExist(filePath).should.equal(exist);
+      done();
+    });
+  }
+}
+
 if (argv.double)
 {
   describe("Testing generation type double", () =>
   {
     generationDouble();
+  });
+}
+if (argv.index)
+{
+  describe("Testing generation type Index", () =>
+  {
+    generationIndex();
   });
 }
 else if (argv.static)

@@ -6,6 +6,10 @@ if (argv.double)
 {
   module.exports = {generationType: "Double"};
 }
+else if (argv.index)
+{
+  module.exports = {generationType: "Index"};
+}
 else if (argv.addgzip)
 {
   module.exports = {gzip: true, generationType: "Cache"};
