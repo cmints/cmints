@@ -134,7 +134,10 @@ if (argv.static)
   {
     testCaching();
     testPermalinkGeneration();
-    after(process.exit);
+    after((done) =>
+    {
+      done();
+    });
   });
 }
 else

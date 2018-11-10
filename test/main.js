@@ -33,7 +33,9 @@ function runMainTest()
     importTest("Slugify test", "./lib/slugify");
     importTest("Example test", "./lib/example");
 
-    after(process.exit);
+    after((done) => {
+      done();
+    });
   });
 }
 

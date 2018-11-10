@@ -31,11 +31,11 @@
     "static": "node lib/cli.js src --static",
     "test": "npm run test-mocha && npm run test-static-gen && npm run test-static-gen-nogzip && npm run test-eslint",
     "test-eslint": "./node_modules/.bin/eslint bin/**/*.js lib/**/*.js test/**/*.js",
-    "test-mocha": "npm run test-pre && mocha test/main.js --src=test/src-temp && npm run test-post",
+    "test-mocha": "npm run test-pre && mocha --exit test/main.js --src=test/src-temp && npm run test-post",
     "test-pre": "node test/pre-test.js",
     "test-post": "node test/post-test.js",
-    "test-static-gen": "npm run test-pre && npm run static -- --src=test/src-temp && mocha test/lib/server.js --src=test/src-temp --static && npm run test-post",
-    "test-static-gen-nogzip": "npm run test-pre && npm run static -- --src=test/src-temp --addgzip && mocha test/lib/server.js --src=test/src-temp --static --testgzip && npm run test-post"
+    "test-static-gen": "npm run test-pre && npm run static -- --src=test/src-temp && mocha --exit test/lib/server.js --src=test/src-temp --static && npm run test-post",
+    "test-static-gen-nogzip": "npm run test-pre && npm run static -- --src=test/src-temp --addgzip && mocha --exit test/lib/server.js --src=test/src-temp --static --testgzip && npm run test-post"
   },
   "dependencies": {
     "accept-language": "^3.0.18",
