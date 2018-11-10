@@ -2,7 +2,11 @@
 
 const argv = require("minimist")(process.argv.slice(2));
 
-if (argv.addgzip)
+if (argv.double)
+{
+  module.exports = {generationType: "Double"};
+}
+else if (argv.addgzip)
 {
   module.exports = {gzip: true, generationType: "Cache"};
 }

@@ -127,7 +127,30 @@ function requestCodes(url, code, type)
   });
 }
 
-if (argv.static)
+function generationDouble()
+{
+  const staticFiles = [
+    "en/2018/10/20/permalink.html", "2018/10/20/permalink.html",
+    "index.html", "en/index.html"];
+  for (const staticFile of staticFiles)
+  {
+    const filePath = `${contentDir}/${staticFile}`;
+    it(`${filePath} Should  exist`, (done) =>
+    {
+      fileExist(filePath).should.equal(true);
+      done();
+    });
+  }
+}
+
+if (argv.double)
+{
+  describe("Testing generation type double", () =>
+  {
+    generationDouble();
+  });
+}
+else if (argv.static)
 {
   // THIS TEST IS CALLED DIRECTLY
   describe(`Testing static content generation ${argv.testgzip ? "" : "with cache"}`, () =>
