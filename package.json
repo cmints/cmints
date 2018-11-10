@@ -29,7 +29,7 @@
     "example": "node lib/cli.js src --example",
     "start": "node lib/cli.js src --start",
     "static": "node lib/cli.js src --static",
-    "test": "npm run test-mocha && npm run test-static-gen && npm run test-static-gen-nogzip && npm run test-static-gen-index && npm run test-static-gen-double && npm run test-eslint",
+    "test": "npm run test-mocha && npm run test-static-gen && npm run test-static-gen-nogzip && npm run test-static-gen-double && npm run test-eslint",
     "test-eslint": "./node_modules/.bin/eslint bin/**/*.js lib/**/*.js test/**/*.js",
     "test-mocha": "npm run test-pre && mocha --exit test/main.js --src=test/src-temp && npm run test-post",
     "test-pre": "node test/pre-test.js",
