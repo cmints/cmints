@@ -14,7 +14,8 @@ describe("Check if example project is downloaded and created", function()
   this.timeout(10000);
   it(`${nodeModules} should exists`, (done) =>
   {
-    createExampleProject().then(() => {
+    createExampleProject().then(() =>
+    {
       console.log("here");
       fileExist(nodeModules).should.equal(true);
       done();

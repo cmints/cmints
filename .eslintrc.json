@@ -16,6 +16,7 @@
     "arrow-spacing": "error",
     "block-scoped-var": "error",
     "block-spacing": "error",
+    "brace-style": ["error", "allman"],
     "camelcase": "error",
     "comma-spacing": "error",
     "computed-property-spacing": "error",

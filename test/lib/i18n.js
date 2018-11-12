@@ -210,7 +210,8 @@ describe("Check translate() function with a custom prefix", () =>
 {
   before((done) =>
   {
-    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {prefix: "{{", postfix: "}}"}).then(() => {
+    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {prefix: "{{", postfix: "}}"}).then(() =>
+    {
       done();
     });
   });
@@ -223,7 +224,8 @@ describe("Check translate() function with a custom prefix", () =>
 
   after((done) =>
   {
-    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {prefix, postfix}).then(() => {
+    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {prefix, postfix}).then(() =>
+    {
       done();
     });
   });
@@ -323,7 +325,8 @@ describe(`Check hrefAndLang() function with root set to "${root}"`, () =>
 {
   before((done) =>
   {
-    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {root: "/cmints-website"}).then(() => {
+    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {root: "/cmints-website"}).then(() =>
+    {
       done();
     });
   });
@@ -335,7 +338,8 @@ describe(`Check hrefAndLang() function with root set to "${root}"`, () =>
 
   after((done) =>
   {
-    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {root: ""}).then(() => {
+    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {root: ""}).then(() =>
+    {
       done();
     });
   });
