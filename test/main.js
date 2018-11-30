@@ -39,4 +39,9 @@ function runMainTest()
   });
 }
 
+process.on("exit", () =>
+{
+  require("./post-test");
+});
+
 runMainTest();
