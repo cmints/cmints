@@ -85,6 +85,15 @@ let markdownOptions =
 // see https://github.com/browserify/browserify#browserifyfiles--opts
 let browserifyOptions = {};
 
+// LESS configuration
+// see http://lesscss.org/usage/#less-options
+let lessOptions =
+{
+  sourceMap: {
+    sourceMapFileInline: true
+  }
+};
+
 // Link to the example project ZIP file
 let example = "https://github.com/Manvel/cmints-website/archive/example.zip";
 
@@ -101,6 +110,8 @@ const loadUserConfig = () =>
       markdownOptions = Object.assign(markdownOptions, userConfig.markdownOptions);
     if (userConfig.browserifyOptions)
       browserifyOptions = Object.assign(browserifyOptions, userConfig.browserifyOptions);
+    if (userConfig.lessOptions)
+      lessOptions = Object.assign(lessOptions, userConfig.lessOptions);
     if (userConfig.i18nOptions)
       i18nOptions = Object.assign(i18nOptions, userConfig.i18nOptions);
     if (userConfig.deployment)
@@ -133,4 +144,5 @@ const multiLang = require("fs").existsSync(dirs.localesDir);
 
 module.exports = {dirs, templateData, markdownOptions, pageExtestions, port,
   hostname, i18nOptions, multiLang, gzip, example, loadUserConfig,
-  userConfigFile, deployment, generationType, root};
+  userConfigFile, deployment, generationType, root, lessOptions,
+  browserifyOptions};
