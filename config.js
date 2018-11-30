@@ -81,6 +81,10 @@ let markdownOptions =
   quotes: '“”‘’'
 };
 
+// Browserify configuration
+// see https://github.com/browserify/browserify#browserifyfiles--opts
+let browserifyOptions = {};
+
 // Link to the example project ZIP file
 let example = "https://github.com/Manvel/cmints-website/archive/example.zip";
 
@@ -95,6 +99,8 @@ const loadUserConfig = () =>
       templateData = Object.assign(templateData, userConfig.templateData);
     if (userConfig.markdownOptions)
       markdownOptions = Object.assign(markdownOptions, userConfig.markdownOptions);
+    if (userConfig.browserifyOptions)
+      browserifyOptions = Object.assign(browserifyOptions, userConfig.browserifyOptions);
     if (userConfig.i18nOptions)
       i18nOptions = Object.assign(i18nOptions, userConfig.i18nOptions);
     if (userConfig.deployment)
