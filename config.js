@@ -116,6 +116,8 @@ const loadUserConfig = () =>
       i18nOptions = Object.assign(i18nOptions, userConfig.i18nOptions);
     if (userConfig.deployment)
       deployment = Object.assign(deployment, userConfig.deployment);
+    if (userConfig.dirs)
+      dirs = Object.assign(dirs, userConfig.dirs);
     if (userConfig.port)
       port = userConfig.port;
     if (userConfig.generationType)
