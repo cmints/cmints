@@ -3,6 +3,8 @@
 require("chai").should();
 const {get} = require("http");
 const server = "http://localhost:3000";
+const {runServer} = require("../../lib/server");
+const {init} = require("../../lib/cmints");
 const {contentDir} = require.main.require("config").dirs;
 const fs = require("fs");
 const fileExist = fs.existsSync;
@@ -14,7 +16,7 @@ const pathCodes = {
         "main.css", "verification", "?query#fragment",
         "no-extension", "2018/10/20/permalink", "ru/2018/10/20/permalink",
         "permalinkpath", "toppermalinktarget", "images/logo.png",
-        "hello-world.html", "markup"],
+        "hello-world.html", "markup", "js/_underscore.js"],
   501: ["unsupported.smth"]
 };
 
@@ -23,7 +25,7 @@ const notFounds =
   // return defined 404.md page
   "text/html": ["index", "ru/index", "nofile", "de/path1", "permalinks",
                 "ru/permalinks", "permalinks/subpath", "toplevelpermalink",
-                "images"],
+                "images", "_draft", "path1/_subdraft"],
   // no content-type header
   "none": ["index.md", "path1.md", "logo.png", "public/main.css",
            "js/modules/_robot.js", "css/modules/_variables.js", "markup.html"]
@@ -194,6 +196,30 @@ else if (argv.static)
   {
     testCaching();
     testPermalinkGeneration();
+    after((done) =>
+    {
+      done();
+    });
+  });
+}
+else if (argv.draft)
+{
+  describe("Testing draft pages", () =>
+  {
+    before((done) =>
+    {
+      init(() =>
+      {
+        runServer(argv);
+        done();
+      });
+    });
+
+    ["_draft", "path1/_subdraft", "/js/_underscore.js"].forEach((draft) =>
+    {
+      requestCodes(`${server}/${draft}`, 200);
+    });
+
     after((done) =>
     {
       done();
