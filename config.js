@@ -97,6 +97,9 @@ let lessOptions =
 // Link to the example project ZIP file
 let example = "https://github.com/Manvel/cmints-website/archive/example.zip";
 
+// Files to watch for configuration reload
+let configReloadWatchers = [userConfigFile];
+
 const loadUserConfig = () =>
 {
   delete require.cache[path.resolve(userConfigFile)];
@@ -130,6 +133,8 @@ const loadUserConfig = () =>
       gzip = true;
     if (userConfig.example)
       example = userConfig.example;
+    if (userConfig.configReloadWatchers)
+      configReloadWatchers = configReloadWatchers.concat(userConfig.configReloadWatchers);
   }
   catch (e) {
     if (e.code == "MODULE_NOT_FOUND")
@@ -146,5 +151,5 @@ const multiLang = require("fs").existsSync(dirs.localesDir);
 
 module.exports = {dirs, templateData, markdownOptions, pageExtestions, port,
   hostname, i18nOptions, multiLang, gzip, example, loadUserConfig,
-  userConfigFile, deployment, generationType, root, lessOptions,
+  configReloadWatchers, deployment, generationType, root, lessOptions,
   browserifyOptions};
