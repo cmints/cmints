@@ -50,7 +50,7 @@
     "glob": "^7.1.2",
     "less": "^3.0.4",
     "markdown-it": "^8.4.1",
-    "markdown-it-anchor": "^5.0.2",
+    "markdown-it-anchor": "git+https://github.com/Manvel/markdown-it-anchor.git",
     "markdown-it-html-entities": "^1.0.0",
     "minimist": "^1.2.0",
     "request": "^2.85.0",
