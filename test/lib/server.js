@@ -11,28 +11,8 @@ const fileExist = fs.existsSync;
 const argv = require("minimist")(process.argv.slice(2));
 const gzipExt = ".gzip";
 
-const pathCodes = {
-  200: ["", "ru", "ru", "path1", "path1/subpath1",
-        "main.css", "verification", "?query#fragment",
-        "no-extension", "2018/10/20/permalink", "ru/2018/10/20/permalink",
-        "permalinkpath", "toppermalinktarget", "images/logo.png",
-        "hello-world.html", "markup", "js/_underscore.js"],
-  501: ["unsupported.smth"]
-};
-
-const notFounds =
-{
-  // return defined 404.md page
-  "text/html": ["index", "ru/index", "nofile", "de/path1", "permalinks",
-                "ru/permalinks", "permalinks/subpath", "toplevelpermalink",
-                "images", "_draft", "path1/_subdraft"],
-  // no content-type header
-  "none": ["index.md", "path1.md", "logo.png", "public/main.css",
-           "js/modules/_robot.js", "css/modules/_variables.js", "markup.html"]
-};
-
-const caches = ["en/index.html", "ru/index.html",
-                "en/path1.html", "main.css"];
+const caches = ["index.html", "ru/index.html",
+                "path1.html", "main.css"];
 
 // Add Gzip to the caches array
 const gzipCaches = caches.map((cachedFile) => cachedFile + gzipExt);
@@ -68,15 +48,45 @@ function testCaching()
   });
 }
 
-const generatedPermalinks = [
-  ["en/2018/10/20/permalink.html", true],
-  ["ru/2018/10/20/permalink.html", true],
-  ["ru/permalinks/index.html", false],
-  ["en/permalinks/index.html", false]
-];
+function generationIndex()
+{
+  const staticFiles = [
+    {
+      path: "en/2018/10/20/permalink.html",
+      exist: false
+    },
+    {
+      path: "2018/10/20/permalink.html",
+      exist: true
+    },
+    {
+      path: "index.html",
+      exist: true
+    },
+    {
+      path: "en/index.html",
+      exist: false
+    }];
+  for (const {path, exist} of staticFiles)
+  {
+    const filePath = `${contentDir}/${path}`;
+    it(`${filePath} Should${exist ? "" : "n't"}  exist`, (done) =>
+    {
+      fileExist(filePath).should.equal(exist);
+      done();
+    });
+  }
+}
 
 function testPermalinkGeneration()
 {
+  const generatedPermalinks = [
+    ["2018/10/20/permalink.html", true],
+    ["ru/2018/10/20/permalink.html", true],
+    ["ru/permalinks/index.html", false],
+    ["en/permalinks/index.html", false]
+  ];
+
   describe("Test if permalink files are generated correctly", () =>
   {
     for (const [generatedFile, exists] of generatedPermalinks)
@@ -145,62 +155,120 @@ function generationDouble()
   }
 }
 
-function generationIndex()
+function testRequestCodes(pathCodes, notFounds)
 {
-  const staticFiles = [
-    {
-      path: "en/2018/10/20/permalink.html",
-      exist: false
-    },
-    {
-      path: "2018/10/20/permalink.html",
-      exist: true
-    },
-    {
-      path: "index.html",
-      exist: true
-    },
-    {
-      path: "en/index.html",
-      exist: false
-    }];
-  for (const {path, exist} of staticFiles)
+  for (let code in pathCodes)
   {
-    const filePath = `${contentDir}/${path}`;
-    it(`${filePath} Should${exist ? "" : "n't"}  exist`, (done) =>
+    for (let requestPath of pathCodes[code])
     {
-      fileExist(filePath).should.equal(exist);
-      done();
-    });
+      requestCodes(`${server}/${requestPath}`, Number(code));
+    }
+  }
+
+  for (const type in notFounds)
+  {
+    const paths = notFounds[type];
+    for (const path of paths)
+    {
+      // const contentType = type == "none" ? null : type;
+      requestCodes(`${server}/${path}`, 404, type);
+    }
   }
 }
 
-if (argv.double)
+if (argv.server)
 {
-  describe("Testing generation type double", () =>
+  if (argv.double)
   {
-    generationDouble();
-  });
-}
-if (argv.index)
-{
-  describe("Testing generation type Index", () =>
+    const pathCodes = {
+      200: ["en", "", "ru", "ru", "path1", "en/path1", "path1/subpath1",
+            "main.css", "verification", "?query#fragment",
+            "no-extension", "2018/10/20/permalink", "en/2018/10/20/permalink",
+            "ru/2018/10/20/permalink",
+            "permalinkpath", "toppermalinktarget", "images/logo.png",
+            "hello-world.html", "markup", "js/_underscore.js"],
+      501: ["unsupported.smth"]
+    };
+
+    const notFounds =
+    {
+      // return defined 404.md page
+      "text/html": ["index", "ru/index", "nofile", "de/path1", "permalinks",
+                    "ru/permalinks", "permalinks/subpath", "toplevelpermalink",
+                    "images", "_draft", "path1/_subdraft"],
+      // no content-type header
+      "none": ["index.md", "path1.md", "logo.png", "public/main.css",
+               "js/modules/_robot.js", "css/modules/_variables.js",
+               "markup.html"]
+    };
+    describe("Generation type Double server", () =>
+    {
+      before((done) =>
+      {
+        init(() =>
+        {
+          runServer(argv);
+          done();
+        });
+      });
+      testRequestCodes(pathCodes, notFounds);
+      after((done) =>
+      {
+        done();
+      });
+    });
+  }
+  else
   {
-    generationIndex();
-  });
+    // Generation type Index
+    const pathCodes = {
+      200: ["", "ru", "ru", "path1", "path1/subpath1",
+            "main.css", "verification", "?query#fragment",
+            "no-extension", "2018/10/20/permalink", "ru/2018/10/20/permalink",
+            "permalinkpath", "toppermalinktarget", "images/logo.png",
+            "hello-world.html", "markup", "js/_underscore.js"],
+      501: ["unsupported.smth"]
+    };
+
+    const notFounds =
+    {
+      // return defined 404.md page
+      "text/html": ["index", "ru/index", "nofile", "en", "en/path1", "de/path1",
+                    "permalinks", "ru/permalinks", "permalinks/subpath",
+                    "toplevelpermalink", "images", "_draft", "path1/_subdraft"],
+      // no content-type header
+      "none": ["index.md", "path1.md", "logo.png", "public/main.css",
+               "js/modules/_robot.js", "css/modules/_variables.js",
+               "markup.html"]
+    };
+
+    testRequestCodes(pathCodes, notFounds);
+    testCaching();
+  }
 }
 else if (argv.static)
 {
-  // THIS TEST IS CALLED DIRECTLY
-  describe(`Testing static content generation ${argv.testgzip ? "" : "with cache"}`, () =>
+  if (argv.double)
   {
-    testCaching();
-    testPermalinkGeneration();
-    after((done) =>
+    describe("Testing generation type double", () =>
     {
-      done();
+      generationDouble();
     });
-  });
+  }
+  else
+  {
+    // THIS TEST IS CALLED DIRECTLY
+    describe(`Testing static content generation ${argv.testgzip ? "" : "with cache"}`, () =>
+    {
+      testCaching();
+      testPermalinkGeneration();
+      generationIndex();
+      after((done) =>
+      {
+        done();
+      });
+    });
+  }
 }
 else if (argv.draft)
 {
@@ -226,27 +294,4 @@ else if (argv.draft)
     });
   });
 }
-else
-{
-  for (let code in pathCodes)
-  {
-    for (let requestPath of pathCodes[code])
-    {
-      requestCodes(`${server}/${requestPath}`, Number(code));
-    }
-  }
-
-  for (const type in notFounds)
-  {
-    const paths = notFounds[type];
-    for (const path of paths)
-    {
-      // const contentType = type == "none" ? null : type;
-      requestCodes(`${server}/${path}`, 404, type);
-    }
-  }
-
-  testCaching();
-}
-
 

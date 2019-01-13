@@ -38,6 +38,8 @@ let gzip = false;
 
 // i18n configuration
 let i18nOptions = {
+  type: "Index", // "Index", "Double"
+  detectLang: false,
   defaultLocale: "en",
   prefix: "{",
   postfix: "}",
@@ -52,10 +54,8 @@ let deployment =
   gitDir: srcPath
 };
 
-let generationType = "Index";
-
 // Supported Page extensions
-const pageExtestions = [".md", ".ejs", ".html"];
+const pageExtensions = [".md", ".ejs", ".html"];
 
 // Default data passed to the template
 let templateData =
@@ -123,8 +123,6 @@ const loadUserConfig = () =>
       dirs = Object.assign(dirs, userConfig.dirs);
     if (userConfig.port)
       port = userConfig.port;
-    if (userConfig.generationType)
-      generationType = userConfig.generationType;
     if (userConfig.hostname)
       hostname = userConfig.hostname;
     if (userConfig.root)
@@ -149,7 +147,7 @@ loadUserConfig();
 // When localesDir doesn't exist make a single language website
 const multiLang = require("fs").existsSync(dirs.localesDir);
 
-module.exports = {dirs, templateData, markdownOptions, pageExtestions, port,
+module.exports = {dirs, templateData, markdownOptions, pageExtensions, port,
   hostname, i18nOptions, multiLang, gzip, example, loadUserConfig,
-  configReloadWatchers, deployment, generationType, root, lessOptions,
+  configReloadWatchers, deployment, root, lessOptions,
   browserifyOptions};

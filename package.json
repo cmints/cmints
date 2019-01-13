@@ -29,16 +29,16 @@
     "example": "node lib/cli.js src --example",
     "start": "node lib/cli.js src --start",
     "static": "node lib/cli.js src --static",
-    "test": "npm run test-mocha && npm run test-draft && npm run test-static-gen && npm run test-static-gen-nogzip && npm run test-static-gen-index && npm run test-static-gen-double && npm run test-eslint",
+    "test": "npm run test-mocha && npm run test-double-server && npm run test-draft && npm run test-static-gen && npm run test-static-gen-gzip && npm run test-static-gen-double && npm run test-eslint",
     "test-eslint": "./node_modules/.bin/eslint bin/**/*.js lib/**/*.js test/**/*.js",
-    "test-mocha": "npm run test-pre && mocha --exit test/main.js --src=test/src-temp && npm run test-post",
+    "test-mocha": "npm run test-pre && mocha --exit test/main.js --server --src=test/src-temp && npm run test-post",
     "test-pre": "node test/pre-test.js",
     "test-post": "node test/post-test.js",
-    "test-static-gen": "npm run test-pre && npm run static -- --src=test/src-temp && mocha --exit test/lib/server.js --src=test/src-temp --static && npm run test-post",
+    "test-double-server": "npm run test-pre && npm run static -- --src=test/src-temp --double && mocha --exit test/lib/server.js --src=test/src-temp --server --double && npm run test-post",
     "test-draft": "npm run test-pre && mocha --exit test/lib/server.js --src=test/src-temp --draft && npm run test-post",
-    "test-static-gen-index": "npm run test-pre && npm run static -- --src=test/src-temp --index && mocha --exit test/lib/server.js --src=test/src-temp --static --index && npm run test-post",
+    "test-static-gen": "npm run test-pre && npm run static -- --src=test/src-temp && mocha --exit test/lib/server.js --src=test/src-temp --static && npm run test-post",
     "test-static-gen-double": "npm run test-pre && npm run static -- --src=test/src-temp --double && mocha --exit test/lib/server.js --src=test/src-temp --static --double && npm run test-post",
-    "test-static-gen-nogzip": "npm run test-pre && npm run static -- --src=test/src-temp --addgzip && mocha --exit test/lib/server.js --src=test/src-temp --static --testgzip && npm run test-post"
+    "test-static-gen-gzip": "npm run test-pre && npm run static -- --src=test/src-temp --addgzip && mocha --exit test/lib/server.js --src=test/src-temp --static --testgzip && npm run test-post"
   },
   "dependencies": {
     "accept-language": "^3.0.18",
