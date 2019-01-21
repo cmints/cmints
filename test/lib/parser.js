@@ -20,6 +20,11 @@ const parserData = [
     resultFile: "toc.html"
   },
   {
+    page: "toc2.md",
+    language: "en",
+    resultFile: "toc2.html"
+  },
+  {
     page: "helpers/index.ejs",
     language: "ru",
     resultFile: "helpers/index.html"
