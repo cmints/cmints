@@ -132,12 +132,12 @@ const translationStrings =
   },
   {
     original: '{test-anchor2 This is <a href="https//www.example1.com">first link</a>, <a href="/random1">second link</a> and <a href="/random2">third link</a>}',
-    en: 'This is <a href="https//www.example1.com">first link</a>, <a href="/random1">second link</a> and <a href="/random2">third link</a>',
-    ru: 'Это <a href="/en/random1" hreflang="en">вторая ссылка</a>, <a href="https//www.example1.com">первая</a> и <a href="/en/random2" hreflang="en">третья ссылка</a>'
+    en: 'This is <a href="https//www.example1.com">first link</a>, <a href="/random1" hreflang="en">second link</a> and <a href="/random2" hreflang="en">third link</a>',
+    ru: 'Это <a href="/random1" hreflang="en">вторая ссылка</a>, <a href="https//www.example1.com">первая</a> и <a href="/random2" hreflang="en">третья ссылка</a>'
   },
   {
     original: '{test-anchor3 <a href="/path1">Translatable hreflang</a>}',
-    en: '<a href="/path1">Translatable hreflang</a>',
+    en: '<a href="/path1" hreflang="en">Translatable hreflang</a>',
     ru: '<a href="/ru/path1" hreflang="ru">Переведённая ссылка</a>'
   },
   {
@@ -172,7 +172,7 @@ const translationStrings =
   },
   {
     original: "{permalink-link Link is <a href='/helpers/another-permalink'>here</a>}",
-    en: "Link is <a href='/helpers/another-permalink'>here</a>",
+    en: 'Link is <a href="/helpers/another-permalink" hreflang="en">here</a>',
     ru: 'ссылка <a href="/ru/helpers/another-permalink" hreflang="ru">тута</a>',
     page: "helpers/permalink"
   }
@@ -225,6 +225,45 @@ describe("Check translate() function with a custom prefix", () =>
   after((done) =>
   {
     i18nInit(`${localesDir}`, [pageDir, layoutsDir], {prefix, postfix}).then(() =>
+    {
+      done();
+    });
+  });
+});
+
+const translationDoubleType =
+[
+  {
+    original: '{test-anchor2 This is <a href="https//www.example1.com">first link</a>, <a href="/random1">second link</a> and <a href="/random2">third link</a>}',
+    en: 'This is <a href="https//www.example1.com">first link</a>, <a href="/en/random1" hreflang="en">second link</a> and <a href="/en/random2" hreflang="en">third link</a>',
+    ru: 'Это <a href="/en/random1" hreflang="en">вторая ссылка</a>, <a href="https//www.example1.com">первая</a> и <a href="/en/random2" hreflang="en">третья ссылка</a>'
+  },
+  {
+    original: '{test-anchor3 <a href="/path1">Translatable hreflang</a>}',
+    en: '<a href="/en/path1" hreflang="en">Translatable hreflang</a>',
+    ru: '<a href="/ru/path1" hreflang="ru">Переведённая ссылка</a>'
+  }
+];
+
+describe("Check translate() function with a custom prefix", () =>
+{
+  before((done) =>
+  {
+    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {type: "Double"}).then(() =>
+    {
+      done();
+    });
+  });
+
+  for (const translationString of translationDoubleType)
+  {
+    translate(translationString.original, translationString.ru, "ru");
+    translate(translationString.original, translationString.en, "en");
+  }
+
+  after((done) =>
+  {
+    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {prefix, postfix, type: "Index"}).then(() =>
     {
       done();
     });
