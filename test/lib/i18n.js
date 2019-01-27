@@ -141,6 +141,16 @@ const translationStrings =
     ru: '<a href="/ru/path1" hreflang="ru">Переведённая ссылка</a>'
   },
   {
+    original: '{test-anchor3 <a href="/ru/path1">Translatable hreflang</a>}',
+    en: '<a href="/ru/path1" hreflang="ru">Translatable hreflang</a>',
+    ru: '<a href="/ru/path1" hreflang="ru">Переведённая ссылка</a>'
+  },
+  {
+    original: '{test-anchor3 <a href="/ru/random1">Translatable hreflang</a>}',
+    en: '<a href="/random1" hreflang="en">Translatable hreflang</a>',
+    ru: '<a href="/random1" hreflang="en">Переведённая ссылка</a>'
+  },
+  {
     original: '{test-img1 This is <img href="/first.png"> and <img href="/second.png"> image}',
     en: 'This is <img href="/first.png"> and <img href="/second.png"> image',
     ru: 'Это <img href="/second.png"> картинка и <img href="/first.png">'
