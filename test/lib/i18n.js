@@ -131,9 +131,9 @@ const translationStrings =
     ru: 'Это <a href="https//www.example2.com">вторая ссылка</a> и <a href="https//www.example1.com">первая</a>'
   },
   {
-    original: '{test-anchor2 This is <a href="https//www.example1.com">first link</a>, <a href="/random1">second link</a> and <a href="/random2">third link</a>}',
-    en: 'This is <a href="https//www.example1.com">first link</a>, <a href="/random1" hreflang="en">second link</a> and <a href="/random2" hreflang="en">third link</a>',
-    ru: 'Это <a href="/random1" hreflang="en">вторая ссылка</a>, <a href="https//www.example1.com">первая</a> и <a href="/random2" hreflang="en">третья ссылка</a>'
+    original: '{test-anchor2 This is <a href="https//www.example1.com">first link</a>, <a href="/random1" class="button">second link</a> and <a href="/random2">third link</a>}',
+    en: 'This is <a href="https//www.example1.com">first link</a>, <a href="/random1" hreflang="en" class="button">second link</a> and <a href="/random2" hreflang="en">third link</a>',
+    ru: 'Это <a href="/random1" hreflang="en" class="button">вторая ссылка</a>, <a href="https//www.example1.com">первая</a> и <a href="/random2" hreflang="en">третья ссылка</a>'
   },
   {
     original: '{test-anchor3 <a href="/path1">Translatable hreflang</a>}',
@@ -270,6 +270,87 @@ describe("Check translate() function with a custom prefix", () =>
   });
 });
 
+const root = "/cmints-website";
+
+const rootTranslations =
+[
+  {
+    original: '{test-anchor2 This is <a href="https//www.example1.com">first link</a>, <a href="/random1">second link</a> and <a href="/random2">third link</a>}',
+    en: `This is <a href="https//www.example1.com">first link</a>, <a href="${root}/random1" hreflang="en">second link</a> and <a href="${root}/random2" hreflang="en">third link</a>`,
+    ru: `Это <a href="${root}/random1" hreflang="en">вторая ссылка</a>, <a href="https//www.example1.com">первая</a> и <a href="${root}/random2" hreflang="en">третья ссылка</a>`
+  },
+  {
+    original: '{test-anchor3 <a href="/path1">Translatable hreflang</a>}',
+    en: `<a href="${root}/path1" hreflang="en">Translatable hreflang</a>`,
+    ru: `<a href="${root}/ru/path1" hreflang="ru">Переведённая ссылка</a>`
+  }
+];
+
+describe("Check translate() function with a custom prefix", () =>
+{
+  before((done) =>
+  {
+    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {root}).then(() =>
+    {
+      done();
+    });
+  });
+
+  for (const translationString of rootTranslations)
+  {
+    translate(translationString.original, translationString.ru, "ru");
+    translate(translationString.original, translationString.en, "en");
+  }
+
+  after((done) =>
+  {
+    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {root: ""}).then(() =>
+    {
+      done();
+    });
+  });
+});
+
+const rootDoubleTranslations =
+[
+  {
+    original: '{test-anchor2 This is <a href="https//www.example1.com">first link</a>, <a href="/random1">second link</a> and <a href="/random2">third link</a>}',
+    en: `This is <a href="https//www.example1.com">first link</a>, <a href="${root}/en/random1" hreflang="en">second link</a> and <a href="${root}/en/random2" hreflang="en">third link</a>`,
+    ru: `Это <a href="${root}/en/random1" hreflang="en">вторая ссылка</a>, <a href="https//www.example1.com">первая</a> и <a href="${root}/en/random2" hreflang="en">третья ссылка</a>`
+  },
+  {
+    original: '{test-anchor3 <a href="/path1">Translatable hreflang</a>}',
+    en: `<a href="${root}/en/path1" hreflang="en">Translatable hreflang</a>`,
+    ru: `<a href="${root}/ru/path1" hreflang="ru">Переведённая ссылка</a>`
+  }
+];
+
+
+describe("Check translate() function with a custom prefix", () =>
+{
+  before((done) =>
+  {
+    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {root, type: "Double"}).then(() =>
+    {
+      done();
+    });
+  });
+
+  for (const translationString of rootDoubleTranslations)
+  {
+    translate(translationString.original, translationString.ru, "ru");
+    translate(translationString.original, translationString.en, "en");
+  }
+
+  after((done) =>
+  {
+    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {root: "", type: "Index"}).then(() =>
+    {
+      done();
+    });
+  });
+});
+
 // /////////////////////////////////////////////////////////////////////////////
 // //////////////////// getLocaleFromHeader() //////////////////////////////////
 // /////////////////////////////////////////////////////////////////////////////
@@ -316,70 +397,4 @@ describe("Check getLocaleFromHeader() function", () =>
       });
     });
   }
-});
-
-// /////////////////////////////////////////////////////////////////////////////
-// ////////////////////// hrefAndLang() ////////////////////////////////////////
-// /////////////////////////////////////////////////////////////////////////////
-
-const root = "/cmints-website";
-
-const pathLocales =
-[
-  {
-    path: "",
-    locale: "ru",
-    result: ['href="/ru"', 'hreflang="ru"'],
-    resultRoot: [`href="${root}/ru"`, 'hreflang="ru"']
-  },
-  {
-    path: "helpers/another-permalink",
-    locale: "ru",
-    result: ['href="/ru/helpers/another-permalink"', 'hreflang="ru"'],
-    resultRoot: [`href="${root}/ru/helpers/another-permalink"`, 'hreflang="ru"']
-  }
-];
-
-function testHrefLang(path, locale, result, root)
-{
-  it(`hrefAndLang("${path}", ${locale}) with root of '${root}' should return [${result.toString()}]`, (done) =>
-  {
-    const [href, hreflang] = i18n.hrefAndLang(path, locale);
-    console.log(href, hreflang);
-    href.should.equal(result[0]);
-    hreflang.should.equal(result[1]);
-    done();
-  });
-}
-
-describe("Check hrefAndLang() function", () =>
-{
-  for (const {path, locale, result} of pathLocales)
-  {
-    testHrefLang(path, locale, result, "");
-  }
-});
-
-describe(`Check hrefAndLang() function with root set to "${root}"`, () =>
-{
-  before((done) =>
-  {
-    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {root: "/cmints-website"}).then(() =>
-    {
-      done();
-    });
-  });
-
-  for (const {path, locale, resultRoot} of pathLocales)
-  {
-    testHrefLang(path, locale, resultRoot, root);
-  }
-
-  after((done) =>
-  {
-    i18nInit(`${localesDir}`, [pageDir, layoutsDir], {root: ""}).then(() =>
-    {
-      done();
-    });
-  });
 });
