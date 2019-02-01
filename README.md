@@ -1,5 +1,5 @@
 # CMS
-[![Build Status](https://travis-ci.org/Manvel/cmints.svg?branch=master)](https://travis-ci.org/Manvel/cmints)
+[![Build Status](https://travis-ci.org/cmints/cmints.svg?branch=master)](https://travis-ci.org/cmints/cmints)
 
 CMS created with the internationalization in mind
 
