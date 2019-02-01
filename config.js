@@ -83,7 +83,7 @@ let markdownOptions =
 
 // Browserify configuration
 // see https://github.com/browserify/browserify#browserifyfiles--opts
-let browserifyOptions = {};
+let jsModuleOptions = {};
 
 // LESS configuration
 // see http://lesscss.org/usage/#less-options
@@ -111,8 +111,8 @@ const loadUserConfig = () =>
       templateData = Object.assign(templateData, userConfig.templateData);
     if (userConfig.markdownOptions)
       markdownOptions = Object.assign(markdownOptions, userConfig.markdownOptions);
-    if (userConfig.browserifyOptions)
-      browserifyOptions = Object.assign(browserifyOptions, userConfig.browserifyOptions);
+    if (userConfig.jsModuleOptions)
+      jsModuleOptions = Object.assign(jsModuleOptions, userConfig.jsModuleOptions);
     if (userConfig.lessOptions)
       lessOptions = Object.assign(lessOptions, userConfig.lessOptions);
     if (userConfig.i18nOptions)
@@ -150,4 +150,4 @@ const multiLang = require("fs").existsSync(dirs.localesDir);
 module.exports = {dirs, templateData, markdownOptions, pageExtensions, port,
   hostname, i18nOptions, multiLang, gzip, example, loadUserConfig,
   configReloadWatchers, deployment, root, lessOptions,
-  browserifyOptions};
+  jsModuleOptions};
