@@ -76,4 +76,4 @@ cmints --crowdin get-translations --key {crowdin-key}
 # Thanks to the awesome contributors
 
 - [@ZloeSabo](https://github.com/ZloeSabo)
-  - [PR#114](https://github.com/Manvel/cmints/pull/114)
+  - [PR#114](https://github.com/cmints/cmints/pull/114)

@@ -95,7 +95,7 @@ let lessOptions =
 };
 
 // Link to the example project ZIP file
-let example = "https://github.com/Manvel/cmints-website/archive/example.zip";
+let example = "https://github.com/cmints/multi-lang-starter/archive/master.zip";
 
 // Files to watch for configuration reload
 let configReloadWatchers = [userConfigFile];
