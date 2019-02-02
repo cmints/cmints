@@ -12,5 +12,5 @@ else if (argv.addgzip)
 }
 else
 {
-  module.exports = {example: "http://localhost:3000/test/example-test.zip"};
+  module.exports = {example: {default: "http://localhost:3000/test/example-test.zip"}};
 }
