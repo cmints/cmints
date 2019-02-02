@@ -1,16 +1,16 @@
-# CMS
+# CMintS
 [![Build Status](https://travis-ci.org/cmints/cmints.svg?branch=master)](https://travis-ci.org/cmints/cmints)
 
-CMS created with the internationalization in mind
-
-**Note:** CMintS is under extensive beta development. Contributions in form of
-Bugreports, Documentation updates and Content Translations will help to boost
-the development speed up. Thanks for stars and word spreading.❤️
+CMintS is a CMS and Static Site Generator for single and multi language
+websites creation. See full documentation at https://cmints.io.
 
 ## Dependencies
 - [NodeJs](https://nodejs.org/en/download/)
 
 ## Installation
+If you would like to deploy your first app to the web without installing CMintS
+globally, check [Quick Start guide](https://cmints.io/en/quick-start).
+
 ```bash
 npm install -g cmints
 ```
@@ -18,10 +18,13 @@ npm install -g cmints
 ## Example projects
 Generate example project for quick start, by running:
 ```bash
-# Download example project into current directory
-cmints --example
+# Generates single language project
+cmints --example single
 
-# Replace optional {PATH} with the path to the download target directory
+# Generates multi language project
+cmints --example multi
+
+# Generates multi language project in the {PATH} directory.
 cmints {PATH} --example
 ```
 
