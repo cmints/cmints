@@ -141,6 +141,11 @@ const translationStrings =
     ru: '<a href="/ru/path1" hreflang="ru">Переведённая ссылка</a>'
   },
   {
+    original: '{test-anchor3 <a href="/helpers">Empty locale</a>}',
+    en: '<a href="/helpers" hreflang="en">Empty locale</a>',
+    es: '<a href="/helpers" hreflang="en">Empty locale</a>'
+  },
+  {
     original: '{test-anchor3 <a href="/path1?query#fragment">Translatable hreflang</a>}',
     en: '<a href="/path1?query#fragment" hreflang="en">Translatable hreflang</a>',
     ru: '<a href="/ru/path1?query#fragment" hreflang="ru">Переведённая ссылка</a>'
@@ -197,7 +202,8 @@ describe("Check translate() function", () =>
 {
   for (const translationString of translationStrings)
   {
-    translate(translationString.original, translationString.ru, "ru", translationString.page);
+    const language = translationString.es ? "es" : "ru";
+    translate(translationString.original, translationString[language], language, translationString.page);
     translate(translationString.original, translationString.en, "en", translationString.page);
   }
 });
