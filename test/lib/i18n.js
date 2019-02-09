@@ -141,6 +141,11 @@ const translationStrings =
     ru: '<a href="/ru/path1" hreflang="ru">Переведённая ссылка</a>'
   },
   {
+    original: '{test-anchor3 <a href="/path1?query#fragment">Translatable hreflang</a>}',
+    en: '<a href="/path1?query#fragment" hreflang="en">Translatable hreflang</a>',
+    ru: '<a href="/ru/path1?query#fragment" hreflang="ru">Переведённая ссылка</a>'
+  },
+  {
     original: '{test-anchor3 <a href="/ru/path1">Translatable hreflang</a>}',
     en: '<a href="/ru/path1" hreflang="ru">Translatable hreflang</a>',
     ru: '<a href="/ru/path1" hreflang="ru">Переведённая ссылка</a>'
