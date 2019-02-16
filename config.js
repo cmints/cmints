@@ -44,7 +44,10 @@ let i18nOptions = {
   prefix: "{",
   postfix: "}",
   // crowdinProject
-  crowdinId: null
+  crowdin: {
+    id: null,
+    updateOption: "update_as_unapproved"
+  }
 };
 
 let deployment =
@@ -120,7 +123,12 @@ const loadUserConfig = () =>
     if (userConfig.lessOptions)
       lessOptions = Object.assign(lessOptions, userConfig.lessOptions);
     if (userConfig.i18nOptions)
+    {
+      const {crowdin} = i18nOptions;
       i18nOptions = Object.assign(i18nOptions, userConfig.i18nOptions);
+      if (crowdin)
+        i18nOptions.crowdin = Object.assign(crowdin, userConfig.i18nOptions.crowdin);
+    }
     if (userConfig.deployment)
       deployment = Object.assign(deployment, userConfig.deployment);
     if (userConfig.dirs)
