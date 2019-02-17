@@ -80,3 +80,5 @@ cmints --crowdin get-translations --key {crowdin-key}
 
 - [@ZloeSabo](https://github.com/ZloeSabo)
   - [PR#114](https://github.com/cmints/cmints/pull/114)
+- [Kyoopy](https://crowdin.com/profile/Kyoopy)
+  - For translating the [contributions guide](https://cmints.io/contribute/) into German
