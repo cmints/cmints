@@ -1,0 +1,10 @@
+{
+  "toc-translated-fix": {
+    "description": "Test <fix> tag in TOC",
+    "message": "Что такое <fix1>?"
+  },
+  "toc-translated-anchor": {
+    "description": "Test <a> tag in TOC",
+    "message": "Что такое <a1>CMintS</a1>?"
+  }
+}
