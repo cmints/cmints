@@ -59,6 +59,7 @@ const generateSourceJsonIO = [
   <p>{tms-msg["TMS integration" feature text] Handy API to integrate your project with the Crowdin.}</p>
   <p>{cmints-ejs CMS is using <a href="http://ejs.co/">EJS</a> as a <a href="https://example.com/">templating
 engine</a>}</p>
+  <p>{fix-in-anchor <a href="https://google.com"><fix>CMintS</fix> inside of a tag</a>}</p>
   <p>This suppose to be ignored -> {menu-item-about(header)}</p>
 `,
     output:
@@ -78,6 +79,10 @@ engine</a>}</p>
       "cmints-ejs": {
         message: "CMS is using <a href=\"http://ejs.co/\">EJS</a> as a <a href=\"https://example.com/\">templating\nengine</a>",
         description: "\n<a> placeholders:\n<a1>EJS</a1> - <a href=\"http://ejs.co/\">EJS</a>\n<a2>templating engine</a2> - <a href=\"https://example.com/\">templating engine</a>\n"
+      },
+      "fix-in-anchor": {
+        message: "<a href=\"https://google.com\"><fix>CMintS</fix> inside of a tag</a>",
+        description: "\n<fix> placeholders:\n<fix1> - CMintS\n<a> placeholders:\n<a1><fix>CMintS</fix> inside of a tag</a1> - <a href=\"https://google.com\"><fix>CMintS</fix> inside of a tag</a>\n"
       }
     }
   }
