@@ -80,6 +80,8 @@ cmints --crowdin get-translations --key {crowdin-key}
 
 - [@ZloeSabo](https://github.com/ZloeSabo)
   - [PR#114](https://github.com/cmints/cmints/pull/114)
+- [Newman](https://www.behance.net/driver202de98)
+  - For helping designing the website
 - [Kyoopy](https://crowdin.com/profile/Kyoopy)
   - For translating the [contributions guide](https://cmints.io/contribute/) into German
 - [ManuelFranz](https://crowdin.com/profile/ManuelFranz)
