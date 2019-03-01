@@ -151,6 +151,11 @@ const translationStrings =
     es: '<a href="/helpers" hreflang="en">Empty locale</a>'
   },
   {
+    original: '{test-anchor4 <a href="/2018/10/20/permalink">Permalink</a>}',
+    en: '<a href="/2018/10/20/permalink" hreflang="en">Permalink</a>',
+    ru: '<a href="/ru/2018/10/20/permalink" hreflang="ru">Permalink</a>'
+  },
+  {
     original: '{test-anchor3 <a href="/path1?query#fragment">Translatable hreflang</a>}',
     en: '<a href="/path1?query#fragment" hreflang="en">Translatable hreflang</a>',
     ru: '<a href="/ru/path1?query#fragment" hreflang="ru">Переведённая ссылка</a>'
