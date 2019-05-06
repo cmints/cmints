@@ -131,6 +131,14 @@ const translationStrings =
     ru: "fix тэг используется CMintS-ом"
   },
   {
+    original: `{test-fix-new-line <fix>new
+      line</fix> here}`,
+    en: `new
+      line here`,
+    ru: `new
+      line тут`
+  },
+  {
     original: '{test-anchor1 This is <a href="https//www.example1.com">first link</a> and <a href="https//www.example2.com">second link</a>}',
     en: 'This is <a href="https//www.example1.com">first link</a> and <a href="https//www.example2.com">second link</a>',
     ru: 'Это <a href="https//www.example2.com">вторая ссылка</a> и <a href="https//www.example1.com">первая</a>'

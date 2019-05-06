@@ -7,6 +7,10 @@
     "description": "Test fix tag",
     "message": "<fix2> тэг используется <fix1>-ом"
   },
+  "test-fix-new-line": {
+    "description": "Test fix tag new line",
+    "message": "<fix1> тут"
+  },
   "test-anchor1": {
     "description": "Test anchor tag absolute different order",
     "message": "Это <a2>вторая ссылка</a2> и <a1>первая</a1>"
