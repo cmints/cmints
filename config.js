@@ -84,6 +84,10 @@ let markdownOptions =
   quotes: '“”‘’'
 };
 
+// Markdown plugins
+const markdownItEntities = require("markdown-it-html-entities");
+let markdownPlugins = [markdownItEntities];
+
 // Browserify configuration
 // see https://github.com/browserify/browserify#browserifyfiles--opts
 let jsModuleOptions = {};
@@ -122,6 +126,8 @@ const loadUserConfig = () =>
       jsModuleOptions = Object.assign(jsModuleOptions, userConfig.jsModuleOptions);
     if (userConfig.lessOptions)
       lessOptions = Object.assign(lessOptions, userConfig.lessOptions);
+    if (userConfig.markdownPlugins)
+      markdownPlugins = markdownPlugins.concat(userConfig.markdownPlugins);
     if (userConfig.i18nOptions)
     {
       const {crowdin} = i18nOptions;
@@ -159,7 +165,7 @@ loadUserConfig();
 // When localesDir doesn't exist make a single language website
 const multiLang = require("fs").existsSync(dirs.localesDir);
 
-module.exports = {dirs, templateData, markdownOptions, pageExtensions, port,
-  hostname, i18nOptions, multiLang, gzip, example, loadUserConfig,
-  configReloadWatchers, deployment, root, lessOptions,
+module.exports = {dirs, templateData, markdownOptions, markdownPlugins,
+  pageExtensions, port, hostname, i18nOptions, multiLang, gzip, example,
+  loadUserConfig, configReloadWatchers, deployment, root, lessOptions,
   jsModuleOptions};
