@@ -15,6 +15,11 @@ const parserData = [
     resultFile: "index.html"
   },
   {
+    page: "md-plugin.md",
+    language: "en",
+    resultFile: "md-plugin.html"
+  },
+  {
     page: "toc.md",
     language: "ru",
     resultFile: "toc.html"

@@ -14,3 +14,5 @@ else
 {
   module.exports = {example: {default: "http://localhost:3000/test/example-test.zip"}};
 }
+
+module.exports.markdownPlugins = [require("./plugins/test-markdown-it")];
