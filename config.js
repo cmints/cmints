@@ -121,7 +121,7 @@ const loadUserConfig = () =>
     {
       const {plugins} = markdownOptions;
       markdownOptions = Object.assign(markdownOptions, userConfig.markdownOptions);
-      if (markdownOptions.plugins && plugins)
+      if (userConfig.markdownOptions.plugins && plugins)
         markdownOptions.plugins = [plugins, ...userConfig.markdownOptions.plugins];
     }
     if (userConfig.jsModuleOptions)
