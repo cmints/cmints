@@ -38,6 +38,11 @@ const parserData = [
     page: "helpers/permalink.ejs",
     language: "ru",
     resultFile: "helpers/another-permalink.html"
+  },
+  {
+    page: "ejs.ejs",
+    language: "en",
+    resultFile: "ejs.html"
   }
 ];
 
