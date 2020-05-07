@@ -1,11 +1,10 @@
 language: node_js
 sudo: false
 os:
+  - windows
   - linux
-  - osx
 node_js:
   - "node"
-  - "lts/*"
 cache:
   directories:
     - node_modules
