@@ -50,11 +50,15 @@ function parserResult(page, language, resultPath)
 {
   it(`Comparing parsePage('${page}') for ${language} language, against ${resultPath}`, (done) =>
   {
+    // Markdown parser uses `\n` for new line in windows. Cleaning here `\r` as
+    // it doesn't suppose to affect how new line is rendered.
+    const clearCarriegeReturn = (args) => args.map((arg) => arg.replace(/\r/gm, ""));
+
     const {dir, name, ext} = path.parse(page);
     const pathname = path.join(dir, name);
     let promises = [parsePage(pathname, ext, language),
                     readFile(resultPath, "utf-8")];
-    Promise.all(promises).then((results) =>
+    Promise.all(promises).then(clearCarriegeReturn).then((results) =>
     {
       let [parserResult, predefinedFile] = results;
       parserResult.should.equal(predefinedFile);
