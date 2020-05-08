@@ -3,6 +3,7 @@
 /* eslint-disable max-len */
 
 const {promisify} = require("util");
+const path = require("path");
 const i18n = require.main.require("lib/i18n");
 const i18nInit = promisify(i18n.init);
 const config = require.main.require("config");
@@ -220,9 +221,12 @@ describe("Check translate() function", () =>
 {
   for (const translationString of translationStrings)
   {
+    let {page, original} = translationString;
+    if (page)
+      page = path.join(...(page.split("/"))); // Make page path OS independent
     const language = translationString.es ? "es" : "ru";
-    translate(translationString.original, translationString[language], language, translationString.page);
-    translate(translationString.original, translationString.en, "en", translationString.page);
+    translate(original, translationString[language], language, page);
+    translate(original, translationString.en, "en", page);
   }
 });
 
