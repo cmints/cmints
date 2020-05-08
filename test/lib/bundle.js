@@ -5,6 +5,7 @@ const fs = require("fs");
 const readFile = promisify(fs.readFile);
 const resultDir = "./test/results";
 const {publicDir} = require("../../config").dirs;
+const {clearCarriegeReturn} = require("../utils");
 
 const files = [
   [`${publicDir}/js/beep.js`,
@@ -41,15 +42,15 @@ function compare(sourceFile, resultFile)
     it("Should be same", (done) =>
     {
       Promise.all([readFile(sourceFile, "utf-8"),
-                   readFile(resultFile, "utf-8")]).then(([sourceContent,
-                                                          resultContent]) =>
-      {
-        sourceContent.should.be.equal(resultContent);
-        done();
-      }).catch((err) =>
-      {
-        done(err);
-      });
+                   readFile(resultFile, "utf-8")]).then(clearCarriegeReturn)
+        .then(([sourceContent, resultContent]) =>
+        {
+          sourceContent.should.be.equal(resultContent);
+          done();
+        }).catch((err) =>
+        {
+          done(err);
+        });
     });
   });
 }
