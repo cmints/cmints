@@ -30,7 +30,7 @@
     "start": "node lib/cli.js src --start",
     "static": "node lib/cli.js src --static",
     "test": "npm run test-mocha && npm run test-double-server && npm run test-draft && npm run test-static-gen && npm run test-static-gen-gzip && npm run test-static-gen-double && npm run test-eslint",
-    "test-eslint": "./node_modules/.bin/eslint bin/**/*.js lib/**/*.js test/**/*.js",
+    "test-eslint": "eslint 'bin/**/*.js' 'lib/**/*.js' 'test/*.js' 'test/lib/**/*.js'",
     "test-mocha": "npm run test-pre && mocha --exit test/main.js --server --src=test/src-temp && npm run test-post",
     "test-pre": "node test/pre-test.js",
     "test-post": "node test/post-test.js",
