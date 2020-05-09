@@ -7,22 +7,22 @@ const os   = require("os");
 const src = argv.src || argv._.shift();
 // Directories
 const srcPath = src ? path.relative("", src) : ".";
-const contentDir = `${srcPath}/content`;
-const themeDir = `${srcPath}/theme`;
-const publicDir = `${srcPath}/public`;
-const userConfigFile = `${srcPath}/config.js`;
+const contentDir = path.join(srcPath, "content");
+const themeDir = path.join(srcPath, "theme");
+const publicDir = path.join(srcPath, "public");
+const userConfigFile = path.join(srcPath, "config.js");
 
 const dirs =
 {
   srcPath, contentDir, publicDir, themeDir,
-  pageDir: `${srcPath}/pages`,
-  layoutsDir: `${themeDir}/layouts`,
-  lessDir: `${themeDir}/less`,
-  lessTargetDir: `${publicDir}/css`,
-  browserifyDir: `${themeDir}/js`,
-  browserifyTargetDir: `${publicDir}/js`,
-  localesDir: `${srcPath}/locales`,
-  tempDir: `${os.tmpdir()}/${process.pid}`
+  pageDir: path.join(srcPath, "pages"),
+  layoutsDir: path.join(themeDir, "layouts"),
+  lessDir: path.join(themeDir, "less"),
+  lessTargetDir: path.join(publicDir, "css"),
+  browserifyDir: path.join(themeDir, "js"),
+  browserifyTargetDir: path.join(publicDir, "js"),
+  localesDir: path.join(srcPath, "locales"),
+  tempDir: path.join(os.tmpdir(), process.pid + "")
 };
 
 // Default port

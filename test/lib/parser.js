@@ -7,6 +7,7 @@ const {promisify} = require("util");
 const fs = require("fs");
 const readFile = promisify(fs.readFile);
 const path = require("path");
+const {clearCarriegeReturn} = require("../utils");
 
 const parserData = [
   {
@@ -54,7 +55,7 @@ function parserResult(page, language, resultPath)
     const pathname = path.join(dir, name);
     let promises = [parsePage(pathname, ext, language),
                     readFile(resultPath, "utf-8")];
-    Promise.all(promises).then((results) =>
+    Promise.all(promises).then(clearCarriegeReturn).then((results) =>
     {
       let [parserResult, predefinedFile] = results;
       parserResult.should.equal(predefinedFile);

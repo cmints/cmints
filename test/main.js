@@ -33,7 +33,8 @@ function runMainTest()
     importTest("Slugify test", "./lib/slugify");
     importTest("Example test", "./lib/example");
 
-    after((done) => {
+    after((done) =>
+    {
       done();
     });
   });
