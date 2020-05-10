@@ -6,7 +6,8 @@
     "it": true,
     "before": true,
     "after": true,
-    "Promise": true
+    "Promise": true,
+    "rootRequire": true
   },
   "parserOptions": {
       "ecmaVersion": 6

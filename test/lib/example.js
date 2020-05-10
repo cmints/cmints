@@ -1,9 +1,9 @@
 "use strict";
 
 const {promisify} = require("util");
-const example = require.main.require("lib/example");
+const example = rootRequire("./lib/example");
 const createExampleProject = promisify(example.createExampleProject);
-const {srcPath} = require.main.require("config").dirs;
+const {srcPath} = rootRequire("./config").dirs;
 const nodeModules = `${srcPath}/node_modules`;
 const fs = require("fs");
 const fileExist = fs.existsSync;

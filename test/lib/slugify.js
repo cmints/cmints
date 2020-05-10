@@ -1,6 +1,6 @@
 "use strict";
 
-const {slugify} = require.main.require("lib/toc").tocOptions;
+const {slugify} = rootRequire("./lib/toc").tocOptions;
 
 const slugifyMaps = [
   ["What is CMintS?", "what-is-cmints"],

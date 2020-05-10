@@ -1,6 +1,6 @@
 "use strict";
 
-const {queryPages} = require.main.require("lib/sitedata");
+const {queryPages} = rootRequire("./lib/sitedata");
 
 const siteDataTests = [
   {

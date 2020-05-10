@@ -1,8 +1,11 @@
 "use strict";
 
-const {runServer} = require("../lib/server");
+const path = require("path");
+global.rootRequire = name => require(path.join(__dirname, "../", name));
+
+const {runServer} = rootRequire("./lib/server");
 const argv = require("minimist")(process.argv.slice(2));
-const {init} = require("../lib/cmints");
+const {init} = rootRequire("./lib/cmints");
 
 function importTest(name, path)
 {
