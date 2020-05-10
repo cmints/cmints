@@ -17,7 +17,27 @@ const siteDataTests = [
     filter: (data) => data.pathname === "another/sitedata/permalink",
     attributeName: "pathname",
     result: "another/sitedata/permalink"
-  }
+  },
+  {
+    filter: (data) => data.pathname === "sitedata/subfolder/path",
+    attributeName: "pathname",
+    result: "sitedata/subfolder/path"
+  },
+  {
+    filter: (data) => data.pathname === "sitedata/subfolder/path",
+    attributeName: "originalPathname",
+    result: "sitedata/subfolder/path"
+  },
+  {
+    filter: (data) => data.pathname === "sitedata/subfolder",
+    attributeName: "pathname",
+    result: "sitedata/subfolder"
+  },
+  {
+    filter: (data) => data.pathname === "sitedata/subfolder",
+    attributeName: "originalPathname",
+    result: "sitedata/subfolder"
+  },
 ];
 
 for (const siteDataTest of siteDataTests)
