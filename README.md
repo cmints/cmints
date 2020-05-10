@@ -1,5 +1,5 @@
 # CMintS
-[![Build Status](https://travis-ci.org/cmints/cmints.svg?branch=master)](https://travis-ci.org/cmints/cmints)
+[![Build Status](https://travis-ci.com/cmints/cmints.svg?branch=master)](https://travis-ci.com/cmints/cmints)
 
 CMintS is a CMS and Static Site Generator for single and multi language
 websites creation. See full documentation at https://cmints.io.
