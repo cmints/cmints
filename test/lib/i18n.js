@@ -4,9 +4,9 @@
 
 const {promisify} = require("util");
 const path = require("path");
-const i18n = require.main.require("lib/i18n");
+const i18n = rootRequire("./lib/i18n");
 const i18nInit = promisify(i18n.init);
-const config = require.main.require("config");
+const config = rootRequire("./config");
 const {localesDir, pageDir, layoutsDir} = config.dirs;
 const {prefix, postfix} = config.i18nOptions;
 

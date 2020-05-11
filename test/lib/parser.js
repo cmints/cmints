@@ -1,6 +1,6 @@
 "use strict";
 
-const {parsePage} = require.main.require("lib/parser");
+const {parsePage} = rootRequire("./lib/parser");
 const testDir = "./test";
 const resultDir = `${testDir}/results`;
 const {promisify} = require("util");
