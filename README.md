@@ -89,3 +89,5 @@ cmints --crowdin get-translations --key {crowdin-key}
     [Tutorial](https://cmints.io/de/quick-start),
     [Structure](https://cmints.io/de/documentation/getting-started/structure) and
     [404](https://cmints.io/de/documentation/pages/404) pages into German
+- [@naarrek](https://github.com/naarrek)
+  - For helping with fixing all Windows related issues and other major bugs.
