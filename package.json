@@ -30,7 +30,7 @@
     "start": "node lib/cli.js src --start",
     "static": "node lib/cli.js src --static",
     "test": "npm run test-mocha && npm run test-double-server && npm run test-draft && npm run test-static-gen && npm run test-static-gen-gzip && npm run test-static-gen-double && npm run test-eslint",
-    "test-eslint": "eslint 'bin/**/*.js' 'lib/**/*.js' 'test/*.js' 'test/lib/**/*.js'",
+    "test-eslint": "eslint 'bin/**/*' 'lib/**/*.js' 'test/*.js' 'test/lib/**/*.js'",
     "test-mocha": "npm run test-pre && mocha --exit test/main.js --server --src=test/src-temp && npm run test-post",
     "test-pre": "node test/pre-test.js",
     "test-post": "node test/post-test.js",
@@ -43,7 +43,7 @@
   "dependencies": {
     "accept-language": "^3.0.18",
     "adm-zip": "^0.4.11",
-    "browserify": "^16.2.2",
+    "browserify": "^17.0.0",
     "ejs": "^2.5.7",
     "front-matter": "^2.3.0",
     "fs-extra": "^5.0.0",
@@ -60,12 +60,12 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "eslint": "^4.19.1",
+    "eslint": "^7.18.0",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.0.1",
-    "mocha": "^7.1.2"
+    "mocha": "^8.2.1"
   }
 }
